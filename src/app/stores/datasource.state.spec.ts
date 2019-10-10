@@ -1,4 +1,5 @@
 import {DataSourceState} from './datasource.state';
+// @ts-ignore
 import {TestBed, async} from '@angular/core/testing';
 import {AppComponent} from '../app.component';
 import {ApplicationState} from './application.state';
@@ -16,6 +17,7 @@ describe('Data Source test', () => {
   }));
 
 
+  // @ts-ignore
   it('reload sample ', async () => {
 
     const appState: ApplicationState = new ApplicationState();
