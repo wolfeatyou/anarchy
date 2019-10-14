@@ -6,6 +6,7 @@ import {DataSourceBuilder, DataSourceRelation} from './datasource.builder';
 
 export class DataSourceState {
   public id: string;
+  @observable reloadCounter: number;
   private metadata: any;
   data: any[];
   @observable selectedDataItem: any;
@@ -18,6 +19,7 @@ export class DataSourceState {
       this.appState = applicationState;
       this.appState.dataSources[id] = this;
       this.id = id;
+      this.reloadCounter = 1;
       this.metadata = metadata;
       this.status = DataSourceStatus.MustRefresh;
       this.data = [];
@@ -27,49 +29,22 @@ export class DataSourceState {
         r.selectedItemReaction = reaction(
           () => ds.selectedDataItem,
           async (selectedItem) => {
-            console.log('selected item changed: ' + JSON.stringify( selectedItem));
+            console.log('selected item changed: ' + JSON.stringify(selectedItem));
             r.propertyReactions.forEach((pr: any) => pr());
             r.propertyReactions = [];
-            r.dataItemProperties.forEach((prop: string) => {
-              r.propertyReactions.push(reaction(
-                () => selectedItem[prop],
-                async (propValue) => {
-                  console.log('property changed: ' + prop + ' - ' + propValue);
-                  await this.reload();
-                }
-              ));
-            });
+            r.propertyReactions.push(reaction(
+              () => r.dataItemProperties.map((p: any) => selectedItem[p]),
+              async (propValue) => {
+                console.log('any related property changed:  - ' + propValue);
+                await this.reload();
+              },
+              {fireImmediately: false}
+            ));
             await this.reload();
           }
         );
 
       });
-      /* Array.from(new Set(this.relations.map((r) => r.dataSourceId))).forEach((dataSourceId: string) => {
-         const ds = this.appState.getDataSourceById(dataSourceId);
-         this.reactions.push(reaction(
-           () => ds.selectedDataItem,
-           async (s) => {
-             this.reactions.filter((r: DataSourceRelation) => {
-               if (r.dataSourceId === ds.id) {
-                 r();
-               }
-             });
-             runInAction(() => {
-               this.status = DataSourceStatus.MustRefresh;
-             });
-           }));
-       });
-
-       relations.forEach((relation: DataSourceRelation) => {
-         const ds = this.appState.getDataSourceById(relation.dataSourceId);
-         this.reactions.push(reaction(
-           () => ds.selectedDataItem[relation.dataItemProperty],
-           async (s) => {
-             //  if (s === DataSourceStatus.Loaded) {
-             await this.reload();
-             //}
-           }));
-       });*/
     });
   }
 
@@ -89,10 +64,10 @@ export class DataSourceState {
       setTimeout(() => {
         const d: any [] = [];
         for (let i = 0; i < 5; i++) {
-          d.push({title: this.id + '_' + i});
+          d.push({title: this.id + '_' + i, desc: 'wrewewe'});
         }
         resolve(d);
-      }, 500);
+      }, 50);
     });
 
   }
@@ -101,10 +76,11 @@ export class DataSourceState {
   async reload() {
     const d = await this.reloadAsync();
     runInAction(() => {
-      console.log('Data reloaded for ' + this.id);
+      console.log('Data reloaded for ' + this.id + ', count:' + this.reloadCounter);
       this.status = DataSourceStatus.Loaded;
       this.data = d as any[];
       this.selectedDataItem = d[0];
+      this.reloadCounter++;
     });
   }
 

@@ -3,6 +3,7 @@ import {DataSourceState, DataSourceStatus} from './datasource.state';
 // @ts-ignore
 import {async} from '@angular/core/testing';
 import {ApplicationState} from '../application.state';
+import {IDataSourceMeta} from '../../meta/DataSourceMeta';
 
 
 describe('Data Source test', () => {
@@ -16,6 +17,19 @@ describe('Data Source test', () => {
        providers: [ApplicationState]
      }).compileComponents();*/
   }));
+
+  it('ds metadata to interface', () => {
+    const someObj = {
+      code: 'lalala',
+      operations: [{
+        code: 'operation1'
+      }]
+    };
+
+    const dsMeta = someObj as IDataSourceMeta;
+    expect(dsMeta.code).toBe('lalala');
+    expect(dsMeta.operations.length).toBe(1);
+  });
 
   // @ts-ignore
   it('init from metadata test', async () => {
@@ -49,6 +63,13 @@ describe('Data Source test', () => {
                 dataSourceId: 'ds001',
                 dataItemProperty: 'title'
               }
+            },
+            {
+              code: 'param2',
+              source: {
+                dataSourceId: 'ds001',
+                dataItemProperty: 'desc'
+              }
             }
           ]
         }
@@ -56,19 +77,17 @@ describe('Data Source test', () => {
     }, appState);
     await dataSource1.reload();
 
-    runInAction(() => {
-      dataSource1.selectedDataItem.title = 'title 1';
-    });
-
     dataSource1.setSelectedIndex(1);
 
     runInAction(() => {
       dataSource1.selectedDataItem.title = 'title 2';
+      dataSource1.selectedDataItem.desc = 'desc 2';
     });
 
     await when(() => {
-      return dataSource2.status === DataSourceStatus.Loaded;
+      return dataSource2.reloadCounter === 3;
     });
+
   });
 
   // @ts-ignore
