@@ -1,4 +1,4 @@
-import {OperationMeta} from './OperationMeta';
+import {IOperationMeta} from './OperationMeta';
 
 export interface IDataSourceMeta {
   code: string;

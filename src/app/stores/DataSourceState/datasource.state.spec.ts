@@ -4,6 +4,7 @@ import {DataSourceState, DataSourceStatus} from './datasource.state';
 import {async} from '@angular/core/testing';
 import {ApplicationState} from '../application.state';
 import {IDataSourceMeta} from '../../meta/DataSourceMeta';
+import {validate} from 'class-validator';
 
 
 describe('Data Source test', () => {
@@ -20,14 +21,32 @@ describe('Data Source test', () => {
 
   it('ds metadata to interface', () => {
     const someObj = {
-      code: 'lalala',
-      operations: [{
-        code: 'operation1'
-      }]
+      code: 'ds1',
+      operations: [
+        {
+          code: 'readOperation',
+          type: 'read',
+          parameters: [
+            {
+              code: 'param1'
+            }
+          ]
+        }
+      ]
     };
 
     const dsMeta = someObj as IDataSourceMeta;
-    expect(dsMeta.code).toBe('lalala');
+
+
+    validate(dsMeta, { forbidUnknownValues: true}).then(errors => { // errors is an array of validation errors
+      if (errors.length > 0) {
+        console.log('validation failed. errors: ', errors);      } else {
+        console.log('validation succeed');
+      }
+    });
+
+
+    expect(dsMeta.code).toBe('ds1');
     expect(dsMeta.operations.length).toBe(1);
   });
 
