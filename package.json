@@ -6,6 +6,12 @@
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupJest.ts"
     ],
+    "modulePathIgnorePatterns": [
+      "clean",
+      ".cache",
+      "npm-cache",
+      ".npm"
+    ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/dist/",

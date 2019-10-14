@@ -1,6 +1,6 @@
 import {observable, computed, action, autorun, toJS, runInAction} from 'mobx';
 import {Injectable} from '@angular/core';
-import {DataSourceState} from './datasource.state';
+import {DataSourceState} from './DataSourceState/datasource.state';
 
 export class PanelState {
   @observable title: string;
