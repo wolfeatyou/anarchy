@@ -35,16 +35,21 @@ describe('Data Source test', () => {
       ]
     };
 
-    const dsMeta = someObj as IDataSourceMeta;
+    const someObj2 = {
+      code: 'dfdfd',
+      operations: []
+    }
+    let dsMeta = someObj2 as IDataSourceMeta;
 
 
-    validate(dsMeta, { forbidUnknownValues: true}).then(errors => { // errors is an array of validation errors
+    validate(dsMeta, {forbidNonWhitelisted: true}).then(errors => { // errors is an array of validation errors
       if (errors.length > 0) {
-        console.log('validation failed. errors: ', errors);      } else {
+        console.log('validation failed. errors: ', errors);
+      } else {
         console.log('validation succeed');
       }
     });
-
+    dsMeta = someObj as IDataSourceMeta;
 
     expect(dsMeta.code).toBe('ds1');
     expect(dsMeta.operations.length).toBe(1);

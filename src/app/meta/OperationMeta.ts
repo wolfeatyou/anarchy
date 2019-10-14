@@ -1,4 +1,4 @@
 
-export interface IOperationMeta {
+export class IOperationMeta {
   code: string;
 }
