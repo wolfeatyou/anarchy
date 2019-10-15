@@ -10,4 +10,8 @@ export class IOperationMeta {
   @IsArray()
   parameters: IOperationParameterMeta[];
 
+  testFinc(): any {
+    return 5;
+  }
+
 }

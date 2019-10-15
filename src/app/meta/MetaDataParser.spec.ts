@@ -29,11 +29,11 @@ describe('Metadata parser tests', () => {
   it('check is nested validation works', () => {
     const obj = {
       code: 'ds1',
-      operations: [{code: 'ee'}]
+      operations: [{code: 'operation1', parameters: []}]
     };
     const ds = MetaDataParser.getDataSource(obj);
     expect(MetaDataParser.lastErrors).not.toBeNull();
-    expect(MetaDataParser.lastErrors.length).toBe(1);
+    expect(MetaDataParser.lastErrors.length).toBe(0);
   });
 
 });
