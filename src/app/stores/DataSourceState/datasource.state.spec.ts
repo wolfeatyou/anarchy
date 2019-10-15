@@ -7,6 +7,8 @@ import {IDataSourceMeta} from '../../meta/DataSourceMeta';
 import {validate} from 'class-validator';
 
 
+
+
 describe('Data Source test', () => {
 
   beforeEach(async(() => {
@@ -42,13 +44,13 @@ describe('Data Source test', () => {
     let dsMeta = someObj2 as IDataSourceMeta;
 
 
-    validate(dsMeta, {forbidNonWhitelisted: true}).then(errors => { // errors is an array of validation errors
+    /*validate(dsMeta, {forbidNonWhitelisted: true}).then(errors => { // errors is an array of validation errors
       if (errors.length > 0) {
         console.log('validation failed. errors: ', errors);
       } else {
         console.log('validation succeed');
       }
-    });
+    });*/
     dsMeta = someObj as IDataSourceMeta;
 
     expect(dsMeta.code).toBe('ds1');

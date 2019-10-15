@@ -1,9 +1,12 @@
 import {IOperationMeta} from './OperationMeta';
-import {IsArray, IsOptional, IsString, MaxLength} from 'class-validator';
+import {IsArray, IsDefined, IsOptional, IsString, MaxLength, ValidateNested} from 'class-validator';
 
 export class IDataSourceMeta {
   @IsString()
+  @IsDefined()
   code: string;
-  @IsOptional()
+
+  @IsArray()
+  @ValidateNested()
   operations: IOperationMeta [];
 }
