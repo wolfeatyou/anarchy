@@ -1,7 +1,7 @@
-import {IDataSourceMeta} from './DataSourceMeta';
+import {IDataSourceMeta} from '../DataSourceMeta';
 import {validateSync} from 'class-validator';
 import {plainToClass} from 'class-transformer';
-import {IOperationMeta} from './OperationMeta';
+import {IOperationMeta} from '../OperationMeta';
 
 export class MetaDataParser {
 
