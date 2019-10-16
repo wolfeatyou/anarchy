@@ -1,4 +1,3 @@
-import {IDataSourceMeta} from './DataSourceMeta';
 import {MetaDataParser} from './MetaDataParser';
 
 
@@ -10,7 +9,7 @@ describe('Metadata parser tests', () => {
       someProperty: 0,
       operations: []
     };
-    const ds = MetaDataParser.getDataSource(obj);
+    MetaDataParser.getDataSourceMeta(obj);
     expect(MetaDataParser.lastErrors).not.toBeNull();
     expect(MetaDataParser.lastErrors.length).toBe(1);
   });
@@ -20,7 +19,7 @@ describe('Metadata parser tests', () => {
       code: 'operation1',
       parameters: []
     };
-    const ds = MetaDataParser.getOperation(obj);
+    MetaDataParser.getOperation(obj);
     expect(MetaDataParser.lastErrors).not.toBeNull();
     expect(MetaDataParser.lastErrors.length).toBe(0);
   });
@@ -31,7 +30,7 @@ describe('Metadata parser tests', () => {
       code: 'ds1',
       operations: [{code: 'operation1', parameters: []}]
     };
-    const ds = MetaDataParser.getDataSource(obj);
+    MetaDataParser.getDataSourceMeta(obj);
     expect(MetaDataParser.lastErrors).not.toBeNull();
     expect(MetaDataParser.lastErrors.length).toBe(0);
   });

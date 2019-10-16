@@ -1,17 +1,14 @@
-import {DataSourceOperationType} from './datasource.state';
+import {DataSourceOperationTypeEnum} from '../../meta/OperationMeta';
 
 export class DataSourceBuilder {
 
   static getRelatedDataSources(metadata: any): any {
     const result = [];
-    if (metadata == null) {
-      throw new Error('Metadata cant be NULL for DataSource');
-    }
     if (metadata.operations == null) {
       return result;
     }
     const operations = metadata.operations.filter((o: any) => {
-      return o.type === DataSourceOperationType.read;
+      return o.type === DataSourceOperationTypeEnum.read;
     });
     if (operations.length === 0) {
       return result;

@@ -1,31 +1,30 @@
-import {observable, computed, action, runInAction, autorun, toJS, flow, $mobx, reaction} from 'mobx';
-import {Injectable, Inject} from '@angular/core';
+import {observable, action, runInAction, reaction} from 'mobx';
 import {ApplicationState} from '../application.state';
 import {DataSourceBuilder, DataSourceRelation} from './datasource.builder';
+import {IDataSourceMeta} from '../../meta/DataSourceMeta';
 
 
 export class DataSourceState {
-  public id: string;
+  public code: string;
   @observable reloadCounter: number;
-  private metadata: any;
+  private metadata: IDataSourceMeta;
   data: any[];
   @observable selectedDataItem: any;
   @observable status: DataSourceStatus;
   relations: DataSourceRelation[];
-  appState: any;
+  private reactions: any;
 
-  constructor(id: string, metadata: any, private applicationState: ApplicationState) {
+  constructor(metadata: IDataSourceMeta, private applicationState: ApplicationState) {
     runInAction(() => {
-      this.appState = applicationState;
-      this.appState.dataSources[id] = this;
-      this.id = id;
-      this.reloadCounter = 1;
+      this.code = metadata.code;
+      this.applicationState.dataSources[metadata.code] = this;
+      this.reloadCounter = 0;
       this.metadata = metadata;
       this.status = DataSourceStatus.MustRefresh;
       this.data = [];
       this.relations = DataSourceBuilder.getRelatedDataSources(metadata);
       this.relations.forEach((r: DataSourceRelation) => {
-        const ds = this.appState.getDataSourceById(r.dataSourceId);
+        const ds = this.applicationState.getDataSourceById(r.dataSourceId);
         r.selectedItemReaction = reaction(
           () => ds.selectedDataItem,
           async (selectedItem) => {
@@ -64,23 +63,24 @@ export class DataSourceState {
       setTimeout(() => {
         const d: any [] = [];
         for (let i = 0; i < 5; i++) {
-          d.push({title: this.id + '_' + i, desc: 'wrewewe'});
+          d.push({title: this.code + '_' + i, desc: 'some data'});
         }
         resolve(d);
-      }, 50);
+      }, 1);
     });
 
   }
 
   @action
   async reload() {
+    this.status = DataSourceStatus.MustRefresh;
     const d = await this.reloadAsync();
     runInAction(() => {
-      console.log('Data reloaded for ' + this.id + ', count:' + this.reloadCounter);
       this.status = DataSourceStatus.Loaded;
       this.data = d as any[];
       this.selectedDataItem = d[0];
       this.reloadCounter++;
+      console.log('Data reloaded for ' + this.code + ', count:' + this.reloadCounter);
     });
   }
 
@@ -92,10 +92,5 @@ export enum DataSourceStatus {
   Loaded
 }
 
-export enum DataSourceOperationType {
-  read = 'read',
-  update = 'update',
-  onchange = 'onchange',
-  action = 'action'
-}
+
 

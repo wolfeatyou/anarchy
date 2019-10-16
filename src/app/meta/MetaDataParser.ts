@@ -1,5 +1,5 @@
 import {IDataSourceMeta} from './DataSourceMeta';
-import {validateSync, ValidationError} from 'class-validator';
+import {validateSync} from 'class-validator';
 import {plainToClass} from 'class-transformer';
 import {IOperationMeta} from './OperationMeta';
 
@@ -7,7 +7,7 @@ export class MetaDataParser {
 
   static lastErrors: any;
 
-  static getDataSource(meta: any): IDataSourceMeta {
+  static getDataSourceMeta(meta: any): IDataSourceMeta {
 
     const obj: IDataSourceMeta = plainToClass(IDataSourceMeta, meta);
     if (obj) {
@@ -28,9 +28,9 @@ export class MetaDataParser {
     const errors = validateSync(obj, {whitelist: true, forbidNonWhitelisted: true});
     MetaDataParser.lastErrors = errors;
     if (errors.length > 0) {
-      console.log('validation failed. errors: ', errors);
+     // console.log('validation failed. errors: ', errors);
     } else {
-      console.log('validation succeed');
+      //console.log('validation succeed');
     }
   }
 

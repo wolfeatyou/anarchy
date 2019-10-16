@@ -1,4 +1,4 @@
-import {IsArray, IsDefined, IsString, Length, ValidateNested} from 'class-validator';
+import {IsArray, IsDefined, IsString, Length} from 'class-validator';
 import {IOperationParameterMeta} from './OperationParameterMeta';
 
 export class IOperationMeta {
@@ -6,12 +6,16 @@ export class IOperationMeta {
   @IsDefined()
   @Length(1, 500)
   code: string;
-
+  type: DataSourceOperationTypeEnum;
   @IsArray()
   parameters: IOperationParameterMeta[];
 
-  testFinc(): any {
-    return 5;
-  }
 
+}
+
+export enum DataSourceOperationTypeEnum {
+  read = 'read',
+  update = 'update',
+  onchange = 'onchange',
+  action = 'action'
 }

@@ -1,11 +1,7 @@
-import {configure, runInAction, when} from 'mobx';
-import {DataSourceState, DataSourceStatus} from './datasource.state';
-// @ts-ignore
+import {configure, runInAction} from 'mobx';
 import {async} from '@angular/core/testing';
-import {ApplicationState} from '../application.state';
-import {IDataSourceMeta} from '../../meta/DataSourceMeta';
-import {validate} from 'class-validator';
-
+import {OneLevelMaterDetailsTestData} from './test/OneLevelMasterDetails.testdata';
+import {TestUtils} from '../../utils/TestUtils';
 
 
 
@@ -13,123 +9,43 @@ describe('Data Source test', () => {
 
   beforeEach(async(() => {
     configure({enforceActions: 'always'});
-    /* TestBed.configureTestingModule({
-       declarations: [
-         AppComponent
-       ],
-       providers: [ApplicationState]
-     }).compileComponents();*/
+
   }));
 
-  it('ds metadata to interface', () => {
-    const someObj = {
-      code: 'ds1',
-      operations: [
-        {
-          code: 'readOperation',
-          type: 'read',
-          parameters: [
-            {
-              code: 'param1'
-            }
-          ]
-        }
-      ]
-    };
+  it('Check ds defined in appstate', async () => {
+    const test = new OneLevelMaterDetailsTestData();
+    expect(test.appState.getDataSourceById('ds1')).toBeDefined();
+    expect(test.appState.getDataSourceById('ds2')).toBeDefined();
+    expect(test.appState.getDataSourceById('dsRelated')).toBeDefined();
 
-    const someObj2 = {
-      code: 'dfdfd',
-      operations: []
-    }
-    let dsMeta = someObj2 as IDataSourceMeta;
-
-
-    /*validate(dsMeta, {forbidNonWhitelisted: true}).then(errors => { // errors is an array of validation errors
-      if (errors.length > 0) {
-        console.log('validation failed. errors: ', errors);
-      } else {
-        console.log('validation succeed');
-      }
-    });*/
-    dsMeta = someObj as IDataSourceMeta;
-
-    expect(dsMeta.code).toBe('ds1');
-    expect(dsMeta.operations.length).toBe(1);
   });
 
-  // @ts-ignore
-  it('init from metadata test', async () => {
 
-    const appState: ApplicationState = new ApplicationState();
-    const dataSource1 = new DataSourceState('ds001', {
-      code: 'ds1',
-      operations: [
-        {
-          code: 'readOperation',
-          type: 'read',
-          parameters: [
-            {
-              code: 'param1'
-            }
-          ]
-        }
-      ]
-    }, appState);
+  it('One Level DataSources test', async () => {
 
-    const dataSource2 = new DataSourceState('ds002', {
-      code: 'ds2',
-      operations: [
-        {
-          code: 'readOperation',
-          type: 'read',
-          parameters: [
-            {
-              code: 'param1',
-              source: {
-                dataSourceId: 'ds001',
-                dataItemProperty: 'title'
-              }
-            },
-            {
-              code: 'param2',
-              source: {
-                dataSourceId: 'ds001',
-                dataItemProperty: 'desc'
-              }
-            }
-          ]
-        }
-      ]
-    }, appState);
-    await dataSource1.reload();
+    const test = new OneLevelMaterDetailsTestData();
+    await test.dataSource1.reload();
 
-    dataSource1.setSelectedIndex(1);
+    await TestUtils.waitForRefresh(test.dataSourceRelated);
+    expect(test.dataSourceRelated.reloadCounter).toBe(1);
+
+    await test.dataSource2.reload();
+    await TestUtils.waitForRefresh(test.dataSourceRelated);
+    expect(test.dataSourceRelated.reloadCounter).toBe(2);
+
+    test.dataSource1.setSelectedIndex(1);
+    await TestUtils.waitForRefresh(test.dataSourceRelated);
+    expect(test.dataSourceRelated.reloadCounter).toBe(3);
 
     runInAction(() => {
-      dataSource1.selectedDataItem.title = 'title 2';
-      dataSource1.selectedDataItem.desc = 'desc 2';
+      test.dataSource2.selectedDataItem.desc = 'new description';
     });
+    await TestUtils.waitForRefresh(test.dataSourceRelated);
+    expect(test.dataSourceRelated.reloadCounter).toBe(4);
 
-    await when(() => {
-      return dataSource2.reloadCounter === 3;
-    });
-
+    await new Promise((r) => setTimeout(r, 50));
+    expect(test.dataSourceRelated.reloadCounter).toBe(4);
   });
 
-  // @ts-ignore
-  xit('reload sample ', async () => {
-
-    /*const appState: ApplicationState = new ApplicationState();
-
-    const dataSource1 = new DataSourceState('001', appState);
-    const dataSource2 = new DataSourceState('002', appState);
-
-    dataSource1.addChildSource(dataSource2);
-    dataSource2.addParentSource(dataSource1);
-
-
-    await dataSource1.reload();
-    dataSource1.selected.title = 'aaa';*/
-  });
 });
 
