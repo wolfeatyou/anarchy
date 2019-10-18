@@ -3,7 +3,7 @@ import {DataSourceState} from '../datasource.state';
 import {MetaDataParser} from '../../../meta/parser/MetaDataParser';
 
 
-export class OneLevelMaterDetailsTestData {
+export class OneLevelMaterDetailsTestDataPanel {
   appState: ApplicationState;
   dataSource1: DataSourceState;
   dataSource2: DataSourceState;
@@ -11,11 +11,8 @@ export class OneLevelMaterDetailsTestData {
 
   constructor() {
     this.appState = new ApplicationState();
-
-    this.dataSource1 = new DataSourceState(MetaDataParser.getDataSourceMeta(this.ds1Meta), this.appState);
-    this.dataSource2 = new DataSourceState(MetaDataParser.getDataSourceMeta(this.ds2Meta), this.appState);
-    this.dataSourceRelated = new DataSourceState(MetaDataParser.getDataSourceMeta(this.dsRelatedMeta), this.appState);
   }
+
 
 
   ds1Meta: any = {
@@ -72,7 +69,4 @@ export class OneLevelMaterDetailsTestData {
       }
     ]
   };
-
-
-
 }

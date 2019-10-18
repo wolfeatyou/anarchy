@@ -19,7 +19,7 @@ describe('Metadata parser tests', () => {
       code: 'operation1',
       parameters: []
     };
-    MetaDataParser.getOperation(obj);
+    MetaDataParser.getOperationMeta(obj);
     expect(MetaDataParser.lastErrors).not.toBeNull();
     expect(MetaDataParser.lastErrors.length).toBe(0);
   });

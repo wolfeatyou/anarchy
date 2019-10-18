@@ -12,6 +12,14 @@ describe('Data Source test', () => {
 
   }));
 
+  it('Check panel meta', async () => {
+    const test = new OneLevelMaterDetailsTestData();
+    expect(test.appState.getDataSourceById('ds1')).toBeDefined();
+    expect(test.appState.getDataSourceById('ds2')).toBeDefined();
+    expect(test.appState.getDataSourceById('dsRelated')).toBeDefined();
+
+  });
+
   it('Check ds defined in appstate', async () => {
     const test = new OneLevelMaterDetailsTestData();
     expect(test.appState.getDataSourceById('ds1')).toBeDefined();
