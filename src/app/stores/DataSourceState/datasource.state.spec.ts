@@ -1,6 +1,6 @@
 import {configure, runInAction} from 'mobx';
 import {async} from '@angular/core/testing';
-import {OneLevelMaterDetailsTestData} from './test/OneLevelMasterDetails.testdata';
+import {OneLevelMaterDetailsTestData} from '../test/OneLevelMasterDetails.testdata';
 import {TestUtils} from '../../utils/TestUtils';
 
 

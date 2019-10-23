@@ -1,6 +1,6 @@
-import {ApplicationState} from '../../application.state';
-import {DataSourceState} from '../datasource.state';
-import {MetaDataParser} from '../../../meta/parser/MetaDataParser';
+import {ApplicationState} from '../application.state';
+import {DataSourceState} from '../DataSourceState/datasource.state';
+import {MetaDataParser} from '../../meta/parser/MetaDataParser';
 
 
 export class OneLevelMaterDetailsTestData {

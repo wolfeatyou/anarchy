@@ -5,12 +5,14 @@ import {IPanelMeta} from '../meta/PanelMeta';
 import {calculateSizes} from '@angular-devkit/build-angular/src/angular-cli-files/utilities/bundle-calculator';
 import {ILinkMeta} from '../meta/LinkMeta';
 import {PanelState} from './panel.state';
+import {ConditionState} from './condition.state';
 
 export class LinkState {
-  @observable metadata: ILinkMeta;
-  @observable title: string;
-  @observable visible: boolean;
-  panel: PanelState;
+  @observable public title: string;
+  @observable private metadata: ILinkMeta;
+  @observable private visible: boolean;
+  private panel: PanelState;
+  @observable private visibleCondition: ConditionState;
 
   constructor(metadata: ILinkMeta, panel: PanelState) {
     reaction(() => this.metadata, (meta) => {
@@ -19,12 +21,28 @@ export class LinkState {
     runInAction(() => {
       this.panel = panel;
       this.metadata = metadata;
+      if (this.metadata.visibleCondition) {
+        this.visibleCondition = this.panel.conditions.find((c: ConditionState) => c.code === this.metadata.visibleCondition);
+        if (!this.visibleCondition) {
+          throw Error('Condition not found ' + this.metadata.visibleCondition);
+        }
+      }
     });
   }
 
   @action
   init() {
     this.visible = this.metadata.visible === false;
+  }
+
+  @computed get isVisible() {
+    if (this.visible) {
+      return true;
+    }
+    if (this.visibleCondition) {
+      return this.visibleCondition.getValue();
+    }
+    return false;
   }
 
 }

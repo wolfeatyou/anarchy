@@ -16,7 +16,7 @@ export class PanelState {
   dataSources: DataSourceState[];
   conditions: ConditionState[];
   subPanels: PanelState[];
-  tabs: LinkState[];
+  @observable tabs: LinkState[];
   @observable metadata: IPanelMeta;
 
   constructor(metadata: IPanelMeta, private appState: ApplicationState) {
@@ -53,9 +53,8 @@ export class PanelState {
     }
   }
 
-  @computed
-  getTabsMeta() {
-    return this.tabs.filter(t => t.visible);
+  @computed get getTabsMeta() {
+    return this.tabs.filter(t => t.isVisible);
   }
 
 

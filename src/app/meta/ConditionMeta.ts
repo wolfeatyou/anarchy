@@ -1,7 +1,7 @@
 import {IsDefined, IsString, Length} from 'class-validator';
 
 export class IConditionMeta {
-  code: string;
+  public code: string;
   @Length(1, 2000)
-  if: string;
+  public if: string;
 }
