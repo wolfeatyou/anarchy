@@ -7,15 +7,13 @@ import {PanelState} from '../panel.state';
 export class OneLevelMaterDetailsTestDataPanel {
   appState: ApplicationState;
   dataSource1: DataSourceState;
-  dataSource2: DataSourceState;
-  dataSourceRelated: DataSourceState;
   panel1: PanelState;
+
 
   constructor() {
     this.appState = new ApplicationState();
     this.panel1 = new PanelState(MetaDataParser.getPanelMeta(this.panel1Meta), this.appState);
     this.dataSource1 = this.appState.getDataSourceById('ds1');
-
   }
 
   panel1Meta: any = {
@@ -50,6 +48,5 @@ export class OneLevelMaterDetailsTestDataPanel {
       }
     ]
   };
-
 
 }

@@ -32,13 +32,17 @@ export class ConditionState {
 
         const placeholder = '{' + r.dataSourceId + '.' + p + '}';
         const dataSource = this.panel.appState.getDataSourceById(r.dataSourceId);
-        const value = dataSource.selectedDataItem[p];
+        let value = null;
+        if (dataSource.selectedDataItem) {
+          value = dataSource.selectedDataItem[p];
+        }
         const re = new RegExp(`${placeholder}`, 'gi');
         script = script.replace(re, value);
+
       });
     });
     console.log(script);
-    const f = new Function('return ' +  script);
+    const f = new Function('return ' + script);
     this.value = f();
     console.log(this.value);
   }
