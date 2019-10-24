@@ -40,7 +40,7 @@ export class LinkState {
       return true;
     }
     if (this.visibleCondition) {
-      return this.visibleCondition.getValue();
+      return this.visibleCondition.Value;
     }
     return false;
   }

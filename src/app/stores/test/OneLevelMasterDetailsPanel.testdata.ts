@@ -14,6 +14,7 @@ export class OneLevelMaterDetailsTestDataPanel {
   constructor() {
     this.appState = new ApplicationState();
     this.panel1 = new PanelState(MetaDataParser.getPanelMeta(this.panel1Meta), this.appState);
+    this.dataSource1 = this.appState.getDataSourceById('ds1');
 
   }
 
@@ -44,7 +45,7 @@ export class OneLevelMaterDetailsTestDataPanel {
     conditions: [
       {
         code: 'isSecondOrThird',
-        if: '{ds1.id} == 0 || {ds1.id} == 3'
+        if: '{ds1.id} == 2 || {ds1.id} == 3'
 
       }
     ]

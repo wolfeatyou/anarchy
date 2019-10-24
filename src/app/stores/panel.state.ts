@@ -16,10 +16,11 @@ export class PanelState {
   dataSources: DataSourceState[];
   conditions: ConditionState[];
   subPanels: PanelState[];
+  @observable links: LinkState[];
   @observable tabs: LinkState[];
   @observable metadata: IPanelMeta;
 
-  constructor(metadata: IPanelMeta, private appState: ApplicationState) {
+  constructor(metadata: IPanelMeta, public appState: ApplicationState) {
     reaction(() => this.metadata, (meta) => {
       this.init();
     });
@@ -45,6 +46,12 @@ export class PanelState {
       });
     }
 
+    if (this.metadata.links) {
+      this.links = [];
+      this.metadata.links.forEach((linkMeta: ILinkMeta) => {
+        this.links.push(new LinkState(linkMeta, this));
+      });
+    }
     if (this.metadata.tabs) {
       this.tabs = [];
       this.metadata.tabs.forEach((linkMeta: ILinkMeta) => {

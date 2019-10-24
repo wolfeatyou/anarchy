@@ -22,28 +22,11 @@ export class DataSourceState {
       this.metadata = metadata;
       this.status = DataSourceStatus.MustRefresh;
       this.data = [];
-      this.relations = DataSourceBuilder.getRelatedDataSources(metadata);
-      this.relations.forEach((r: DataSourceRelation) => {
-        const ds = this.applicationState.getDataSourceById(r.dataSourceId);
-        r.selectedItemReaction = reaction(
-          () => ds.selectedDataItem,
-          async (selectedItem) => {
-            console.log('selected item changed: ' + JSON.stringify(selectedItem));
-            r.propertyReactions.forEach((pr: any) => pr());
-            r.propertyReactions = [];
-            r.propertyReactions.push(reaction(
-              () => r.dataItemProperties.map((p: any) => selectedItem[p]),
-              async (propValue) => {
-                console.log('any related property changed:  - ' + propValue);
-                await this.reload();
-              },
-              {fireImmediately: false}
-            ));
-            await this.reload();
-          }
-        );
-
+      const relations = DataSourceBuilder.getRelatedDataSources(metadata);
+      DataSourceBuilder.initRelatedDataSourceReactions(relations, applicationState, async () => {
+        await this.reload();
       });
+      this.relations = relations;
     });
   }
 
@@ -63,7 +46,7 @@ export class DataSourceState {
       setTimeout(() => {
         const d: any [] = [];
         for (let i = 0; i < 5; i++) {
-          d.push({title: this.code + '_' + i, desc: 'some data'});
+          d.push({title: this.code + '_' + i, desc: 'some data', id: i});
         }
         resolve(d);
       }, 1);
