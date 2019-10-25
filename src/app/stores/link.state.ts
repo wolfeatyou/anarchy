@@ -17,7 +17,7 @@ export class LinkState {
   constructor(metadata: ILinkMeta, panel: PanelState) {
     reaction(() => this.metadata, (meta) => {
       this.init();
-    });
+    }, {name: 'link metadata changed'});
     runInAction(() => {
       this.panel = panel;
       this.metadata = metadata;

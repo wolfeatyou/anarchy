@@ -43,14 +43,15 @@ export class MetaDataParser {
     return obj;
   }
 
-  static validateInternal(obj: any) {
+  static validateInternal(obj: any, throwOnException: boolean = true) {
     const errors = validateSync(obj, {whitelist: true, forbidNonWhitelisted: true});
     MetaDataParser.lastErrors = errors;
-    if (errors.length > 0) {
-     // console.log('validation failed. errors: ', errors);
-    } else {
-      //console.log('validation succeed');
+    if (MetaDataParser.lastErrors.length > 0 && throwOnException) {
+      console.dir(MetaDataParser.lastErrors);
+      MetaDataParser.lastErrors = [];
+      throw Error('Parser error');
     }
+
   }
 
 }

@@ -37,25 +37,26 @@ export class DataSourceBuilder {
   }
 
   static initRelatedDataSourceReactions(relations: DataSourceRelation[],
-                                                applicationState: ApplicationState, callback: RelatedDataSourceReactionCallbackType) {
+                                        applicationState: ApplicationState, callback: RelatedDataSourceReactionCallbackType) {
     relations.forEach((r: DataSourceRelation) => {
       const ds = applicationState.getDataSourceById(r.dataSourceId);
       r.selectedItemReaction = reaction(
         () => ds.selectedDataItem,
         async (selectedItem) => {
-          console.log('reaction selected item changed: ' + JSON.stringify(selectedItem));
+          console.log('reaction: selected item changed. ' + JSON.stringify(selectedItem));
           r.propertyReactions.forEach((pr: any) => pr());
           r.propertyReactions = [];
           r.propertyReactions.push(reaction(
             () => r.dataItemProperties.map((p: any) => selectedItem[p]),
             async (propValue) => {
-              console.log('any related property changed:  - ' + propValue);
+              console.log('reaction: related property changed:  - ' + propValue);
               await callback();
             },
-            {fireImmediately: false}
+            {name:  `property changed`, fireImmediately: false}
           ));
           await callback();
-        }
+        },
+        {name: `selected item changed`}
       );
 
     });

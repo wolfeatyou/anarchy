@@ -22,8 +22,9 @@ export class PanelState {
 
   constructor(metadata: IPanelMeta, public appState: ApplicationState) {
     reaction(() => this.metadata, (meta) => {
+      console.log('reaction: metadata changed for panel ' + meta.code);
       this.init();
-    });
+    }, {name: `panel metadata changed`});
     runInAction(() => {
       this.subPanels = [];
       this.dataSources = [];
@@ -61,6 +62,10 @@ export class PanelState {
   }
 
   @computed get getTabsMeta() {
+    return this.tabs.filter(t => t.isVisible);
+  }
+
+  @computed get Links() {
     return this.tabs.filter(t => t.isVisible);
   }
 

@@ -54,7 +54,7 @@ export class DataSourceState {
 
   }
 
-  @action
+  @action('Reload data source')
   async reload() {
     this.status = DataSourceStatus.MustRefresh;
     const d = await this.reloadAsync();
@@ -63,7 +63,7 @@ export class DataSourceState {
       this.data = d as any[];
       this.selectedDataItem = d[0];
       this.reloadCounter++;
-      console.log('Data reloaded for ' + this.code + ', count:' + this.reloadCounter);
+      console.log('action async: data reloaded for ' + this.code + ', count:' + this.reloadCounter);
     });
   }
 

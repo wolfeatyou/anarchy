@@ -49,6 +49,7 @@
     "class-validator": "^0.10.2",
     "mobx": "^4.5.2",
     "mobx-angular": "^3.0.0",
+    "mobx-logger": "^0.7.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

@@ -5,7 +5,7 @@ import {DataSourceBuilder, DataSourceRelation} from './DataSourceState/datasourc
 
 export class ConditionState {
 
-  code: string;
+  public code: string;
   @observable private relations: DataSourceRelation[];
   @observable value: boolean;
 
@@ -41,10 +41,9 @@ export class ConditionState {
 
       });
     });
-    console.log(script);
     const f = new Function('return ' + script);
     this.value = f();
-    console.log(this.value);
+    console.log(`action: Calculate condition ${this.code} for panel ${this.panel.metadata.code}: ` + script + ', value: ' + this.value);
   }
 
   @action
@@ -63,7 +62,6 @@ export class ConditionState {
         const propIndex = placeholder.indexOf('.');
         const dataSourceId = placeholder.substring(1, propIndex);
         const propertyCode = placeholder.substring(propIndex + 1, placeholder.length - 1);
-        console.log(dataSourceId + ' - ' + propertyCode);
         if (relations[dataSourceId] == null) {
           relations[dataSourceId] = new DataSourceRelation(dataSourceId, []);
         }
