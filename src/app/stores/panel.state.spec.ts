@@ -3,6 +3,7 @@ import {async} from '@angular/core/testing';
 import {TestUtils} from '../utils/TestUtils';
 import {OneLevelMaterDetailsTestDataPanel} from './test/OneLevelMasterDetailsPanel.testdata';
 import {TwoLevelMaterDetailsTestDataPanel} from './test/TwoLevelMasterDetails.testdata';
+import {TreeLevelMaterDetailsTestDataPanel} from './test/TreeLevelMasterDetails.testdata';
 
 
 describe('Panel tests', () => {
@@ -77,6 +78,31 @@ describe('Panel tests', () => {
      await when(() => {
        return test.panel2.links[0].isVisible;
      });
+
+
+  });
+
+  it('Check conditions three levels', async () => {
+    const test = new TreeLevelMaterDetailsTestDataPanel();
+    await test.dataSource1.reload();
+    console.log('test: data reloaded');
+
+    await when(() => {
+      return !test.panel3.links[0].isVisible;
+    });
+
+    console.log('test: set selected index 2');
+    test.dataSource1.setSelectedIndex(2);
+
+    await TestUtils.waitForRefresh(test.dataSource2);
+
+    console.log('test: set selected index 3');
+    test.dataSource2.setSelectedIndex(3);
+    await TestUtils.waitForRefresh(test.dataSource2);
+
+    await when(() => {
+      return test.panel3.links[0].isVisible;
+    });
 
 
   });

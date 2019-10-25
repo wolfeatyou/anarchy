@@ -37,12 +37,12 @@ export class OneLevelMaterDetailsTestDataPanel {
     links: [
       {
         code: 'link1',
-        visibleCondition: 'isSecondOrThird'
+        visibleCondition: 'isSecondOrThirdPanel1'
       }
     ],
     conditions: [
       {
-        code: 'isSecondOrThird',
+        code: 'isSecondOrThirdPanel1',
         if: '{ds1.id} == 2 || {ds1.id} == 3'
 
       }

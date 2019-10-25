@@ -3,24 +3,25 @@ import {DataSourceState} from '../DataSourceState/datasource.state';
 import {MetaDataParser} from '../../meta/parser/MetaDataParser';
 import {PanelState} from '../panel.state';
 import {OneLevelMaterDetailsTestDataPanel} from './OneLevelMasterDetailsPanel.testdata';
+import {TwoLevelMaterDetailsTestDataPanel} from './TwoLevelMasterDetails.testdata';
 
 
-export class TwoLevelMaterDetailsTestDataPanel extends OneLevelMaterDetailsTestDataPanel {
-  dataSource2: DataSourceState;
-  panel2: PanelState;
+export class TreeLevelMaterDetailsTestDataPanel extends TwoLevelMaterDetailsTestDataPanel {
+  dataSource3: DataSourceState;
+  panel3: PanelState;
 
 
   constructor() {
     super();
-    this.panel2 = new PanelState(MetaDataParser.getPanelMeta(this.panel2Meta), this.appState);
-    this.dataSource2 = this.appState.getDataSourceById('ds2');
+    this.panel3 = new PanelState(MetaDataParser.getPanelMeta(this.panel3Meta), this.appState);
+    this.dataSource3 = this.appState.getDataSourceById('ds3');
   }
 
-  panel2Meta: any = {
-    code: 'panel002',
+  panel3Meta: any = {
+    code: 'panel003',
     dataSources: [
       {
-        code: 'ds2',
+        code: 'ds3',
         operations: [
           {
             code: 'readOperation',
@@ -29,7 +30,7 @@ export class TwoLevelMaterDetailsTestDataPanel extends OneLevelMaterDetailsTestD
               {
                 code: 'param1',
                 source: {
-                  dataSourceId: 'ds1',
+                  dataSourceId: 'ds2',
                   dataItemProperty: 'id'
                 }
               }
@@ -41,13 +42,13 @@ export class TwoLevelMaterDetailsTestDataPanel extends OneLevelMaterDetailsTestD
     links: [
       {
         code: 'link2',
-        visibleCondition: 'isSecondOrThirdPanel2'
+        visibleCondition: 'isThirdPanel3'
       }
     ],
     conditions: [
       {
-        code: 'isSecondOrThirdPanel2',
-        if: '{ds1.id} == 2 && {ds2.id} == 3'
+        code: 'isThirdPanel3',
+        if: '{ds2.id} == 3'
       }
     ]
   };
