@@ -1,4 +1,4 @@
-import {observable, computed, action, autorun, toJS, runInAction, reaction} from 'mobx';
+import {observable, computed, action} from 'mobx';
 import {IConditionMeta} from '../meta/ConditionMeta';
 import {PanelState} from './panel.state';
 import {DataSourceBuilder, DataSourceRelation} from './DataSourceState/datasource.builder';
@@ -52,7 +52,7 @@ export class ConditionState {
   }
 
   parseConditionExpresion() {
-    const regexp = /\{\w+\.\w+\}/g;
+    const regexp = /{\w+\.\w+}/g;
     const matches = this.metadata.if.match(regexp);
     const placeholders = [...new Set(matches)];
 
@@ -71,7 +71,7 @@ export class ConditionState {
         const relsArray: DataSourceRelation[] = Object.values(relations);
         DataSourceBuilder.initRelatedDataSourceReactions(relsArray, this.panel.appState, async () => {
           await this.calculateValue();
-        });
+        }, `(condition ${this.code})`);
         this.setRelations(relsArray);
       } catch (e) {
         throw new Error('cant parse condition placeholder (expecting format {aaa.bbb} ): ' + this.metadata.if);

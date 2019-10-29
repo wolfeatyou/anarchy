@@ -1,4 +1,4 @@
-import {autorun, configure, runInAction, spy, when, trace} from 'mobx';
+import {configure, when} from 'mobx';
 import {async} from '@angular/core/testing';
 import {TestUtils} from '../utils/TestUtils';
 import {OneLevelMaterDetailsTestDataPanel} from './test/OneLevelMasterDetailsPanel.testdata';
@@ -10,74 +10,72 @@ describe('Panel tests', () => {
 
   beforeEach(async(() => {
     configure({enforceActions: 'always'});
-   /* spy(event => {
-      if (event.type === 'reaction') {
-        console.log(`reaction: ${event.name}`);
-      }
-    });*/
+    /* spy(event => {
+       if (event.type === 'reaction') {
+         console.log(`reaction: ${event.name}`);
+       }
+     });*/
 
   }));
 
-   it('Check panel constructed', async () => {
-     const test = new OneLevelMaterDetailsTestDataPanel();
-     expect(test.panel1).toBeDefined();
-     expect(test.panel1.dataSources.length).toBe(1);
-     expect(test.panel1.conditions.length).toBe(1);
-     expect(test.panel1.links.length).toBe(1);
+  it('Check panel constructed', async () => {
+    const test = new OneLevelMaterDetailsTestDataPanel();
+    expect(test.panel1).toBeDefined();
+    expect(test.panel1.dataSources.length).toBe(1);
+    expect(test.panel1.conditions.length).toBe(1);
+    expect(test.panel1.links.length).toBe(1);
 
-   });
+  });
 
-   it('Check conditions one level', async () => {
-     console.log('test: object constructed');
-     const test = new OneLevelMaterDetailsTestDataPanel();
-     expect(test.panel1).toBeDefined();
+  it('Check conditions one level', async () => {
+    console.log('test: object constructed');
+    const test = new OneLevelMaterDetailsTestDataPanel();
+    expect(test.panel1).toBeDefined();
 
-     await test.dataSource1.reload();
-     console.log('test: data reloaded');
+    await test.dataSource1.reload();
+    console.log('test: data reloaded');
 
-     await when(() => {
-       return !test.panel1.links[0].isVisible;
-     });
+    await when(() => {
+      return !test.panel1.links[0].isVisible;
+    });
 
-     test.dataSource1.setSelectedIndex(2);
+    test.dataSource1.setSelectedIndex(2);
 
-     await when(() => {
-       return test.panel1.links[0].isVisible;
-     });
+    await when(() => {
+      return test.panel1.links[0].isVisible;
+    });
 
-     test.dataSource1.setSelectedIndex(4);
-     await when(() => {
-       return !test.panel1.links[0].isVisible;
-     });
-
-
-   });
+    test.dataSource1.setSelectedIndex(4);
+    await when(() => {
+      return !test.panel1.links[0].isVisible;
+    });
 
 
+  });
 
 
   it('Check conditions two levels', async () => {
     const test = new TwoLevelMaterDetailsTestDataPanel();
-     expect(test.panel1).toBeDefined();
-     console.log('test: object constructed');
-     await test.dataSource1.reload();
-     console.log('test: data reloaded');
+    expect(test.panel1).toBeDefined();
+    console.log('test: object constructed');
+    await test.dataSource1.reload();
+    console.log('test: data reloaded');
 
-     await when(() => {
-       return !test.panel2.links[0].isVisible;
-     });
+    await when(() => {
+      return !test.panel2.links[0].isVisible;
+    });
 
-     console.log('test: set selected index 2');
-     test.dataSource1.setSelectedIndex(2);
+    console.log('test: set selected index 2');
+    test.dataSource1.setSelectedIndex(2);
 
-     await TestUtils.waitForRefresh(test.dataSource2);
+    await TestUtils.waitForRefresh(test.dataSource2);
 
-     console.log('test: set selected index 3');
-     test.dataSource2.setSelectedIndex(3);
+    console.log('test: set selected index 3');
+    test.dataSource2.setSelectedIndex(3);
 
-     await when(() => {
-       return test.panel2.links[0].isVisible;
-     });
+    await when(() => {
+      return test.panel2.links[0].isVisible;
+    });
 
 
   });
@@ -94,16 +92,16 @@ describe('Panel tests', () => {
     console.log('test: set selected index 2');
     test.dataSource1.setSelectedIndex(2);
 
-    await TestUtils.waitForRefresh(test.dataSource2);
+    await TestUtils.waitForRefresh(test.dataSource3);
 
     console.log('test: set selected index 3');
     test.dataSource2.setSelectedIndex(3);
-    await TestUtils.waitForRefresh(test.dataSource2);
-
+    await TestUtils.waitForRefresh(test.dataSource3);
     await when(() => {
       return test.panel3.links[0].isVisible;
     });
 
+    console.log('test completed');
 
   });
 

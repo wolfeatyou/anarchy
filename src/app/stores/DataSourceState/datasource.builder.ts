@@ -32,27 +32,29 @@ export class DataSourceBuilder {
         m[p.source.dataSourceId].dataItemProperties.push(p.source.dataItemProperty);
       }
     });
-    const relations = Object.values(m) as DataSourceRelation[];
-    return relations;
+    return Object.values(m) as DataSourceRelation[];
   }
 
   static initRelatedDataSourceReactions(relations: DataSourceRelation[],
-                                        applicationState: ApplicationState, callback: RelatedDataSourceReactionCallbackType) {
+                                        applicationState: ApplicationState, callback: RelatedDataSourceReactionCallbackType,
+                                        relationDesc: string = '') {
     relations.forEach((r: DataSourceRelation) => {
       const ds = applicationState.getDataSourceById(r.dataSourceId);
       r.selectedItemReaction = reaction(
         () => ds.selectedDataItem,
         async (selectedItem) => {
-          console.log('reaction: selected item changed. ' + JSON.stringify(selectedItem));
+          console.log('reaction' + relationDesc + ': selected item changed related ds' +
+            r.dataSourceId + ' value:' + JSON.stringify(selectedItem));
           r.propertyReactions.forEach((pr: any) => pr());
           r.propertyReactions = [];
           r.propertyReactions.push(reaction(
             () => r.dataItemProperties.map((p: any) => selectedItem[p]),
             async (propValue) => {
-              console.log('reaction: related property changed:  - ' + propValue);
+              console.log('reaction' + relationDesc + ': related property changed, ' +
+                'related ds \' + r.dataSourceId + \' value:\' ' + propValue);
               await callback();
             },
-            {name:  `property changed`, fireImmediately: false}
+            {name: `property changed`, fireImmediately: false}
           ));
           await callback();
         },

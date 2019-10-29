@@ -1,4 +1,4 @@
-import {observable, action, runInAction, reaction} from 'mobx';
+import {observable, action, runInAction} from 'mobx';
 import {ApplicationState} from '../application.state';
 import {DataSourceBuilder, DataSourceRelation} from './datasource.builder';
 import {IDataSourceMeta} from '../../meta/DataSourceMeta';
@@ -12,7 +12,6 @@ export class DataSourceState {
   @observable selectedDataItem: any;
   @observable status: DataSourceStatus;
   relations: DataSourceRelation[];
-  private reactions: any;
 
   constructor(metadata: IDataSourceMeta, private applicationState: ApplicationState) {
     runInAction(() => {
@@ -25,7 +24,7 @@ export class DataSourceState {
       const relations = DataSourceBuilder.getRelatedDataSources(metadata);
       DataSourceBuilder.initRelatedDataSourceReactions(relations, applicationState, async () => {
         await this.reload();
-      });
+      }, `(dataSource ${this.code})`);
       this.relations = relations;
     });
   }
@@ -42,7 +41,7 @@ export class DataSourceState {
 
   @action
   reloadAsync() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         const d: any [] = [];
         for (let i = 0; i < 5; i++) {
