@@ -6,6 +6,7 @@ import {calculateSizes} from '@angular-devkit/build-angular/src/angular-cli-file
 import {ILinkMeta} from '../meta/LinkMeta';
 import {PanelState} from './panel.state';
 import {ConditionState} from './condition.state';
+import {MetadataResolver} from './matadata.resolver';
 
 export class LinkState {
   @observable public title: string;
@@ -33,6 +34,15 @@ export class LinkState {
 
   init() {
     console.log('link meta changed:' + this.metadata ? this.metadata : 'null');
+  }
+
+  @computed get LinkedPanel(): any {
+    if (this.metadata.linkedPanelCode) {
+      const panelMeta = this.panel.appState.metadataResolver.resolvePanel(this.metadata.linkedPanelCode,
+        this.metadata.linkedPanelCode ? this.metadata.linkedPanelCode : this.panel.metadata.package);
+      return new PanelState(panelMeta, this.panel.appState);
+    }
+    return null;
   }
 
   @computed get isVisible() {

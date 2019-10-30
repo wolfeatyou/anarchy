@@ -15,7 +15,8 @@ export class PanelState {
   @observable title: string;
   dataSources: DataSourceState[];
   conditions: ConditionState[];
-  subPanels: PanelState[];
+  placeholderPanels: PanelState[];
+  tabPanels: PanelState[];
   selectedTabChangeCounter: number;
   @observable selectedTab: LinkState;
   @observable links: LinkState[];
@@ -25,7 +26,7 @@ export class PanelState {
 
   constructor(metadata: IPanelMeta, public appState: ApplicationState) {
     reaction(() => this.metadata, (meta) => {
-      if(meta) {
+      if (meta) {
         console.log('reaction: metadata changed for panel ' + meta.code);
         this.init();
       }
@@ -35,7 +36,8 @@ export class PanelState {
 
     runInAction(() => {
       this.selectedTabChangeCounter = 0;
-      this.subPanels = [];
+      this.placeholderPanels = [];
+      this.tabPanels = [];
       this.dataSources = [];
       this.selectedTab = null;
       this.metadata = metadata;
@@ -76,6 +78,7 @@ export class PanelState {
   selectedTabChanged(tabLink: LinkState) {
     this.selectedTabChangeCounter++;
     console.log('selected tab changed: ' + this.selectedTabChangeCounter);
+    //let it be empty
   }
 
 
@@ -105,12 +108,6 @@ export class PanelState {
 
   @computed get Tabs() {
     return this.tabs ? this.tabs.filter(t => t.isVisible) : [];
-  }
-
-
-  @action
-  addSubPanel(s: PanelState) {
-    this.subPanels.push(s);
   }
 
   @action

@@ -100,7 +100,7 @@ describe('Panel tests', () => {
     console.log('test completed');
   });
 
-  it('Check visibility flow', async () => {
+  fit('Check visibility flow', async () => {
     const test = new PanelsVisiblityTestData();
     test.init();
 

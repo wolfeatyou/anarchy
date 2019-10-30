@@ -11,7 +11,11 @@ export class ILinkMeta {
 
   @IsOptional()
   @IsString()
-  panelId: string;
+  linkedPanelCode: string;
+
+  @IsOptional()
+  @IsString()
+  linkedPanelPackageCode: string;
 
   @IsOptional()
   @IsBoolean()

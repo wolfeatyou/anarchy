@@ -10,6 +10,9 @@ import {Optional} from '@angular/core';
 export class IPanelMeta {
   @Length(1, 500)
   code: string;
+  @Length(1, 500)
+  @IsOptional()
+  package: string;
   @IsArray()
   @Type(() => IFieldMeta)
   @ValidateNested()
