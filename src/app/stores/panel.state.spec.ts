@@ -4,6 +4,7 @@ import {TestUtils} from '../utils/TestUtils';
 import {OneLevelMaterDetailsTestDataPanel} from './test/OneLevelMasterDetailsPanel.testdata';
 import {TwoLevelMaterDetailsTestDataPanel} from './test/TwoLevelMasterDetails.testdata';
 import {TreeLevelMaterDetailsTestDataPanel} from './test/TreeLevelMasterDetails.testdata';
+import {PanelsVisiblityTestData} from './test/PanelsVisiblityTest.testdata';
 
 
 describe('Panel tests', () => {
@@ -96,6 +97,14 @@ describe('Panel tests', () => {
     expect(test.dataSource3.reloadCounter).toBe(3);
 
     expect(await TestUtils.checkIsNot(() => test.dataSource1.reloadCounter > 2)).toBe(true);
+    console.log('test completed');
+  });
+
+  it('Check conditions three levels', async () => {
+    const testData = new PanelsVisiblityTestData();
+    testData.init();
+
+
     console.log('test completed');
   });
 

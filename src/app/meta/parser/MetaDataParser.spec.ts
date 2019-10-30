@@ -9,9 +9,10 @@ describe('Metadata parser tests', () => {
       someProperty: 0,
       operations: []
     };
-    MetaDataParser.getDataSourceMeta(obj);
-    expect(MetaDataParser.lastErrors).not.toBeNull();
-    expect(MetaDataParser.lastErrors.length).toBe(1);
+    const parser = new MetaDataParser(false);
+    parser.getDataSourceMeta(obj);
+    expect(parser.lastErrors).not.toBeNull();
+    expect(parser.lastErrors.length).toBe(1);
   });
 
   it('check is operation validation works', () => {
@@ -19,9 +20,20 @@ describe('Metadata parser tests', () => {
       code: 'operation1',
       parameters: []
     };
-    MetaDataParser.getOperationMeta(obj);
-    expect(MetaDataParser.lastErrors).not.toBeNull();
-    expect(MetaDataParser.lastErrors.length).toBe(0);
+    const parser = new MetaDataParser(false);
+    parser.getOperationMeta(obj);
+    expect(parser.lastErrors).not.toBeNull();
+    expect(parser.lastErrors.length).toBe(0);
+  });
+
+  it('check is link validation works', () => {
+    const obj = {
+      code: 'link1'
+    };
+    const parser = new MetaDataParser(false);
+    parser.getLinkMeta(obj);
+    expect(parser.lastErrors).not.toBeNull();
+    expect(parser.lastErrors.length).toBe(0);
   });
 
 
@@ -30,9 +42,10 @@ describe('Metadata parser tests', () => {
       code: 'ds1',
       operations: [{code: 'operation1', parameters: []}]
     };
-    MetaDataParser.getDataSourceMeta(obj);
-    expect(MetaDataParser.lastErrors).not.toBeNull();
-    expect(MetaDataParser.lastErrors.length).toBe(0);
+    const parser = new MetaDataParser(false);
+    parser.getDataSourceMeta(obj);
+    expect(parser.lastErrors).not.toBeNull();
+    expect(parser.lastErrors.length).toBe(0);
   });
 
 });

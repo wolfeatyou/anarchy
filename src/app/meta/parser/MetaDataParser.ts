@@ -4,51 +4,64 @@ import {plainToClass} from 'class-transformer';
 import {IOperationMeta} from '../OperationMeta';
 import {IPanelMeta} from '../PanelMeta';
 import {IConditionMeta} from '../ConditionMeta';
+import {ILinkMeta} from '../LinkMeta';
 
 export class MetaDataParser {
 
-  static lastErrors: any;
+  constructor(private throwOnValidateException: boolean = true) {
+  }
 
-  static getDataSourceMeta(meta: any): IDataSourceMeta {
+  public lastErrors: any;
+
+
+  getDataSourceMeta(meta: any): IDataSourceMeta {
 
     const obj: IDataSourceMeta = plainToClass(IDataSourceMeta, meta);
     if (obj) {
-      MetaDataParser.validateInternal(obj);
+      this.validateInternal(obj);
     }
     return obj;
   }
 
-  static getPanelMeta(meta: any): IPanelMeta {
+  getPanelMeta(meta: any): IPanelMeta {
 
     const obj: IPanelMeta = plainToClass(IPanelMeta, meta);
     if (obj) {
-      MetaDataParser.validateInternal(obj);
+      this.validateInternal(obj);
     }
     return obj;
   }
 
-  static getOperationMeta(meta: any): IOperationMeta {
+  getOperationMeta(meta: any): IOperationMeta {
     const obj: IOperationMeta = plainToClass(IOperationMeta, meta);
     if (obj) {
-      MetaDataParser.validateInternal(obj);
+      this.validateInternal(obj);
     }
     return obj;
   }
 
-  static geConditionMeta(meta: any): IConditionMeta {
+  getLinkMeta(meta: any): ILinkMeta {
+    const obj: ILinkMeta = plainToClass(ILinkMeta, meta);
+    if (obj) {
+      this.validateInternal(obj);
+    }
+    return obj;
+  }
+
+  geConditionMeta(meta: any): IConditionMeta {
     const obj: IConditionMeta = plainToClass(IConditionMeta, meta);
     if (obj) {
-      MetaDataParser.validateInternal(obj);
+      this.validateInternal(obj);
     }
     return obj;
   }
 
-  static validateInternal(obj: any, throwOnException: boolean = true) {
+  validateInternal(obj: any) {
     const errors = validateSync(obj, {whitelist: true, forbidNonWhitelisted: true});
-    MetaDataParser.lastErrors = errors;
-    if (MetaDataParser.lastErrors.length > 0 && throwOnException) {
-      console.dir(MetaDataParser.lastErrors);
-      MetaDataParser.lastErrors = [];
+    this.lastErrors = errors;
+    if (this.lastErrors.length > 0 && this.throwOnValidateException) {
+      console.dir(this.lastErrors);
+      this.lastErrors = [];
       throw Error('Parser error');
     }
 

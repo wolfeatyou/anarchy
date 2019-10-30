@@ -12,7 +12,7 @@ export class OneLevelMaterDetailsTestDataPanel {
 
   constructor() {
     this.appState = new ApplicationState();
-    this.panel1 = new PanelState(MetaDataParser.getPanelMeta(this.panel1Meta), this.appState);
+    this.panel1 = new PanelState(new MetaDataParser().getPanelMeta(this.panel1Meta), this.appState);
     this.dataSource1 = this.appState.getDataSourceById('ds1');
   }
 

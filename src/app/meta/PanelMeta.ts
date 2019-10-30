@@ -23,6 +23,7 @@ export class IPanelMeta {
   @IsArray()
   @Type(() => ILinkMeta)
   @IsOptional()
+  @ValidateNested()
   links: ILinkMeta[];
   @IsArray()
   @Type(() => IConditionMeta)

@@ -13,7 +13,7 @@ export class TreeLevelMaterDetailsTestDataPanel extends TwoLevelMaterDetailsTest
 
   constructor() {
     super();
-    this.panel3 = new PanelState(MetaDataParser.getPanelMeta(this.panel3Meta), this.appState);
+    this.panel3 = new PanelState(new MetaDataParser().getPanelMeta(this.panel3Meta), this.appState);
     this.dataSource3 = this.appState.getDataSourceById('ds3');
   }
 

@@ -15,6 +15,7 @@ export class IOperationMeta {
   @Length(1, 500)
   code: string;
 
+  @IsOptional()
   @IsEnum(DataSourceOperationTypeEnum)
   type: DataSourceOperationTypeEnum;
   @IsArray()
