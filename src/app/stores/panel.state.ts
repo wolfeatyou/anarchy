@@ -16,23 +16,32 @@ export class PanelState {
   dataSources: DataSourceState[];
   conditions: ConditionState[];
   subPanels: PanelState[];
+  selectedTabChangeCounter: number;
+  @observable selectedTab: LinkState;
   @observable links: LinkState[];
   @observable tabs: LinkState[];
   @observable metadata: IPanelMeta;
 
+
   constructor(metadata: IPanelMeta, public appState: ApplicationState) {
     reaction(() => this.metadata, (meta) => {
-      console.log('reaction: metadata changed for panel ' + meta.code);
-      this.init();
-    }, {name: `panel metadata changed`});
+      if(meta) {
+        console.log('reaction: metadata changed for panel ' + meta.code);
+        this.init();
+      }
+    }, {name: `panel metadata changed`, fireImmediately: true});
+    reaction(() => this.selectedTab, this.selectedTabChanged, {fireImmediately: true});
+    reaction(() => this.Tabs, this.tabsCountChanged, {fireImmediately: true});
+
     runInAction(() => {
+      this.selectedTabChangeCounter = 0;
       this.subPanels = [];
       this.dataSources = [];
+      this.selectedTab = null;
       this.metadata = metadata;
     });
   }
 
-  @action
   init() {
     if (this.metadata.dataSources) {
       this.dataSources = [];
@@ -56,17 +65,46 @@ export class PanelState {
     if (this.metadata.tabs) {
       this.tabs = [];
       this.metadata.tabs.forEach((linkMeta: ILinkMeta) => {
-        this.tabs.push(new LinkState(linkMeta, this));
+        const tab = new LinkState(linkMeta, this);
+        console.log('tab is vis:' + tab.isVisible);
+        this.tabs.push(tab);
       });
     }
   }
 
-  @computed get getTabsMeta() {
-    return this.tabs.filter(t => t.isVisible);
+  @action.bound
+  selectedTabChanged(tabLink: LinkState) {
+    this.selectedTabChangeCounter++;
+    console.log('selected tab changed: ' + this.selectedTabChangeCounter);
   }
+
+
+  @action.bound
+  tabsCountChanged(tabs: LinkState[]) {
+    console.log('tabs count changed:' + tabs.length);
+    console.log('selected tab:' + this.selectedTab);
+    if (tabs.indexOf(this.selectedTab) === -1) {
+
+      runInAction(() => {
+        if (tabs.length === 0) {
+          this.selectedTab = null;
+        } else {
+          console.log('change selected tab');
+          this.selectedTab = this.tabs[0];
+        }
+      });
+
+    }
+
+  }
+
 
   @computed get Links() {
     return this.tabs.filter(t => t.isVisible);
+  }
+
+  @computed get Tabs() {
+    return this.tabs ? this.tabs.filter(t => t.isVisible) : [];
   }
 
 

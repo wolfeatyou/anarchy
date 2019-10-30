@@ -6,7 +6,7 @@ import {PanelState} from '../panel.state';
 
 export class PanelsVisiblityTestData {
   appState: ApplicationState;
-
+  ds: DataSourceState;
   constructor() {
 
   }
@@ -15,6 +15,7 @@ export class PanelsVisiblityTestData {
     this.appState = new ApplicationState();
     this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
     this.appState.setActivePanel('test', 'officerGroups');
+    //this.ds = this.appState.getDataSourceById('officerGroupsDs');
 
   }
 

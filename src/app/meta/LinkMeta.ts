@@ -15,7 +15,7 @@ export class ILinkMeta {
 
   @IsOptional()
   @IsBoolean()
-  visible: boolean;
+  hidden: boolean;
 
   @IsOptional()
   @IsString()

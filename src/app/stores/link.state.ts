@@ -10,14 +10,15 @@ import {ConditionState} from './condition.state';
 export class LinkState {
   @observable public title: string;
   @observable private metadata: ILinkMeta;
-  @observable private visible: boolean;
   private panel: PanelState;
   @observable private visibleCondition: ConditionState;
 
   constructor(metadata: ILinkMeta, panel: PanelState) {
     reaction(() => this.metadata, (meta) => {
-      this.init();
-    }, {name: 'link metadata changed'});
+      if (meta) {
+        this.init();
+      }
+    }, {name: 'link metadata changed', fireImmediately: true});
     runInAction(() => {
       this.panel = panel;
       this.metadata = metadata;
@@ -30,19 +31,18 @@ export class LinkState {
     });
   }
 
-  @action
   init() {
-    this.visible = this.metadata.visible === false;
+    console.log('link meta changed:' + this.metadata ? this.metadata : 'null');
   }
 
   @computed get isVisible() {
-    if (this.visible) {
-      return true;
+    if (this.metadata.hidden === true) {
+      return false;
     }
     if (this.visibleCondition) {
       return this.visibleCondition.Value;
     }
-    return false;
+    return true;
   }
 
 }

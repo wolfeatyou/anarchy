@@ -100,9 +100,13 @@ describe('Panel tests', () => {
     console.log('test completed');
   });
 
-  it('Check conditions three levels', async () => {
-    const testData = new PanelsVisiblityTestData();
-    testData.init();
+  it('Check visibility flow', async () => {
+    const test = new PanelsVisiblityTestData();
+    test.init();
+
+    await when(() => test.appState.activePanel != null);
+    await when(() => test.appState.activePanel.selectedTab != null);
+    await when(() => test.appState.activePanel.selectedTabChangeCounter === 2);
 
 
     console.log('test completed');
