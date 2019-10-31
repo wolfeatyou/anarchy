@@ -113,17 +113,15 @@ describe('Panel tests', () => {
 
     expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
     expect(test.appState.activePanel.selectedTab.LinkedPanel.metadata.code).toBe('officers');
-    expect(test.appState.activePanel.selectedTab.LinkedPanel.Visible).toBe(true);
-    expect(test.appState.activePanel.tabs.length).toBe(2);
-    expect(test.appState.activePanel.tabs[1].LinkedPanel).toBeDefined()
-    expect(test.appState.activePanel.tabs[1].metadata.code).toBe('roles')
-    expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(false)
+    expect(test.appState.activePanel.tabs[0].LinkedPanel.Visible).toBe(true);
+    expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(false);
 
-    test.appState.activePanel.setSelectedTab('roles')
+    console.log('test: set roles as selected tab');
+    test.appState.activePanel.setSelectedTab('roles');
     await when(() => test.appState.activePanel.tabs[1].LinkedPanel.Visible === true);
 
-    expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(true)
-    expect(test.appState.activePanel.tabs[0].LinkedPanel.Visible).toBe(false)
+    expect(test.appState.activePanel.tabs[0].LinkedPanel.Visible).toBe(false);
+    expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(true);
 
 
     console.log('test completed');

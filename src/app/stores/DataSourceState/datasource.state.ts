@@ -1,7 +1,8 @@
-import {observable, action, runInAction} from 'mobx';
+import {observable, action, runInAction, computed, reaction} from 'mobx';
 import {ApplicationState} from '../application.state';
 import {DataSourceBuilder, DataSourceRelation} from './datasource.builder';
 import {IDataSourceMeta} from '../../meta/DataSourceMeta';
+import {PanelState} from '../panel.state';
 
 
 export class DataSourceState {
@@ -13,7 +14,10 @@ export class DataSourceState {
   @observable status: DataSourceStatus;
   relations: DataSourceRelation[];
 
-  constructor(metadata: IDataSourceMeta, private applicationState: ApplicationState) {
+  constructor(metadata: IDataSourceMeta, private panel: PanelState, private applicationState: ApplicationState) {
+    reaction(() => this.Visible, (visibility: boolean) => {
+      console.log(`ds '${metadata.code}' is visible: ` + visibility);
+    }, {fireImmediately: true});
     runInAction(() => {
       this.code = metadata.code;
       this.applicationState.dataSources[metadata.code] = this;
@@ -64,6 +68,10 @@ export class DataSourceState {
       this.reloadCounter++;
       console.log('action async: data reloaded for ' + this.code + ', count:' + this.reloadCounter);
     });
+  }
+
+  @computed get Visible() {
+    return this.panel.Visible;
   }
 
 }

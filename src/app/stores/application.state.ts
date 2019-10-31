@@ -7,7 +7,7 @@ import {MetadataResolver} from './matadata.resolver';
 
 @Injectable()
 export class ApplicationState {
-  activePanel;
+  activePanel: PanelState;
   dataSources: any;
   public metadataResolver: MetadataResolver;
 

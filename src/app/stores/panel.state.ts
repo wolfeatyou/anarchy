@@ -13,6 +13,7 @@ import {ILinkMeta} from '../meta/LinkMeta';
 
 export class PanelState {
   @observable title: string;
+  public code: string;
   dataSources: DataSourceState[];
   conditions: ConditionState[];
   placeholderPanels: PanelState[];
@@ -21,6 +22,7 @@ export class PanelState {
   @observable selectedTab: LinkState;
   @observable links: LinkState[];
   @observable tabs: LinkState[];
+  private;
   @observable metadata: IPanelMeta;
 
 
@@ -40,6 +42,7 @@ export class PanelState {
       this.dataSources = [];
       this.selectedTab = null;
       this.metadata = metadata;
+      this.code = metadata.code;
     });
   }
 
@@ -47,7 +50,7 @@ export class PanelState {
     if (this.metadata.dataSources) {
       this.dataSources = [];
       this.metadata.dataSources.forEach((dsMeta: IDataSourceMeta) => {
-        this.dataSources.push(new DataSourceState(dsMeta, this.appState));
+        this.dataSources.push(new DataSourceState(dsMeta, this, this.appState));
       });
     }
     if (this.metadata.conditions) {
@@ -79,7 +82,7 @@ export class PanelState {
   }
 
   @action
-  setSelectedTab(code: boolean) {
+  setSelectedTab(code: string) {
     const tab = this.tabs.find((t: any) => t.code === code);
     if (tab == null) {
       throw new Error(`Tab with code '${code}' not finded`);
@@ -125,17 +128,10 @@ export class PanelState {
 
   @computed get Visible() {
     if (this.parentPanel == null) {
-      console.log('no parent visible:' + this.isActive);
       return this.isActive;
     }
-    console.log('visible:');
     console.log(this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code);
     return this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code;
-  }
-
-  @action
-  addDataSource(d: DataSourceState) {
-    this.dataSources.push(d);
   }
 
 }
