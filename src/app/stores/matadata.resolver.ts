@@ -22,8 +22,10 @@ export class MetadataResolver {
     return new MetaDataParser().getPanelMeta(panelMeta);
   }
 
-  addMetadataPackage(packageCode: string, meta: any ){
+  addMetadataPackage(packageCode: string, meta: any) {
+    Object.keys(meta).forEach(key => meta[key].package = packageCode);
     this.packages[packageCode] = meta;
+
   }
 
 }

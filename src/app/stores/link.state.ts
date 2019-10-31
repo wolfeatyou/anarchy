@@ -9,12 +9,15 @@ import {ConditionState} from './condition.state';
 import {MetadataResolver} from './matadata.resolver';
 
 export class LinkState {
+  public code: string;
   @observable public title: string;
-  @observable private metadata: ILinkMeta;
+  @observable public metadata: ILinkMeta;
   private panel: PanelState;
+  private linkedPanel: PanelState;
   @observable private visibleCondition: ConditionState;
 
   constructor(metadata: ILinkMeta, panel: PanelState) {
+    this.code = metadata.code;
     reaction(() => this.metadata, (meta) => {
       if (meta) {
         this.init();
@@ -36,16 +39,17 @@ export class LinkState {
     console.log('link meta changed:' + this.metadata ? this.metadata : 'null');
   }
 
-  @computed get LinkedPanel(): any {
-    if (this.metadata.linkedPanelCode) {
-      const panelMeta = this.panel.appState.metadataResolver.resolvePanel(this.metadata.linkedPanelCode,
-        this.metadata.linkedPanelCode ? this.metadata.linkedPanelCode : this.panel.metadata.package);
-      return new PanelState(panelMeta, this.panel.appState);
+  get LinkedPanel(): PanelState {
+    if (this.metadata.linkedPanelCode && this.linkedPanel == null) {
+      const panelMeta = this.panel.appState.metadataResolver.resolvePanel(this.metadata.linkedPanelPackageCode ?
+        this.metadata.linkedPanelPackageCode : this.panel.metadata.package, this.metadata.linkedPanelCode);
+
+      this.linkedPanel = new PanelState(panelMeta, this.panel, this.panel.appState);
     }
-    return null;
+    return this.linkedPanel;
   }
 
-  @computed get isVisible() {
+  @computed get Visible() {
     if (this.metadata.hidden === true) {
       return false;
     }

@@ -35,13 +35,13 @@ describe('Panel tests', () => {
 
     await test.dataSource1.reload();
     console.log('test: data reloaded');
-    await TestUtils.waitForCondition(() => !test.panel1.links[0].isVisible);
+    await TestUtils.waitForCondition(() => !test.panel1.links[0].Visible);
 
     test.dataSource1.setSelectedIndex(2);
-    await TestUtils.waitForCondition(() => test.panel1.links[0].isVisible);
+    await TestUtils.waitForCondition(() => test.panel1.links[0].Visible);
 
     test.dataSource1.setSelectedIndex(4);
-    await TestUtils.waitForCondition(() => !test.panel1.links[0].isVisible);
+    await TestUtils.waitForCondition(() => !test.panel1.links[0].Visible);
 
     expect(test.dataSource1.reloadCounter).toBe(1);
 
@@ -58,7 +58,7 @@ describe('Panel tests', () => {
     await test.dataSource1.reload();
     console.log('test: data reloaded');
     await TestUtils.waitForRefresh(test.dataSource2);
-    await TestUtils.waitForCondition(() => !test.panel2.links[0].isVisible);
+    await TestUtils.waitForCondition(() => !test.panel2.links[0].Visible);
 
     console.log('test: set selected index 2');
     test.dataSource1.setSelectedIndex(2);
@@ -66,7 +66,7 @@ describe('Panel tests', () => {
 
     console.log('test: set selected index 3');
     test.dataSource2.setSelectedIndex(3);
-    await TestUtils.waitForCondition(() => test.panel2.links[0].isVisible);
+    await TestUtils.waitForCondition(() => test.panel2.links[0].Visible);
 
     expect(test.dataSource1.reloadCounter).toBe(1);
     expect(test.dataSource2.reloadCounter).toBe(2);
@@ -81,7 +81,7 @@ describe('Panel tests', () => {
     await test.dataSource1.reload();
     console.log('test: data reloaded');
     await TestUtils.waitForRefresh(test.dataSource3);
-    await TestUtils.waitForCondition(() => !test.panel3.links[0].isVisible);
+    await TestUtils.waitForCondition(() => !test.panel3.links[0].Visible);
 
     console.log('test: set selected index 2');
     test.dataSource1.setSelectedIndex(2);
@@ -90,7 +90,7 @@ describe('Panel tests', () => {
     console.log('test: set selected index 3');
     test.dataSource2.setSelectedIndex(3);
     await TestUtils.waitForRefresh(test.dataSource3);
-    await TestUtils.waitForCondition(() => test.panel3.links[0].isVisible);
+    await TestUtils.waitForCondition(() => test.panel3.links[0].Visible);
 
     expect(test.dataSource1.reloadCounter).toBe(1);
     expect(test.dataSource2.reloadCounter).toBe(2);
@@ -107,6 +107,23 @@ describe('Panel tests', () => {
     await when(() => test.appState.activePanel != null);
     await when(() => test.appState.activePanel.selectedTab != null);
     await when(() => test.appState.activePanel.selectedTabChangeCounter === 2);
+
+    await when(() => test.appState.activePanel.selectedTab.LinkedPanel.Visible === true);
+
+
+    expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
+    expect(test.appState.activePanel.selectedTab.LinkedPanel.metadata.code).toBe('officers');
+    expect(test.appState.activePanel.selectedTab.LinkedPanel.Visible).toBe(true);
+    expect(test.appState.activePanel.tabs.length).toBe(2);
+    expect(test.appState.activePanel.tabs[1].LinkedPanel).toBeDefined()
+    expect(test.appState.activePanel.tabs[1].metadata.code).toBe('roles')
+    expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(false)
+
+    test.appState.activePanel.setSelectedTab('roles')
+    await when(() => test.appState.activePanel.tabs[1].LinkedPanel.Visible === true);
+
+    expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(true)
+    expect(test.appState.activePanel.tabs[0].LinkedPanel.Visible).toBe(false)
 
 
     console.log('test completed');

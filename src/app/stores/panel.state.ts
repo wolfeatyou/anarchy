@@ -16,15 +16,15 @@ export class PanelState {
   dataSources: DataSourceState[];
   conditions: ConditionState[];
   placeholderPanels: PanelState[];
-  tabPanels: PanelState[];
   selectedTabChangeCounter: number;
+  @observable isActive: boolean;
   @observable selectedTab: LinkState;
   @observable links: LinkState[];
   @observable tabs: LinkState[];
   @observable metadata: IPanelMeta;
 
 
-  constructor(metadata: IPanelMeta, public appState: ApplicationState) {
+  constructor(metadata: IPanelMeta, private parentPanel: PanelState, public appState: ApplicationState) {
     reaction(() => this.metadata, (meta) => {
       if (meta) {
         console.log('reaction: metadata changed for panel ' + meta.code);
@@ -37,7 +37,6 @@ export class PanelState {
     runInAction(() => {
       this.selectedTabChangeCounter = 0;
       this.placeholderPanels = [];
-      this.tabPanels = [];
       this.dataSources = [];
       this.selectedTab = null;
       this.metadata = metadata;
@@ -68,10 +67,24 @@ export class PanelState {
       this.tabs = [];
       this.metadata.tabs.forEach((linkMeta: ILinkMeta) => {
         const tab = new LinkState(linkMeta, this);
-        console.log('tab is vis:' + tab.isVisible);
+        console.log('tab is vis:' + tab.Visible);
         this.tabs.push(tab);
       });
     }
+  }
+
+  @action
+  setActive(value: boolean) {
+    this.isActive = value;
+  }
+
+  @action
+  setSelectedTab(code: boolean) {
+    const tab = this.tabs.find((t: any) => t.code === code);
+    if (tab == null) {
+      throw new Error(`Tab with code '${code}' not finded`);
+    }
+    this.selectedTab = tab;
   }
 
   @action.bound
@@ -102,12 +115,22 @@ export class PanelState {
   }
 
 
-  @computed get Links() {
-    return this.tabs.filter(t => t.isVisible);
+  @computed get Links(): LinkState[] {
+    return this.tabs.filter(t => t.Visible);
   }
 
-  @computed get Tabs() {
-    return this.tabs ? this.tabs.filter(t => t.isVisible) : [];
+  @computed get Tabs(): LinkState[] {
+    return this.tabs ? this.tabs.filter(t => t.Visible) : [];
+  }
+
+  @computed get Visible() {
+    if (this.parentPanel == null) {
+      console.log('no parent visible:' + this.isActive);
+      return this.isActive;
+    }
+    console.log('visible:');
+    console.log(this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code);
+    return this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code;
   }
 
   @action

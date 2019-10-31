@@ -23,8 +23,12 @@ export class ApplicationState {
 
   @action
   setActivePanel(packageCode: string, panelCode: string) {
-    const panel = new PanelState(this.metadataResolver.resolvePanel(packageCode, panelCode), this);
+    if (this.activePanel) {
+      this.activePanel.setActive(false);
+    }
+    const panel = new PanelState(this.metadataResolver.resolvePanel(packageCode, panelCode), null, this);
     this.activePanel = panel;
+    this.activePanel.setActive(true);
   }
 
   public getDataSourceById(id: string): DataSourceState {
