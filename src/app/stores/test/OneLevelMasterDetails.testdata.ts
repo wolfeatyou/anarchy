@@ -12,9 +12,10 @@ export class OneLevelMaterDetailsTestData {
   constructor() {
     this.appState = new ApplicationState();
 
-    this.dataSource1 = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.ds1Meta), this.appState);
-    this.dataSource2 = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.ds2Meta), this.appState);
-    this.dataSourceRelated = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.dsRelatedMeta), this.appState);
+
+    this.dataSource1 = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.ds1Meta), null, this.appState);
+    this.dataSource2 = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.ds2Meta), null,  this.appState);
+    this.dataSourceRelated = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.dsRelatedMeta), null,  this.appState);
   }
 
 

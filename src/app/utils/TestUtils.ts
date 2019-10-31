@@ -2,18 +2,22 @@ import {DataSourceState, DataSourceStatus} from '../stores/DataSourceState/datas
 import {when} from 'mobx';
 
 export class TestUtils {
-  static async waitForRefresh(state: DataSourceState) {
-    console.log('test: wait for refresh');
-    await when(() => {
-      return state.status === DataSourceStatus.MustRefresh;
-    });
-    await when(() => {
-      return state.status === DataSourceStatus.Loaded;
-    });
+  static async waitForRefresh(state: DataSourceState, untilCounter: number = 100) {
+    if (state.reloadCounter < untilCounter) {
+      console.log('test: wait for refresh');
+      if(state.status === DataSourceStatus.Loaded) {
+        await when(() => {
+          return state.status === DataSourceStatus.MustRefresh;
+        });
+      }
+      await when(() => {
+        return state.status === DataSourceStatus.Loaded;
+      });
+    }
   }
 
   static async waitForCondition(predicate: () => boolean) {
-    console.log('test: wait for refresh');
+    console.log('test: wait for condition:' + predicate);
     await when(predicate);
   }
 
@@ -23,7 +27,7 @@ export class TestUtils {
       {
         timeout: 550
       }).catch(() => {
-        throwed = true;
+      throwed = true;
     });
     return throwed;
   }

@@ -33,8 +33,7 @@ describe('Panel tests', () => {
     const test = new OneLevelMaterDetailsTestDataPanel();
     expect(test.panel1).toBeDefined();
 
-    await test.dataSource1.reload();
-    console.log('test: data reloaded');
+    await TestUtils.waitForRefresh(test.dataSource1, 1);
     await TestUtils.waitForCondition(() => !test.panel1.links[0].Visible);
 
     test.dataSource1.setSelectedIndex(2);
@@ -54,8 +53,7 @@ describe('Panel tests', () => {
     const test = new TwoLevelMaterDetailsTestDataPanel();
     expect(test.panel1).toBeDefined();
     console.log('test: object constructed');
-
-    await test.dataSource1.reload();
+    await TestUtils.waitForRefresh(test.dataSource1, 1);
     console.log('test: data reloaded');
     await TestUtils.waitForRefresh(test.dataSource2);
     await TestUtils.waitForCondition(() => !test.panel2.links[0].Visible);
@@ -78,7 +76,7 @@ describe('Panel tests', () => {
   it('Check conditions three levels', async () => {
     const test = new TreeLevelMaterDetailsTestDataPanel();
 
-    await test.dataSource1.reload();
+    await TestUtils.waitForRefresh(test.dataSource1, 1);
     console.log('test: data reloaded');
     await TestUtils.waitForRefresh(test.dataSource3);
     await TestUtils.waitForCondition(() => !test.panel3.links[0].Visible);
@@ -100,7 +98,7 @@ describe('Panel tests', () => {
     console.log('test completed');
   });
 
-  fit('Check visibility flow', async () => {
+  it('Check visibility flow', async () => {
     const test = new PanelsVisiblityTestData();
     test.init();
 
@@ -109,8 +107,6 @@ describe('Panel tests', () => {
     await when(() => test.appState.activePanel.selectedTabChangeCounter === 2);
 
     await when(() => test.appState.activePanel.selectedTab.LinkedPanel.Visible === true);
-
-
     expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
     expect(test.appState.activePanel.selectedTab.LinkedPanel.metadata.code).toBe('officers');
     expect(test.appState.activePanel.tabs[0].LinkedPanel.Visible).toBe(true);
@@ -122,8 +118,31 @@ describe('Panel tests', () => {
 
     expect(test.appState.activePanel.tabs[0].LinkedPanel.Visible).toBe(false);
     expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(true);
+    console.log('test completed');
+  });
 
 
+  it('Check ds reload flow based on visibility', async () => {
+    const test = new PanelsVisiblityTestData();
+    test.init();
+    expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
+    await TestUtils.waitForCondition(() => test.appState.dataSources['officerGroupsDs'] != null);
+    await TestUtils.waitForCondition(() => test.appState.dataSources['officersDs'] != null);
+    const officerGroupsDs = test.appState.getDataSourceById('officerGroupsDs');
+    const officersDs = test.appState.getDataSourceById('officersDs');
+    await TestUtils.waitForRefresh(officerGroupsDs, 1);
+    await TestUtils.waitForRefresh(officersDs, 1);
+
+    console.log('test: set roles as selected tab');
+
+    test.appState.activePanel.setSelectedTab('roles');
+    expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
+    await TestUtils.waitForCondition(() => test.appState.dataSources['rolesDs'] != null);
+    const rolesDs = test.appState.getDataSourceById('rolesDs');
+    await TestUtils.waitForRefresh(rolesDs, 1);
+    expect(officerGroupsDs.reloadCounter).toBe(1);
+    expect(officersDs.reloadCounter).toBe(1);
+    expect(rolesDs.reloadCounter).toBe(1);
     console.log('test completed');
   });
 

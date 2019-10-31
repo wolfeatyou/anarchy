@@ -13,8 +13,9 @@ export class TreeLevelMaterDetailsTestDataPanel extends TwoLevelMaterDetailsTest
 
   constructor() {
     super();
-    this.panel3 = new PanelState(new MetaDataParser().getPanelMeta(this.panel3Meta), this.appState);
+    this.panel3 = new PanelState(new MetaDataParser().getPanelMeta(this.panel3Meta), null, this.appState);
     this.dataSource3 = this.appState.getDataSourceById('ds3');
+    this.panel3.setActive(true);
   }
 
   panel3Meta: any = {

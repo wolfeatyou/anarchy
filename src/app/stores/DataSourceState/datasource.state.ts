@@ -15,8 +15,17 @@ export class DataSourceState {
   relations: DataSourceRelation[];
 
   constructor(metadata: IDataSourceMeta, private panel: PanelState, private applicationState: ApplicationState) {
-    reaction(() => this.Visible, (visibility: boolean) => {
+    reaction(() => this.Visible, async (visibility: boolean) => {
       console.log(`ds '${metadata.code}' is visible: ` + visibility);
+      if (visibility) {
+        const notReloadedDs = this.relations.find((r: DataSourceRelation) => {
+          const ds = applicationState.getDataSourceById(r.dataSourceId);
+          return ds.status === DataSourceStatus.MustRefresh;
+        });
+        if (notReloadedDs == null) {
+          await this.reload();
+        }
+      }
     }, {fireImmediately: true});
     runInAction(() => {
       this.code = metadata.code;
@@ -57,21 +66,23 @@ export class DataSourceState {
 
   }
 
-  @action('Reload data source')
+  @action.bound
   async reload() {
     this.status = DataSourceStatus.MustRefresh;
-    const d = await this.reloadAsync();
-    runInAction(() => {
-      this.status = DataSourceStatus.Loaded;
-      this.data = d as any[];
-      this.selectedDataItem = d[0];
-      this.reloadCounter++;
-      console.log('action async: data reloaded for ' + this.code + ', count:' + this.reloadCounter);
-    });
+    if (this.Visible) {
+      const d = await this.reloadAsync();
+      runInAction(() => {
+        this.status = DataSourceStatus.Loaded;
+        this.data = d as any[];
+        this.selectedDataItem = d[0];
+        this.reloadCounter++;
+        console.log('action async: data reloaded for ' + this.code + ', count:' + this.reloadCounter);
+      });
+    }
   }
 
   @computed get Visible() {
-    return this.panel.Visible;
+    return this.panel ? this.panel.Visible : true;
   }
 
 }

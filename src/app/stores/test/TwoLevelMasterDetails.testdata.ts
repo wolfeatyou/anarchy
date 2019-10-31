@@ -12,8 +12,9 @@ export class TwoLevelMaterDetailsTestDataPanel extends OneLevelMaterDetailsTestD
 
   constructor() {
     super();
-    this.panel2 = new PanelState(new MetaDataParser().getPanelMeta(this.panel2Meta), this.appState);
+    this.panel2 = new PanelState(new MetaDataParser().getPanelMeta(this.panel2Meta), null, this.appState);
     this.dataSource2 = this.appState.getDataSourceById('ds2');
+    this.panel2.setActive(true);
   }
 
   panel2Meta: any = {
