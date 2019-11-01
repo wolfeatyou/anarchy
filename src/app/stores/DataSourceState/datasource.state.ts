@@ -15,6 +15,22 @@ export class DataSourceState {
   relations: DataSourceRelation[];
 
   constructor(metadata: IDataSourceMeta, private panel: PanelState, private applicationState: ApplicationState) {
+    runInAction(() => {
+      this.code = metadata.code;
+      this.applicationState.dataSources[metadata.code] = this;
+      this.reloadCounter = 0;
+      console.log(`ds '${metadata.code}' set metadata`);
+      this.metadata = metadata;
+      this.status = DataSourceStatus.MustRefresh;
+      this.data = [];
+      const relations = DataSourceBuilder.getRelatedDataSources(metadata);
+      DataSourceBuilder.initRelatedDataSourceReactions(relations, applicationState, async () => {
+        await this.reload();
+      }, `(dataSource ${this.code})`);
+      console.log(`ds '${metadata.code}' set relations`);
+      this.relations = relations;
+    });
+
     reaction(() => this.Visible, async (visibility: boolean) => {
       console.log(`ds '${metadata.code}' is visible: ` + visibility);
       if (visibility) {
@@ -27,19 +43,6 @@ export class DataSourceState {
         }
       }
     }, {fireImmediately: true});
-    runInAction(() => {
-      this.code = metadata.code;
-      this.applicationState.dataSources[metadata.code] = this;
-      this.reloadCounter = 0;
-      this.metadata = metadata;
-      this.status = DataSourceStatus.MustRefresh;
-      this.data = [];
-      const relations = DataSourceBuilder.getRelatedDataSources(metadata);
-      DataSourceBuilder.initRelatedDataSourceReactions(relations, applicationState, async () => {
-        await this.reload();
-      }, `(dataSource ${this.code})`);
-      this.relations = relations;
-    });
   }
 
   @action
@@ -68,14 +71,17 @@ export class DataSourceState {
 
   @action.bound
   async reload() {
-    this.status = DataSourceStatus.MustRefresh;
+    runInAction(() => {
+      console.log('set must refresh for ' + this.code)
+      this.status = DataSourceStatus.MustRefresh;
+    });
     if (this.Visible) {
       const d = await this.reloadAsync();
       runInAction(() => {
-        this.status = DataSourceStatus.Loaded;
         this.data = d as any[];
         this.selectedDataItem = d[0];
         this.reloadCounter++;
+        this.status = DataSourceStatus.Loaded;
         console.log('action async: data reloaded for ' + this.code + ', count:' + this.reloadCounter);
       });
     }

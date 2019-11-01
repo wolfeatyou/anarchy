@@ -126,8 +126,8 @@ describe('Panel tests', () => {
     const test = new PanelsVisiblityTestData();
     test.init();
     expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
-    await TestUtils.waitForCondition(() => test.appState.dataSources['officerGroupsDs'] != null);
-    await TestUtils.waitForCondition(() => test.appState.dataSources['officersDs'] != null);
+    await TestUtils.waitForCondition(() => test.appState.dataSources.officerGroupsDs != null);
+    await TestUtils.waitForCondition(() => test.appState.dataSources.officersDs != null);
     const officerGroupsDs = test.appState.getDataSourceById('officerGroupsDs');
     const officersDs = test.appState.getDataSourceById('officersDs');
     await TestUtils.waitForRefresh(officerGroupsDs, 1);
@@ -137,7 +137,7 @@ describe('Panel tests', () => {
 
     test.appState.activePanel.setSelectedTab('roles');
     expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
-    await TestUtils.waitForCondition(() => test.appState.dataSources['rolesDs'] != null);
+    await TestUtils.waitForCondition(() => test.appState.dataSources.rolesDs != null);
     const rolesDs = test.appState.getDataSourceById('rolesDs');
     await TestUtils.waitForRefresh(rolesDs, 1);
     expect(officerGroupsDs.reloadCounter).toBe(1);

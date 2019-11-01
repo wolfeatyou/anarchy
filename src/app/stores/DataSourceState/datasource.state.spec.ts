@@ -32,17 +32,18 @@ describe('Data Source test', () => {
   it('One Level DataSources test', async () => {
 
     const test = new OneLevelMaterDetailsTestData();
-    await test.dataSource1.reload();
 
-    await TestUtils.waitForRefresh(test.dataSourceRelated);
+
+    await TestUtils.waitForRefresh(test.dataSourceRelated, 1);
     expect(test.dataSourceRelated.reloadCounter).toBe(1);
 
-    await test.dataSource2.reload();
-    await TestUtils.waitForRefresh(test.dataSourceRelated);
+
+    await TestUtils.waitForRefresh(test.dataSourceRelated, 2);
     expect(test.dataSourceRelated.reloadCounter).toBe(2);
 
+
     test.dataSource1.setSelectedIndex(1);
-    await TestUtils.waitForRefresh(test.dataSourceRelated);
+    await TestUtils.waitForRefresh(test.dataSourceRelated, 3);
     expect(test.dataSourceRelated.reloadCounter).toBe(3);
 
     runInAction(() => {
