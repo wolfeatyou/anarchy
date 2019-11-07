@@ -21,47 +21,29 @@ export class PanelsVisiblityTestData {
 
 
   testPackage: any = {
-    officersAndGrantsPage: {
+    officersAndGrantsPanel: {
       display: 'page',
-      props: {
-        title: 'Officers & Grants'
-      },
-      toolbar: {
-        items: []
-      },
-      sectionsTemplate:
-        'master details details' +
-        'master details details',
-      sectionsDetails: [
+      title: 'Officers & Grants',
+      sections: [
         {
           code: 'master',
-          linkedPanelCode: 'officerGroupsList',
+          linkedPanelCode: 'officerGroupsList'
         },
         {
           code: 'details',
-          linkedPanelCode: 'officerGroupDetails',
+          linkedPanelCode: 'officerGroupDetails'
         }
-      ]
+      ],
+      sectionsTemplate:
+        'master details details' +
+        'master details details'
     }
 
     ,
     officerGroupsList: {
       code: 'officerGroupsList',
       display: 'list',
-      sharedProperties:
-        [
-          {
-            title: 'Officer Groups'
-          }
-        ]
-      ,
-      links: [
-        {
-          code: 'Details',
-          linkedPanelCode: 'officerGroupDetails',
-          linkedPanelSection: 'details'
-        }
-      ]
+      title: 'Officer Groups'
     },
 
     officerGroupDetails: {
@@ -84,18 +66,13 @@ export class PanelsVisiblityTestData {
           {
             code: 'officersTab',
             linkedPanelCode: 'officers'
+          },
+          {
+            code: 'roles',
+            linkedPanelCode: 'roles'
           }
-          , {
-          code: 'roles'
-          ,
-          linkedPanelCode: 'roles'
-        }
-
         ]
-
-    }
-
-    ,
+    },
 
     roles: {
       code: 'roles',
@@ -112,9 +89,7 @@ export class PanelsVisiblityTestData {
           }
         ],
       tabs: []
-    }
-
-    ,
+    },
 
     officers: {
       code: 'officers',
