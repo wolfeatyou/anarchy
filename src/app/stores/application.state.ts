@@ -9,10 +9,12 @@ import {MetadataResolver} from './matadata.resolver';
 export class ApplicationState {
   activePanel: PanelState;
   dataSources: any;
+  panels: any;
   public metadataResolver: MetadataResolver;
 
   constructor() {
     this.dataSources = {};
+    this.panels = {};
     this.metadataResolver = new MetadataResolver();
   }
 
@@ -37,6 +39,14 @@ export class ApplicationState {
       throw new Error('Cant find DataSource with code ' + id);
     }
     return ds;
+  }
+
+  public getPanelById(id: string): PanelState {
+    const p = this.panels[id];
+    if (!p) {
+      throw new Error('Cant find panel with code ' + id);
+    }
+    return p;
   }
 
 }

@@ -13,17 +13,19 @@ export class PanelsVisiblityTestData {
 
   init() {
     this.appState = new ApplicationState();
-    this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
-    this.appState.setActivePanel('test', 'officerGroupDetails');
+    //this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
+    //this.appState.setActivePanel('test', 'officerGroupDetails');
+    //officersAndGrantsPanel
 
+    this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
+    this.appState.setActivePanel('test', 'officersAndGrantsPanel');
 
   }
 
 
   testPackage: any = {
     officersAndGrantsPanel: {
-      display: 'page',
-      title: 'Officers & Grants',
+      code: 'page1',
       sections: [
         {
           code: 'master',
@@ -41,9 +43,7 @@ export class PanelsVisiblityTestData {
 
     ,
     officerGroupsList: {
-      code: 'officerGroupsList',
-      display: 'list',
-      title: 'Officer Groups'
+      code: 'officerGroupsList'
     },
 
     officerGroupDetails: {

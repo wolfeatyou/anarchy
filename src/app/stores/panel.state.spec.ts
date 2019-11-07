@@ -98,26 +98,32 @@ describe('Panel tests', () => {
     console.log('test completed');
   });
 
-  it('Check visibility flow', async () => {
+  fit('Check visibility flow', async () => {
     const test = new PanelsVisiblityTestData();
     test.init();
 
-    await when(() => test.appState.activePanel != null);
-    await when(() => test.appState.activePanel.selectedTab != null);
-    await when(() => test.appState.activePanel.selectedTabChangeCounter === 2);
+    console.log('test: wait officerGroupDetails');
+    await when(() => test.appState.panels.officerGroupDetails != null);
+    const p = test.appState.getPanelById('officerGroupDetails');
 
-    await when(() => test.appState.activePanel.selectedTab.LinkedPanel.Visible === true);
-    expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
-    expect(test.appState.activePanel.selectedTab.LinkedPanel.metadata.code).toBe('officers');
-    expect(test.appState.activePanel.tabs[0].LinkedPanel.Visible).toBe(true);
-    expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(false);
+    console.log('test: wait active panel');
+    await when(() => test.appState.activePanel != null);
+    await when(() => p.selectedTab != null);
+    //await when(() => p.selectedTabChangeCounter === 2);
+
+    console.log('test: wait selected tab');
+    await when(() => p.selectedTab.LinkedPanel.Visible === true);
+    expect(p.selectedTab.LinkedPanel).toBeDefined();
+    expect(p.selectedTab.LinkedPanel.metadata.code).toBe('officers');
+    expect(p.tabs[0].LinkedPanel.Visible).toBe(true);
+    expect(p.tabs[1].LinkedPanel.Visible).toBe(false);
 
     console.log('test: set roles as selected tab');
-    test.appState.activePanel.setSelectedTab('roles');
-    await when(() => test.appState.activePanel.tabs[1].LinkedPanel.Visible === true);
+    p.setSelectedTab('roles');
+    await when(() => p.tabs[1].LinkedPanel.Visible === true);
 
-    expect(test.appState.activePanel.tabs[0].LinkedPanel.Visible).toBe(false);
-    expect(test.appState.activePanel.tabs[1].LinkedPanel.Visible).toBe(true);
+    expect(p.tabs[0].LinkedPanel.Visible).toBe(false);
+    expect(p.tabs[1].LinkedPanel.Visible).toBe(true);
     console.log('test completed');
   });
 

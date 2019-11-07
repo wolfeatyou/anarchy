@@ -22,11 +22,13 @@ export class PanelState {
   @observable selectedTab: LinkState;
   @observable links: LinkState[];
   @observable tabs: LinkState[];
+  sections: LinkState[];
   private;
   @observable metadata: IPanelMeta;
 
 
   constructor(metadata: IPanelMeta, private parentPanel: PanelState, public appState: ApplicationState) {
+
     reaction(() => this.metadata, (meta) => {
       if (meta) {
         console.log('reaction: metadata changed for panel ' + meta.code);
@@ -43,6 +45,7 @@ export class PanelState {
       this.selectedTab = null;
       this.metadata = metadata;
       this.code = metadata.code;
+      this.appState.panels[metadata.code] = this;
     });
   }
 
@@ -72,6 +75,14 @@ export class PanelState {
         const tab = new LinkState(linkMeta, this);
         console.log('tab is vis:' + tab.Visible);
         this.tabs.push(tab);
+      });
+    }
+    if (this.metadata.sections) {
+      this.sections = [];
+      this.metadata.sections.forEach((linkMeta: ILinkMeta) => {
+        const tab = new LinkState(linkMeta, this);
+        console.log('section is vis:' + tab.Visible);
+        this.sections.push(tab);
       });
     }
   }
@@ -131,9 +142,16 @@ export class PanelState {
       return this.isActive;
     }
     console.log(this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code);
-    return this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code;
+    return this.parentPanel.Visible && (this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code ||
+      this.parentPanel.hasCodeInSection(this.metadata.code));
   }
 
+  hasCodeInSection(code: string) {
+    if (this.metadata.sections) {
+      return this.metadata.sections.find((p: ILinkMeta) => p.linkedPanelCode === this.metadata.code);
+    }
+    return false;
+  }
 }
 
 

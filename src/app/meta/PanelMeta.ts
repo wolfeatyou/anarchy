@@ -25,6 +25,14 @@ export class IPanelMeta {
   tabs: ILinkMeta[];
   @IsArray()
   @Type(() => ILinkMeta)
+  @ValidateNested()
+  @IsOptional()
+  sections: ILinkMeta[];
+  @IsOptional()
+  @IsString()
+  sectionsTemplate: string;
+  @IsArray()
+  @Type(() => ILinkMeta)
   @IsOptional()
   @ValidateNested()
   links: ILinkMeta[];
