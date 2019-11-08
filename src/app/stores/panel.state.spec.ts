@@ -163,7 +163,7 @@ describe('Panel tests', () => {
   });
 
 
-  fit('Check tabs inside section visiblitity', async () => {
+  it('Check tabs inside section visiblitity', async () => {
     const test = new PanelsVisiblityTestData();
     test.init('officersAndGrantsPanel');
 
