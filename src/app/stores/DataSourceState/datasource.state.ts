@@ -9,7 +9,7 @@ export class DataSourceState {
   public code: string;
   @observable reloadCounter: number;
   private metadata: IDataSourceMeta;
-  data: any[];
+  @observable data: any[];
   @observable selectedDataItem: any;
   @observable status: DataSourceStatus;
   relations: DataSourceRelation[];

@@ -1,0 +1,6 @@
+app list {{dataSource?.code}}
+<div *mobxAutorun>
+  <div *ngFor="let item of getItems()">
+    item: {{JSON.stringify(item)}}
+  </div>
+</div>

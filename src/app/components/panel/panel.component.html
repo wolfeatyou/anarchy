@@ -1,36 +1,27 @@
 <div class="panel">
-  <div class="bar title">panel '{{this._panelState.code}}' works!</div>
-  <div class="content-scroll sections" *ngIf="_panelState.sections || _panelState.tabs == null">
+  <div class="bar title">panel '{{this._panelState?.code}}' works!</div>
+  <div class="content-scroll sections" *ngIf="_panelState?.sections || _panelState?.tabs">
     <div class="content">
-      <div class="section" *ngFor="let sectionLink of _panelState.sections">
+      <div class="section" *ngFor="let sectionLink of _panelState?.sections">
         <app-panel [panelState]="sectionLink.LinkedPanel">
         </app-panel>
       </div>
-      <div class="section" *ngIf="!_panelState.sections">
+      <div class="section" *ngIf="!_panelState?.sections">
         <div class="test-content">
-
-          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
-          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
-          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
-          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
-          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
-
-
+          <app-list [dataSourceState]="_panelState?.DataSource"></app-list>
         </div>
-
-
       </div>
     </div>
   </div>
-  <div class="bar tabs" *ngIf="_panelState.tabs">
+  <div class="bar tabs" *ngIf="_panelState?.tabs">
     <div *ngFor="let tabLink of _panelState.tabs">
       <div class="bar-item">tab {{tabLink.code}}</div>
     </div>
   </div>
-  <div class="content-scroll selected-tab" *ngIf="_panelState.tabs">
+  <div class="content-scroll selected-tab" *ngIf="_panelState?.selectedTab">
     <div class="content">
       <div class="section">
-        <app-panel [panelState]="_panelState.selectedTab"></app-panel>
+        <app-panel [panelState]="_panelState.selectedTab?.LinkedPanel"></app-panel>
       </div>
     </div>
   </div>

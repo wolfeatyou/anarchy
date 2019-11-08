@@ -130,6 +130,12 @@ export class PanelState {
 
   }
 
+  @computed get DataSource(): DataSourceState {
+    if (!this.dataSources) {
+      return null;
+    }
+    return this.dataSources[0];
+  }
 
   @computed get Links(): LinkState[] {
     return this.tabs.filter(t => t.Visible);
