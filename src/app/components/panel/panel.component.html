@@ -1,13 +1,42 @@
-<p>panel '{{this._panelState.code}}' works!</p>
-<div *ngFor="let sectionLink of _panelState.sections">
-  <div>section {{sectionLink.code}}</div>
-  <app-panel [panelState]="sectionLink.LinkedPanel">
-  </app-panel>
+<div class="panel">
+  <div class="bar title">panel '{{this._panelState.code}}' works!</div>
+  <div class="content-scroll sections" *ngIf="_panelState.sections || _panelState.tabs == null">
+    <div class="content">
+      <div class="section" *ngFor="let sectionLink of _panelState.sections">
+        <app-panel [panelState]="sectionLink.LinkedPanel">
+        </app-panel>
+      </div>
+      <div class="section" *ngIf="!_panelState.sections">
+        <div class="test-content">
+
+          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+          sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="bar tabs" *ngIf="_panelState.tabs">
+    <div *ngFor="let tabLink of _panelState.tabs">
+      <div class="bar-item">tab {{tabLink.code}}</div>
+    </div>
+  </div>
+  <div class="content-scroll selected-tab" *ngIf="_panelState.tabs">
+    <div class="content">
+      <div class="section">
+        <app-panel [panelState]="_panelState.selectedTab"></app-panel>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div *ngFor="let tabLink of _panelState.tabs">
-  <div>tab {{tabLink.code}}</div>
-</div>
-<app-panel *ngIf="_panelState.selectedTab" [panelState]="_panelState.selectedTab">
-</app-panel>
+
+
+
 

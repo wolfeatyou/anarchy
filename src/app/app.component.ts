@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {ApplicationState} from './stores/application.state';
 import {PanelsVisiblityTestData} from './stores/test/PanelsVisiblityTest.testdata';
 import {PanelState} from './stores/panel.state';
@@ -6,7 +6,8 @@ import {PanelState} from './stores/panel.state';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  styleUrls: ['./app.component.less'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
   title = 'anarchy2';

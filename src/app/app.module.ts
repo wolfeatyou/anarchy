@@ -6,11 +6,13 @@ import { MobxAngularModule } from 'mobx-angular';
 import { AppComponent } from './app.component';
 import {ApplicationState} from './stores/application.state';
 import { PanelComponent } from './components/panel/panel.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PanelComponent
+    PanelComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
