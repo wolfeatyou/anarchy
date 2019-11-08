@@ -98,12 +98,13 @@ describe('Panel tests', () => {
     console.log('test completed');
   });
 
-  fit('Check visibility flow', async () => {
+  it('Check visibility flow', async () => {
     const test = new PanelsVisiblityTestData();
-    test.init();
+    test.init('officerGroupDetails');
 
     console.log('test: wait officerGroupDetails');
     await when(() => test.appState.panels.officerGroupDetails != null);
+    console.log('officerGroupDetails ready');
     const p = test.appState.getPanelById('officerGroupDetails');
 
     console.log('test: wait active panel');
@@ -130,7 +131,7 @@ describe('Panel tests', () => {
 
   it('Check ds reload flow based on visibility', async () => {
     const test = new PanelsVisiblityTestData();
-    test.init();
+    test.init('officerGroupDetails');
     expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
     await TestUtils.waitForCondition(() => test.appState.dataSources.officerGroupsDs != null);
     await TestUtils.waitForCondition(() => test.appState.dataSources.officersDs != null);
@@ -143,6 +144,51 @@ describe('Panel tests', () => {
 
     test.appState.activePanel.setSelectedTab('roles');
     expect(test.appState.activePanel.selectedTab.LinkedPanel).toBeDefined();
+    await TestUtils.waitForCondition(() => test.appState.dataSources.rolesDs != null);
+    const rolesDs = test.appState.getDataSourceById('rolesDs');
+    await TestUtils.waitForRefresh(rolesDs, 1);
+    expect(officerGroupsDs.reloadCounter).toBe(1);
+    expect(officersDs.reloadCounter).toBe(1);
+    expect(rolesDs.reloadCounter).toBe(1);
+    console.log('test completed');
+  });
+
+  it('Check section visiblitity', async () => {
+    const test = new PanelsVisiblityTestData();
+    test.init('officersAndGrantsPanel');
+    await when(() => test.appState.panels.officerGroupDetails != null);
+    const p = test.appState.getPanelById('officerGroupDetails');
+    console.log('test: set roles as selected tab');
+
+  });
+
+
+  fit('Check tabs inside section visiblitity', async () => {
+    const test = new PanelsVisiblityTestData();
+    test.init('officersAndGrantsPanel');
+
+    console.log('test: wait officerGroupDetails');
+    await when(() => test.appState.panels.officersAndGrantsPanel != null);
+    console.log('officerGroupDetails ready');
+    const p = test.appState.getPanelById('officersAndGrantsPanel');
+    expect(p.sections[0].LinkedPanel).toBeDefined();
+    expect(p.sections[1].LinkedPanel).toBeDefined();
+
+    const tabPanel = test.appState.getPanelById('officerGroupDetails');
+    expect(p.Visible).toBeTruthy();
+    expect(tabPanel.Visible).toBeTruthy();
+    expect(tabPanel.selectedTab.LinkedPanel).toBeDefined();
+    await TestUtils.waitForCondition(() => test.appState.dataSources.officerGroupsDs != null);
+    await TestUtils.waitForCondition(() => test.appState.dataSources.officersDs != null);
+    const officerGroupsDs = test.appState.getDataSourceById('officerGroupsDs');
+    const officersDs = test.appState.getDataSourceById('officersDs');
+    await TestUtils.waitForRefresh(officerGroupsDs, 1);
+    await TestUtils.waitForRefresh(officersDs, 1);
+
+    console.log('test: set roles as selected tab');
+
+    tabPanel.setSelectedTab('roles');
+    expect(tabPanel.selectedTab.LinkedPanel).toBeDefined();
     await TestUtils.waitForCondition(() => test.appState.dataSources.rolesDs != null);
     const rolesDs = test.appState.getDataSourceById('rolesDs');
     await TestUtils.waitForRefresh(rolesDs, 1);

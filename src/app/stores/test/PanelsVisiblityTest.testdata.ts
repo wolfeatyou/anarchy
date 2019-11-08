@@ -11,21 +11,21 @@ export class PanelsVisiblityTestData {
 
   }
 
-  init() {
+  init(panelCode: string) {
     this.appState = new ApplicationState();
     //this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
     //this.appState.setActivePanel('test', 'officerGroupDetails');
     //officersAndGrantsPanel
 
     this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
-    this.appState.setActivePanel('test', 'officersAndGrantsPanel');
+    this.appState.setActivePanel('test', panelCode);
 
   }
 
 
   testPackage: any = {
     officersAndGrantsPanel: {
-      code: 'page1',
+      code: 'officersAndGrantsPanel',
       sections: [
         {
           code: 'master',

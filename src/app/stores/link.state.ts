@@ -28,7 +28,6 @@ export class LinkState {
       this.metadata = metadata;
       if (this.metadata.visibleCondition) {
         this.visibleCondition = this.panel.conditions.find((c: ConditionState) => c.code === this.metadata.visibleCondition);
-        let lp = this.LinkedPanel;
         if (!this.visibleCondition) {
           throw Error('Condition not found ' + this.metadata.visibleCondition);
         }

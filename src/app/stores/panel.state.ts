@@ -81,6 +81,8 @@ export class PanelState {
       this.sections = [];
       this.metadata.sections.forEach((linkMeta: ILinkMeta) => {
         const tab = new LinkState(linkMeta, this);
+        //init link panel asap
+        let lp = tab.LinkedPanel;
         console.log('section is vis:' + tab.Visible);
         this.sections.push(tab);
       });
@@ -141,14 +143,21 @@ export class PanelState {
     if (this.parentPanel == null) {
       return this.isActive;
     }
-    console.log(this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code);
-    return this.parentPanel.Visible && (this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code ||
-      this.parentPanel.hasCodeInSection(this.metadata.code));
+    let result: boolean;
+    if (this.parentPanel.Visible) {
+      if (this.parentPanel.selectedTab) {
+        result = this.parentPanel.selectedTab.metadata.linkedPanelCode === this.metadata.code;
+      }
+      if (!result) {
+        result = this.parentPanel.hasCodeInSection(this.metadata.code);
+      }
+    }
+    return result;
   }
 
-  hasCodeInSection(code: string) {
+  hasCodeInSection(code: string): boolean {
     if (this.metadata.sections) {
-      return this.metadata.sections.find((p: ILinkMeta) => p.linkedPanelCode === this.metadata.code);
+      return this.metadata.sections.find((p: ILinkMeta) => p.linkedPanelCode === code) != null;
     }
     return false;
   }

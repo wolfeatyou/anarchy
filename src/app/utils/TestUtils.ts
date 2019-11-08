@@ -10,14 +10,14 @@ export class TestUtils {
     });*/
 
     if (state.reloadCounter < untilCounter) {
-      //console.log('test: wait for refresh ' + untilCounter + 'rel count:' + state.reloadCounter);
+      console.log('test: wait for refresh ' + untilCounter + 'rel count:' + state.reloadCounter);
       if (state.status === DataSourceStatus.Loaded) {
-        //console.log('test: wait ' + DataSourceStatus.MustRefresh);
+        console.log('test: wait ' + DataSourceStatus.MustRefresh);
         await when(() => {
           return state.status === DataSourceStatus.MustRefresh || state.reloadCounter >= untilCounter;
         });
       }
-      //console.log('test: wait ' + DataSourceStatus.Loaded);
+      console.log('test: wait ' + DataSourceStatus.Loaded);
       await when(() => {
         return state.status === DataSourceStatus.Loaded;
       });
@@ -28,6 +28,7 @@ export class TestUtils {
   static async waitForCondition(predicate: () => boolean) {
     console.log('test: wait for condition:' + predicate);
     await when(predicate);
+    console.log('test:ok');
   }
 
   static async checkIsNot(predicate: () => boolean): Promise<boolean> {

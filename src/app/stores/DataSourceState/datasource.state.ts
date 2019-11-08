@@ -34,6 +34,7 @@ export class DataSourceState {
     reaction(() => this.Visible, async (visibility: boolean) => {
       console.log(`ds '${metadata.code}' is visible: ` + visibility);
       if (visibility) {
+        this.status = DataSourceStatus.MustRefresh;
         const notReloadedDs = this.relations.find((r: DataSourceRelation) => {
           const ds = applicationState.getDataSourceById(r.dataSourceId);
           return ds.status === DataSourceStatus.MustRefresh;
