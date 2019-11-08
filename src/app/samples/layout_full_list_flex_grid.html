@@ -1,0 +1,271 @@
+<html>
+<head>
+  <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+  <style>
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    div {
+      box-sizing: border-box;
+    }
+
+    .tab {
+      border: 1px solid gray;
+      display: flex;
+      flex-flow: column;
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      min-width: 200px;
+    }
+
+    .tab2 > div,
+    .tab > div {
+      border: 1px solid gray;
+      box-sizing: border-box;
+      padding: 8px;
+    }
+
+    .header {
+      grid-area: header;
+
+    }
+
+    .toolbar {
+      grid-area: toolbar;
+
+    }
+
+    .content.list {
+      overflow: hidden;
+    }
+
+    .content {
+      overflow: auto;
+      min-width: 200px;
+      border: 1px solid red;
+      flex: 1;
+    }
+
+    .panel {
+      display: grid;
+    }
+    .panels {
+      display: grid;
+      overflow: hidden;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      grid-template-areas: "tab1 tab2 tab2"
+                           "tab1 tab3 tab3"
+    }
+
+
+
+    .t1 {
+      grid-area: tab1;
+      resize: horizontal;
+      min-width: 200px;
+
+    }
+
+    .t2 {
+      grid-area: tab2;
+      resize: vertical;
+    }
+
+    .t3 {
+      grid-area: tab3;
+      grid-template-rows: 40px 36px auto 36px;
+      grid-template-areas: "header r" "toolbar r" "content r" "bottom r";
+
+    }
+
+    .myForm {
+      display: grid;
+      grid-template-columns: [labels] auto [controls] 1fr;
+      grid-auto-flow: row;
+      grid-gap: .8em;
+      background: beige;
+      padding: 1.2em;
+    }
+
+    .myForm > label {
+      grid-column: labels;
+      grid-row: auto;
+    }
+
+    .myForm > input,
+    .myForm > textarea {
+      grid-column: controls;
+      grid-row: auto;
+    }
+
+    .bottom {
+      grid-area: bottom;
+    }
+
+    .columns {
+      column-width: 100px;
+      overflow: auto;
+      max-height: 100%;
+    }
+
+    label {
+      max-width: 300px;
+    }
+    .content.scroll {
+      overflow-y:auto;
+      display: block;
+
+    }
+
+    .content.scroll > .tab{
+      height: 1100px;
+      grid-template-rows: 1fr;
+      grid-template-areas:  "content";
+
+    }
+
+    .content.scroll > .tab .content{
+      padding: 0px;
+    }
+
+    .content.scroll .content{
+
+    }
+
+
+  </style>
+
+</head>
+
+
+<body>
+<div class="tab">
+  <div class="header">header</div>
+  <div class="toolbar">toolbar</div>
+  <div class="content scroll">
+    <div class="tab">
+      <div class="content panels">
+        <div class="tab t1">
+          <div class="header">header1</div>
+          <div class="toolbar">toolbar1</div>
+          <div class="content list">
+            <div id="myGrid" style="height: 100%; width:100%; " class="ag-theme-balham"></div>
+          </div>
+        </div>
+        <div class="tab t2">
+          <div class="header">header2</div>
+          <div class="toolbar">toolbar2</div>
+          <div class="content ">
+            <div class="columns">
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+              sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>sdsds<br/>
+            </div>
+
+          </div>
+        </div>
+        <div class="tab t3">
+          <div class="header">header</div>
+          <div class="toolbar">toolbar</div>
+          <div class="content panel">
+            <form class="myForm">
+              <label for="customer_name">Name </label>
+              <input type="text" name="customer_name" id="customer_name" required>
+              <label for="email_address">Email very bug very big very big Email very bug very big very big Email very
+                bug very big very big </label><input type="email" name="email_address" id="email_address">
+              <label for="email_address">Email </label><input type="email" name="email_address" id="email_address">
+              <label for="email_address">Email </label><input type="email" name="email_address" id="email_address">
+              <label for="email_address">Email </label><input type="email" name="email_address" id="email_address">
+              <label for="email_address">Email </label><input type="email" name="email_address" id="email_address">
+              <label for="email_address">Email </label><input type="email" name="email_address" id="email_address">
+              <label for="email_address">Email </label><input type="email" name="email_address" id="email_address">
+              <input type="email" name="email_address" id="email_address">
+              <label for="comments">Comments</label>
+              <textarea name="comments" id="comments" maxlength="500"></textarea>
+            </form>
+          </div>
+          <div class="bottom">bottom</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" charset="utf-8">
+    // specify the columns
+    var columnDefs = [
+      {headerName: "Make", field: "make"},
+      {headerName: "Model", field: "model"},
+      {headerName: "Price", field: "price"}
+    ];
+
+    // specify the data
+    var rowData = [
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000},
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000},
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000},
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000},
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000},
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000},
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000},
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000},
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000}
+
+
+    ];
+
+    // let the grid know which columns and what data to use
+    var gridOptions = {
+      columnDefs: columnDefs,
+      rowData: rowData,
+      paginationAutoPageSize: true,
+      pagination: true,
+    };
+
+    // lookup the container we want the Grid to use
+    var eGridDiv = document.querySelector('#myGrid');
+
+    // create the grid passing in the div to use together with the columns & data we want to use
+    new agGrid.Grid(eGridDiv, gridOptions);
+
+  </script>
+
+</body>
+</html>
