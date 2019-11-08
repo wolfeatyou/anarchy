@@ -1,0 +1,13 @@
+<p>panel '{{this._panelState.code}}' works!</p>
+<div *ngFor="let sectionLink of _panelState.sections">
+  <div>section {{sectionLink.code}}</div>
+  <app-panel [panelState]="sectionLink.LinkedPanel">
+  </app-panel>
+</div>
+
+<div *ngFor="let tabLink of _panelState.tabs">
+  <div>tab {{tabLink.code}}</div>
+</div>
+<app-panel *ngIf="_panelState.selectedTab" [panelState]="_panelState.selectedTab">
+</app-panel>
+

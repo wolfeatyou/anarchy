@@ -17,7 +17,7 @@ export class AppComponent {
       const test = new PanelsVisiblityTestData();
       test.init('officersAndGrantsPanel');
       this.appState = test.appState;
-    }, 500);
+    }, 250);
   }
 
   get ActivePanel() {
