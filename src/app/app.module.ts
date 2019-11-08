@@ -5,10 +5,12 @@ import {configure} from 'mobx';
 import { MobxAngularModule } from 'mobx-angular';
 import { AppComponent } from './app.component';
 import {ApplicationState} from './stores/application.state';
+import { PanelComponent } from './components/panel/panel.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PanelComponent
   ],
   imports: [
     BrowserModule,
