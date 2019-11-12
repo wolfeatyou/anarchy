@@ -23,19 +23,26 @@ export class PanelsVisiblityTestDataNew {
   testPackage: any = {
     officersAndGrantsPanel: {
       code: 'officersAndGrantsPanel',
-      sections: [
+      parts: [
         {
-          code: 'master',
-          linkedPanelCode: 'officerGroupsList'
+          type: 'layout',
+          layout:
+            'master details details' +
+            'master details details',
+          items: [
+            {
+              code: 'master',
+              type: 'placeholder',
+              linkedPanelCode: 'officerGroupsList'
+            },
+            {
+              code: 'master',
+              type: 'placeholder',
+              linkedPanelCode: 'officerGroupDetails'
+            }
+          ]
         },
-        {
-          code: 'details',
-          linkedPanelCode: 'officerGroupDetails'
-        }
       ],
-      sectionsTemplate:
-        'master details details' +
-        'master details details'
     }
 
     ,
@@ -52,23 +59,45 @@ export class PanelsVisiblityTestDataNew {
               }
             ]
           }
-        ]
+        ],
+      parts: [
+        {
+          type: 'toolbar'
+        },
+        {
+          type: 'list'
+        }
+      ]
     },
 
     officerGroupDetails: {
       code: 'officerGroupDetails',
-      tabs:
-        [
-          {
-            code: 'officersTab',
-            linkedPanelCode: 'officers'
-          },
-          {
-            code: 'roles',
-            linkedPanelCode: 'roles'
-          }
-        ]
+      parts: [
+        {
+          type: 'toolbar',
+          items: [
+            {
+              code: 'officersTab',
+              type: 'link',
+              targetPlaceholder: 'tabsPlaceholder',
+              linkedPanelCode: 'officers'
+            },
+            {
+              code: 'roles',
+              type: 'link',
+              targetPlaceholder: 'tabsPlaceholder',
+              linkedPanelCode: 'roles'
+            }
+          ]
+        },
+        {
+          code: 'tabsPlaceholder',
+          type: 'placeholder'
+        }
+      ]
+
     },
+
 
     roles: {
       code: 'roles',
@@ -85,7 +114,8 @@ export class PanelsVisiblityTestDataNew {
           }
         ],
       tabs: []
-    },
+    }
+    ,
 
     officers: {
       code: 'officers',
