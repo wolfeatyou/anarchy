@@ -21,21 +21,40 @@ export class PanelsVisiblityTestDataNew {
 
 
   testPackage: any = {
+
     officersAndGrantsPanel: {
       code: 'officersAndGrantsPanel',
-      sections: [
+      parts: [
         {
-          code: 'master',
-          linkedPanelCode: 'officerGroupsList'
+          type: 'header',
+          reference: 'pageToolbar1',
+          items: [
+            {
+              type: 'link'
+            }
+          ]
         },
         {
-          code: 'details',
-          linkedPanelCode: 'officerGroupDetails'
+          type: 'breadcrumbs',
+          reference: 'pageToolbar1'
+        },
+        {
+          type: 'layout',
+          items: [
+            {
+              code: 'master',
+              reference: 'officerGroupsList'
+            },
+            {
+              code: 'details',
+              referencedPartCode: 'officerGroupDetails'
+            }
+          ],
+          layout:
+            `master details details
+             master details details`
         }
-      ],
-      sectionsTemplate:
-        'master details details' +
-        'master details details'
+      ]
     }
 
     ,
@@ -52,26 +71,77 @@ export class PanelsVisiblityTestDataNew {
               }
             ]
           }
-        ]
+        ],
+      parts: [
+        {
+          type: 'header',
+          items: [
+            {
+              type: 'link'
+            },
+            {
+              type: 'field'
+            }
+          ]
+        },
+        {
+          type: 'list',
+          dataSourceCode: 'officerGroupsDs',
+          fields: [
+            {
+              code: 'title',
+              dataField: ''
+            }
+          ]
+        }
+      ]
     },
 
     officerGroupDetails: {
       code: 'officerGroupDetails',
-      tabs:
+      display: 'panel',
+      parts:
         [
           {
-            code: 'officersTab',
-            linkedPanelCode: 'officers'
+            type: 'header',
+            items: [
+              {
+                type: 'title'
+              },
+              {
+                type: 'action'
+              }
+            ]
           },
           {
-            code: 'roles',
-            linkedPanelCode: 'roles'
+            type: 'form',
+            fields: [
+              {
+                code: 'title'
+              }
+            ]
+          },
+          {
+            type: 'tabs',
+            items: [
+              {
+                code: 'officersTab',
+                type: 'reference',
+                linkedPanelCode: 'officers'
+              },
+              {
+                code: 'roles',
+                type: 'reference',
+                linkedPanelCode: 'roles'
+              }
+            ]
           }
         ]
     },
 
     roles: {
       code: 'roles',
+      display: 'list',
       dataSources:
         [
           {
