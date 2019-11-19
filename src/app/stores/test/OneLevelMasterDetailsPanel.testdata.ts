@@ -2,6 +2,7 @@ import {ApplicationState} from '../application.state';
 import {DataSourceState} from '../DataSourceState/datasource.state';
 import {MetaDataParser} from '../../meta/parser/MetaDataParser';
 import {PanelState} from '../panel.state';
+import {RouteState} from '../route.state';
 
 
 export class OneLevelMaterDetailsTestDataPanel {
@@ -11,7 +12,7 @@ export class OneLevelMaterDetailsTestDataPanel {
 
 
   constructor() {
-    this.appState = new ApplicationState();
+    this.appState = new ApplicationState(new RouteState(null));
     this.panel1 = new PanelState(new MetaDataParser().getPanelMeta(this.panel1Meta), null, this.appState);
     this.dataSource1 = this.appState.getDataSourceById('ds1');
     this.panel1.setActive(true);

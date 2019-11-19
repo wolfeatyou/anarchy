@@ -2,6 +2,7 @@ import {ApplicationState} from '../application.state';
 import {DataSourceState} from '../DataSourceState/datasource.state';
 import {MetaDataParser} from '../../meta/parser/MetaDataParser';
 import {PanelState} from '../panel.state';
+import {RouteState} from '../route.state';
 
 
 export class PanelsVisiblityTestData {
@@ -12,7 +13,7 @@ export class PanelsVisiblityTestData {
   }
 
   init(panelCode: string) {
-    this.appState = new ApplicationState(null);
+    this.appState = new ApplicationState(new RouteState(null));
     //this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
     //this.appState.setActivePanel('test', 'officerGroupDetails');
     //officersAndGrantsPanel

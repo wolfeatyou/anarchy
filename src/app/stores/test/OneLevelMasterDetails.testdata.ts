@@ -1,6 +1,7 @@
 import {ApplicationState} from '../application.state';
 import {DataSourceState} from '../DataSourceState/datasource.state';
 import {MetaDataParser} from '../../meta/parser/MetaDataParser';
+import {RouteState} from '../route.state';
 
 
 export class OneLevelMaterDetailsTestData {
@@ -10,12 +11,13 @@ export class OneLevelMaterDetailsTestData {
   dataSourceRelated: DataSourceState;
 
   constructor() {
-    this.appState = new ApplicationState();
+    this.appState = new ApplicationState(new RouteState(null));
 
 
     this.dataSource1 = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.ds1Meta), null, this.appState);
     this.dataSource2 = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.ds2Meta), null,  this.appState);
     this.dataSourceRelated = new DataSourceState(new MetaDataParser().getDataSourceMeta(this.dsRelatedMeta), null,  this.appState);
+
   }
 
 

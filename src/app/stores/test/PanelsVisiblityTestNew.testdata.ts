@@ -3,14 +3,15 @@ import {DataSourceState} from '../DataSourceState/datasource.state';
 import {MetaDataParser} from '../../meta/parser/MetaDataParser';
 import {PanelState} from '../panel.state';
 import {Router} from '@angular/router';
+import {RouteState} from '../route.state';
 
 
 export class PanelsVisiblityTestDataNew {
   appState: ApplicationState;
 
   constructor() {
-    this.appState = new ApplicationState();
-    this.appState.metadataResolver.addMetadataPackage('test', testPackage);
+    this.appState = new ApplicationState(new RouteState(null));
+    this.appState.metadataResolver.addMetadataPackage('test', PanelsVisiblityTestDataNew.testPackage);
   }
 
   init(panelCode: string) {

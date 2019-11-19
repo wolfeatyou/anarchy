@@ -1,5 +1,5 @@
 import {observable, computed, action, reaction} from 'mobx';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {PanelState} from './panel.state';
 import {DataSourceState} from './DataSourceState/datasource.state';
 import {MetadataResolver} from './matadata.resolver';
@@ -18,7 +18,7 @@ export class ApplicationState {
 
   public metadataResolver: MetadataResolver;
 
-  constructor(private routeState: RouteState) {
+  constructor(@Inject(RouteState)  private routeState: RouteState) {
     this.dataSources = {};
     this.panels = {};
     this.metadataResolver = new MetadataResolver();
