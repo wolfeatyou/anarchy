@@ -111,6 +111,7 @@ export class PanelState {
   }
 
 
+
   @action.bound
   tabsCountChanged(tabs: LinkState[]) {
     console.log('tabs count changed:' + tabs.length);
