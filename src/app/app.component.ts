@@ -1,7 +1,8 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, Injectable, ViewEncapsulation} from '@angular/core';
 import {ApplicationState} from './stores/application.state';
 import {PanelsVisiblityTestDataNew} from './stores/test/PanelsVisiblityTestNew.testdata';
 import {PanelState} from './stores/panel.state';
+import {NavigationEnd, NavigationError, NavigationStart, PRIMARY_OUTLET, Router, UrlSegmentGroup} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,13 @@ export class AppComponent {
 
   constructor(private appState: ApplicationState) {
 
-    setTimeout(() => {
-      const test = new PanelsVisiblityTestDataNew();
-      test.init('officersAndGrantsPanel');
-      this.appState = test.appState;
-    }, 250);
+    //const test = new PanelsVisiblityTestDataNew();
+
+    /*    setTimeout(() => {
+          const test = new PanelsVisiblityTestDataNew();
+          test.init('officersAndGrantsPanel');
+          this.appState = test.appState;
+        }, 250);*/
   }
 
   get ActivePanel() {

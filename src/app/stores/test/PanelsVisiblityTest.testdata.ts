@@ -12,7 +12,7 @@ export class PanelsVisiblityTestData {
   }
 
   init(panelCode: string) {
-    this.appState = new ApplicationState();
+    this.appState = new ApplicationState(null);
     //this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
     //this.appState.setActivePanel('test', 'officerGroupDetails');
     //officersAndGrantsPanel

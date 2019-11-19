@@ -2,25 +2,24 @@ import {ApplicationState} from '../application.state';
 import {DataSourceState} from '../DataSourceState/datasource.state';
 import {MetaDataParser} from '../../meta/parser/MetaDataParser';
 import {PanelState} from '../panel.state';
+import {Router} from '@angular/router';
 
 
 export class PanelsVisiblityTestDataNew {
   appState: ApplicationState;
 
   constructor() {
-
+    this.appState = new ApplicationState();
+    this.appState.metadataResolver.addMetadataPackage('test', testPackage);
   }
 
   init(panelCode: string) {
-    this.appState = new ApplicationState();
-
-    this.appState.metadataResolver.addMetadataPackage('test', this.testPackage);
     this.appState.setActivePanel('test', panelCode);
 
   }
 
 
-  testPackage: any = {
+  public static testPackage: any = {
     officersAndGrantsPanel: {
       code: 'officersAndGrantsPanel',
       sections: [
