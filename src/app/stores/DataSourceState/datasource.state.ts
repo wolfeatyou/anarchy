@@ -57,12 +57,24 @@ export class DataSourceState {
   }
 
   @action
+  setSelectedItem(item: any) {
+    this.setSelectedIndex(this.data.indexOf(item));
+  }
+
+  @action
   reloadAsync() {
+    var relStr = '';
+    this.relations.forEach((current: DataSourceRelation) => {
+      const dataItem = this.applicationState.getDataSourceById(current.dataSourceId).selectedDataItem;
+      if (dataItem) {
+        relStr = relStr + dataItem.id;
+      }
+    });
     return new Promise((resolve) => {
       setTimeout(() => {
         const d: any [] = [];
-        for (let i = 0; i < 5; i++) {
-          d.push({title: this.code + '_' + i, desc: 'some data', id: i});
+        for (let i = 0; i < 50; i++) {
+          d.push({title: this.code + '_' + i + '---' + relStr, desc: 'some data', id: i});
         }
         resolve(d);
       }, 1);
@@ -73,7 +85,7 @@ export class DataSourceState {
   @action.bound
   async reload() {
     runInAction(() => {
-      console.log('set must refresh for ' + this.code)
+      console.log('set must refresh for ' + this.code);
       this.status = DataSourceStatus.MustRefresh;
     });
     if (this.Visible) {

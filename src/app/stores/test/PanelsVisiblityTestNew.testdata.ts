@@ -96,7 +96,16 @@ export class PanelsVisiblityTestDataNew {
             operations: [
               {
                 code: 'readOfficers',
-                type: 'read'
+                type: 'read',
+                parameters: [
+                  {
+                    code: 'param1',
+                    source: {
+                      dataSourceId: 'officerGroupsDs',
+                      dataItemProperty: 'id'
+                    }
+                  }
+                ]
               }
             ]
           }

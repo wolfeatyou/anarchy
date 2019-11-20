@@ -24,6 +24,10 @@ export class ListComponent implements OnInit {
     return this.dataSource ? this.dataSource.data : null;
   }
 
+  selectRow(item: any) {
+    this.dataSource.setSelectedItem(item);
+  }
+
   ngOnInit() {
   }
 
