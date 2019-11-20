@@ -7,7 +7,6 @@ import {NavigationStart, PRIMARY_OUTLET, Router} from '@angular/router';
 import {PanelsVisiblityTestDataNew} from './test/PanelsVisiblityTestNew.testdata';
 import {RouteState} from './route.state';
 
-
 @Injectable()
 export class ApplicationState {
   activePanel: PanelState;
@@ -18,7 +17,7 @@ export class ApplicationState {
 
   public metadataResolver: MetadataResolver;
 
-  constructor(@Inject(RouteState)  private routeState: RouteState) {
+  constructor(@Inject(RouteState) private routeState: RouteState) {
     this.dataSources = {};
     this.panels = {};
     this.metadataResolver = new MetadataResolver();

@@ -10,8 +10,9 @@ import {MetaDataParser} from '../meta/parser/MetaDataParser';
 import {ApplicationState} from './application.state';
 import {IConditionMeta} from '../meta/ConditionMeta';
 import {ILinkMeta} from '../meta/LinkMeta';
+import {IAppControl, IAppControlTypes} from './IAppControl.interface';
 
-export class PanelState {
+export class PanelState implements IAppControl {
   @observable title: string;
   public code: string;
   dataSources: DataSourceState[];
@@ -23,7 +24,6 @@ export class PanelState {
   @observable links: LinkState[];
   @observable tabs: LinkState[];
   sections: LinkState[];
-  private;
   @observable metadata: IPanelMeta;
 
 
@@ -167,6 +167,10 @@ export class PanelState {
       return this.metadata.sections.find((p: ILinkMeta) => p.linkedPanelCode === code) != null;
     }
     return false;
+  }
+
+  getType(): string {
+    return IAppControlTypes.panel;
   }
 }
 

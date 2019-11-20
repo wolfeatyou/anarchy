@@ -9,6 +9,7 @@ import { PanelComponent } from './components/panel/panel.component';
 import { ListComponent } from './components/list/list.component';
 import {Router, RouterModule, Routes} from '@angular/router';
 import {RouteState} from './stores/route.state';
+import { DynamicComponent } from './components/dynamic/dynamic.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     PanelComponent,
-    ListComponent
+    ListComponent,
+    DynamicComponent
   ],
   imports: [
     BrowserModule,
