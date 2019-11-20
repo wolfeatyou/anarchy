@@ -1,12 +1,21 @@
 <div class="panel">
   <div class="bar title">panel '{{this._panelState?.code}}' works!</div>
-  <div class="content-scroll sections" *ngIf="_panelState?.sections || _panelState?.tabs">
+  <div class="content-scroll sections" *ngIf="_panelState?.sections">
     <div class="content">
       <div class="section" *ngFor="let sectionLink of _panelState?.sections">
         <app-panel [panelState]="sectionLink.LinkedPanel">
         </app-panel>
       </div>
-      <div class="section" *ngIf="!_panelState?.sections">
+      <div class="section" *ngIf="!_panelState?.sections ">
+        <div class="test-content">
+          <app-list [dataSourceState]="_panelState?.DataSource"></app-list>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-scroll sections" *ngIf="!_panelState?.sections && !_panelState?.tabs">
+    <div class="content">
+      <div class="section" >
         <div class="test-content">
           <app-list [dataSourceState]="_panelState?.DataSource"></app-list>
         </div>
