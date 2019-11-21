@@ -108,6 +108,8 @@ export class PanelState implements IAppControl {
     this.selectedTabChangeCounter++;
     console.log('selected tab changed: ' + this.selectedTabChangeCounter);
     //let it be empty
+    //change url
+
   }
 
 

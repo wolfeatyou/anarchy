@@ -24,7 +24,7 @@
   </div>
   <div class="bar tabs" *ngIf="_panelState?.tabs">
     <div *ngFor="let tabLink of _panelState.tabs">
-      <div class="bar-item">tab {{tabLink.code}}</div>
+      <div class="bar-item link"  [class.selected]="tabLink.code == this._panelState?.selectedTab?.code" (click)="selectTab(tabLink)">{{tabLink.code}}</div>
     </div>
   </div>
   <div class="content-scroll selected-tab" *ngIf="_panelState?.selectedTab">

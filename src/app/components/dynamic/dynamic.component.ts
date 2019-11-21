@@ -10,7 +10,7 @@ import {IAppControl} from '../../stores/IAppControl.interface';
 })
 export class DynamicComponent implements OnInit {
 
-  @ViewChild('template') template;
+  @ViewChild('template', null) template;
 
   _state: IAppControl;
 

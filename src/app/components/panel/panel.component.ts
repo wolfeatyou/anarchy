@@ -9,7 +9,7 @@ import {PanelState} from '../../stores/panel.state';
 export class PanelComponent implements OnInit {
 
   // tslint:disable-next-line:variable-name
-   private _panelState: PanelState;
+  private _panelState: PanelState;
 
   constructor() {
   }
@@ -17,6 +17,10 @@ export class PanelComponent implements OnInit {
   @Input()
   set panelState(panel: PanelState) {
     this._panelState = panel;
+  }
+
+  selectTab(tab: any) {
+    this._panelState.setSelectedTab(tab.code);
   }
 
   ngOnInit(): void {
