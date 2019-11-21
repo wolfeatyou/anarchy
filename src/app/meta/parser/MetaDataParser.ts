@@ -1,6 +1,6 @@
 import {IDataSourceMeta} from '../DataSourceMeta';
 import {validateSync} from 'class-validator';
-import {plainToClass} from 'class-transformer';
+import {ClassTransformOptions, plainToClass} from 'class-transformer';
 import {IOperationMeta} from '../OperationMeta';
 import {IPanelMeta} from '../PanelMeta';
 import {IConditionMeta} from '../ConditionMeta';

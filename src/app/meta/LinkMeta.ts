@@ -1,7 +1,8 @@
-import {IsBoolean, IsDefined, IsOptional, IsString} from 'class-validator';
-import {observable} from 'mobx';
+import {IsBoolean, IsOptional, IsString} from 'class-validator';
+import {IPartMeta} from './PartMeta';
 
-export class ILinkMeta {
+export class ILinkMeta extends IPartMeta {
+  @IsOptional()
   @IsString()
   code: string;
 
@@ -11,11 +12,15 @@ export class ILinkMeta {
 
   @IsOptional()
   @IsString()
-  linkedPanelCode: string;
+  panel: string;
 
   @IsOptional()
   @IsString()
-  linkedPanelPackageCode: string;
+  target: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isTab: string;
 
   @IsOptional()
   @IsBoolean()
@@ -24,5 +29,8 @@ export class ILinkMeta {
   @IsOptional()
   @IsString()
   visibleCondition: string;
+}
+
+export class ITabMeta extends ILinkMeta {
 
 }

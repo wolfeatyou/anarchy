@@ -23,19 +23,22 @@ export class PanelsVisiblityTestDataNew {
   public static testPackage: any = {
     officersAndGrantsPanel: {
       code: 'officersAndGrantsPanel',
-      sections: [
+      parts: [
         {
-          code: 'master',
-          linkedPanelCode: 'officerGroupsList'
+          type: 'layout',
+          layout: 'master details details',
+          items: [
+            {
+              code: 'master',
+              panel: 'officerGroupsList'
+            },
+            {
+              code: 'details',
+              panel: 'officerGroupDetails'
+            }
+          ]
         },
-        {
-          code: 'details',
-          linkedPanelCode: 'officerGroupDetails'
-        }
       ],
-      sectionsTemplate:
-        'master details details' +
-        'master details details'
     }
 
     ,
@@ -52,23 +55,45 @@ export class PanelsVisiblityTestDataNew {
               }
             ]
           }
-        ]
+        ],
+      parts: [
+        {
+          type: 'toolbar'
+        },
+        {
+          type: 'list'
+        }
+      ]
     },
 
     officerGroupDetails: {
       code: 'officerGroupDetails',
-      tabs:
-        [
-          {
-            code: 'officersTab',
-            linkedPanelCode: 'officers'
-          },
-          {
-            code: 'roles',
-            linkedPanelCode: 'roles'
-          }
-        ]
+      parts: [
+        {
+          type: 'toolbar',
+          items: [
+            {
+              code: 'officersTab',
+              type: 'link',
+              panel: 'officers',
+              target: 'tabs'
+            },
+            {
+              code: 'rolesTab',
+              type: 'link',
+              panel: 'roles',
+              target: 'tabs'
+            }
+          ]
+        },
+        {
+          code: 'tabs',
+          type: 'placeholder'
+        }
+      ]
+
     },
+
 
     roles: {
       code: 'roles',
@@ -79,21 +104,14 @@ export class PanelsVisiblityTestDataNew {
             operations: [
               {
                 code: 'readRoles',
-                type: 'read',
-                parameters: [
-                  {
-                    code: 'param1',
-                    source: {
-                      dataSourceId: 'officerGroupsDs',
-                      dataItemProperty: 'id'
-                    }
-                  }
-                ]
+                type: 'read'
               }
             ]
           }
-        ]
-    },
+        ],
+      tabs: []
+    }
+    ,
 
     officers: {
       code: 'officers',
@@ -104,20 +122,12 @@ export class PanelsVisiblityTestDataNew {
             operations: [
               {
                 code: 'readOfficers',
-                type: 'read',
-                parameters: [
-                  {
-                    code: 'param1',
-                    source: {
-                      dataSourceId: 'officerGroupsDs',
-                      dataItemProperty: 'id'
-                    }
-                  }
-                ]
+                type: 'read'
               }
             ]
           }
-        ]
+        ],
+      tabs: []
     }
   };
 

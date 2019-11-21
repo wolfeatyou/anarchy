@@ -1,4 +1,8 @@
 import {MetaDataParser} from './MetaDataParser';
+import {IBarMeta} from '../BarMeta';
+import {IPartMeta} from '../PartMeta';
+import {IPlaceHolderMeta} from '../PlaceHolderMeta';
+import {ILayoutMeta} from '../LayoutMeta';
 
 
 describe('Metadata parser tests', () => {
@@ -46,6 +50,37 @@ describe('Metadata parser tests', () => {
     parser.getDataSourceMeta(obj);
     expect(parser.lastErrors).not.toBeNull();
     expect(parser.lastErrors.length).toBe(0);
+  });
+
+  it('check is Panel parsed correctly', () => {
+    const panel = {
+      type: 'panel',
+      code: 'panel1',
+      parts: [
+        {
+          type: 'bar',
+          code: 'bar',
+          items: [{type: 'link', panel: 'some', target: 'ph1', isTab: true}]
+        },
+        {
+          type: 'placeholder',
+          code: 'ph1',
+          layout: 'master'
+        },
+        {
+          type: 'layout',
+          template: 'master details'
+        }
+      ]
+    };
+    const parser = new MetaDataParser(false);
+    const panelMeta = parser.getPanelMeta(panel);
+    expect(parser.lastErrors).not.toBeNull();
+    expect(parser.lastErrors.length).toBe(0);
+    expect(panelMeta.parts.length).toBeGreaterThan(0);
+    expect(panelMeta.parts[0] instanceof IBarMeta).toBeTruthy();
+    expect(panelMeta.parts[1] instanceof IPlaceHolderMeta).toBeTruthy();
+    expect(panelMeta.parts[2] instanceof ILayoutMeta).toBeTruthy();
   });
 
 });

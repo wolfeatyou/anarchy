@@ -1,48 +1,40 @@
-import {IsArray, IsDefined, IsOptional, IsString, Length, ValidateNested} from 'class-validator';
+import {IsArray, IsOptional, Length, ValidateNested} from 'class-validator';
 import {ILinkMeta} from './LinkMeta';
-import {IFieldMeta} from './FieldMeta';
 import {IConditionMeta} from './ConditionMeta';
 import {IDataSourceMeta} from './DataSourceMeta';
 import {Type} from 'class-transformer';
+import {IPanelPartMeta} from './PartMeta';
+import {IBarMeta} from './BarMeta';
 import {IOperationMeta} from './OperationMeta';
-import {Optional} from '@angular/core';
+import {IPlaceHolderMeta} from './PlaceHolderMeta';
+import {ILayoutMeta} from './LayoutMeta';
 
-export class IPanelMeta {
+export class IPanelMeta extends IPanelPartMeta {
   @Length(1, 500)
   code: string;
   @Length(1, 500)
   @IsOptional()
   package: string;
   @IsArray()
-  @Type(() => IFieldMeta)
+  @Type(() => IPanelPartMeta, {
+    discriminator: {
+      property: 'type',
+      subTypes: [
+        {value: IBarMeta, name: 'bar'},
+        {value: ILayoutMeta, name: 'layout'},
+        {value: IPlaceHolderMeta, name: 'placeholder'},
+      ]
+    },
+    keepDiscriminatorProperty: true,
+  })
   @ValidateNested()
   @IsOptional()
-  fields: IFieldMeta[];
-  @IsArray()
-  @Type(() => ILinkMeta)
-  @ValidateNested()
-  @IsOptional()
-  tabs: ILinkMeta[];
-  @IsArray()
-  @Type(() => ILinkMeta)
-  @ValidateNested()
-  @IsOptional()
-  sections: ILinkMeta[];
-  @IsOptional()
-  @IsString()
-  sectionsTemplate: string;
-  @IsArray()
-  @Type(() => ILinkMeta)
-  @IsOptional()
-  @ValidateNested()
-  links: ILinkMeta[];
+  parts: IPanelPartMeta[];
   @IsArray()
   @Type(() => IConditionMeta)
   @ValidateNested()
   @IsOptional()
   conditions: IConditionMeta[];
-  listProperties: any;
-  formProperties: any;
   @IsArray()
   @Type(() => IDataSourceMeta)
   @ValidateNested()
