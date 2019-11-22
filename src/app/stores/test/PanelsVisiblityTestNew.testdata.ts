@@ -21,6 +21,14 @@ export class PanelsVisiblityTestDataNew {
 
 
   public static testPackage: any = {
+    adimistrationPage: {
+      code: 'adimistrationPage',
+      parts: [
+        {
+          type:'toolbar'
+        }
+      ]
+    },
     officersAndGrantsPanel: {
       code: 'officersAndGrantsPanel',
       parts: [
