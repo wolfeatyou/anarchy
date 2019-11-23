@@ -19,9 +19,6 @@ export class PanelComponent implements OnInit {
     this._panelState = panel;
   }
 
-  selectTab(tab: any) {
-    this._panelState.setSelectedTab(tab.code);
-  }
 
   ngOnInit(): void {
   }
