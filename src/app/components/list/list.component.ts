@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PanelState} from '../../stores/panel.state';
 import {DataSourceState} from '../../stores/DataSourceState/datasource.state';
 
 @Component({

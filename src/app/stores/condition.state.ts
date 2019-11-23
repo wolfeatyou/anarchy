@@ -1,4 +1,4 @@
-import {observable, computed, action} from 'mobx';
+import {action, computed, observable} from 'mobx';
 import {IConditionMeta} from '../meta/ConditionMeta';
 import {PanelState} from './panel.state';
 import {DataSourceBuilder, DataSourceRelation} from './DataSourceState/datasource.builder';

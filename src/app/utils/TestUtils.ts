@@ -1,6 +1,5 @@
 import {DataSourceState, DataSourceStatus} from '../stores/DataSourceState/datasource.state';
 import {when} from 'mobx';
-import {retry} from 'rxjs/operators';
 
 export class TestUtils {
   static async waitForRefresh(state: DataSourceState, untilCounter: number = 100) {

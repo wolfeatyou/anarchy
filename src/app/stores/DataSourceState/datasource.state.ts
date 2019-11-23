@@ -1,8 +1,8 @@
-import {observable, action, runInAction, computed, reaction} from 'mobx';
-import {ApplicationState} from '../application.state';
+import {action, computed, observable, reaction, runInAction} from 'mobx';
 import {DataSourceBuilder, DataSourceRelation} from './datasource.builder';
 import {IDataSourceMeta} from '../../meta/DataSourceMeta';
 import {PanelState} from '../panel.state';
+import {PageState} from '../page.state';
 
 
 export class DataSourceState {
@@ -14,17 +14,17 @@ export class DataSourceState {
   @observable status: DataSourceStatus;
   relations: DataSourceRelation[];
 
-  constructor(metadata: IDataSourceMeta, private panel: PanelState, private applicationState: ApplicationState) {
+  constructor(metadata: IDataSourceMeta, private panel: PanelState, private pageState: PageState) {
     runInAction(() => {
       this.code = metadata.code;
-      this.applicationState.dataSources[metadata.code] = this;
+      this.pageState.dataSources[metadata.code] = this;
       this.reloadCounter = 0;
       console.log(`ds '${metadata.code}' set metadata`);
       this.metadata = metadata;
       this.status = DataSourceStatus.MustRefresh;
       this.data = [];
       const relations = DataSourceBuilder.getRelatedDataSources(metadata);
-      DataSourceBuilder.initRelatedDataSourceReactions(relations, applicationState, async () => {
+      DataSourceBuilder.initRelatedDataSourceReactions(relations, pageState, async () => {
         await this.reload();
       }, `(dataSource ${this.code})`);
       console.log(`ds '${metadata.code}' set relations`);
@@ -36,7 +36,7 @@ export class DataSourceState {
       if (visibility) {
         this.status = DataSourceStatus.MustRefresh;
         const notReloadedDs = this.relations.find((r: DataSourceRelation) => {
-          const ds = applicationState.getDataSourceById(r.dataSourceId);
+          const ds = pageState.getDataSourceById(r.dataSourceId);
           return ds.status === DataSourceStatus.MustRefresh;
         });
         if (notReloadedDs == null) {
@@ -65,7 +65,7 @@ export class DataSourceState {
   reloadAsync() {
     var relStr = '';
     this.relations.forEach((current: DataSourceRelation) => {
-      const dataItem = this.applicationState.getDataSourceById(current.dataSourceId).selectedDataItem;
+      const dataItem = this.pageState.getDataSourceById(current.dataSourceId).selectedDataItem;
       if (dataItem) {
         relStr = relStr + dataItem.id;
       }

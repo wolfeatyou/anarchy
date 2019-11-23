@@ -12,6 +12,10 @@ export class ILinkMeta extends IPartMeta {
 
   @IsOptional()
   @IsString()
+  page: string;
+
+  @IsOptional()
+  @IsString()
   panel: string;
 
   @IsOptional()

@@ -1,7 +1,6 @@
-import {observable, computed, action, reaction} from 'mobx';
+import {action, observable, runInAction} from 'mobx';
 import {Inject, Injectable} from '@angular/core';
-import {NavigationStart, PRIMARY_OUTLET, Router} from '@angular/router';
-import {ApplicationState} from './application.state';
+import {NavigationStart, Router} from '@angular/router';
 
 
 @Injectable()
@@ -13,7 +12,9 @@ export class RouteState {
       this.router.events.subscribe((event: any) => {
         if (event instanceof NavigationStart) {
           setTimeout(() => {
-            this.setActiveUrl(event.url);
+            runInAction(() => {
+              this.url = event.url;
+            });
           });
 
         }
@@ -22,7 +23,7 @@ export class RouteState {
   }
 
   @action
-  setActiveUrl(url: string) {
+  navigate(url: string) {
     this.url = url;
   }
 

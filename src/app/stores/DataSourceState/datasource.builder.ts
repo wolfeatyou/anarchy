@@ -1,6 +1,6 @@
 import {DataSourceOperationTypeEnum} from '../../meta/OperationMeta';
-import {ApplicationState} from '../application.state';
 import {reaction} from 'mobx';
+import {PageState} from '../page.state';
 
 export class DataSourceBuilder {
 
@@ -36,10 +36,10 @@ export class DataSourceBuilder {
   }
 
   static initRelatedDataSourceReactions(relations: DataSourceRelation[],
-                                        applicationState: ApplicationState, callback: RelatedDataSourceReactionCallbackType,
+                                        pageState: PageState, callback: RelatedDataSourceReactionCallbackType,
                                         relationDesc: string = '') {
     relations.forEach((r: DataSourceRelation) => {
-      const ds = applicationState.getDataSourceById(r.dataSourceId);
+      const ds = pageState.getDataSourceById(r.dataSourceId);
       r.selectedItemReaction = reaction(
         () => ds.selectedDataItem,
         async (selectedItem) => {

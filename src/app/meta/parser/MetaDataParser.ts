@@ -1,10 +1,11 @@
 import {IDataSourceMeta} from '../DataSourceMeta';
 import {validateSync} from 'class-validator';
-import {ClassTransformOptions, plainToClass} from 'class-transformer';
+import {plainToClass} from 'class-transformer';
 import {IOperationMeta} from '../OperationMeta';
 import {IPanelMeta} from '../PanelMeta';
 import {IConditionMeta} from '../ConditionMeta';
 import {ILinkMeta} from '../LinkMeta';
+import {IPackageMeta} from '../PackageMeta';
 
 export class MetaDataParser {
 
@@ -26,6 +27,13 @@ export class MetaDataParser {
   getPanelMeta(meta: any): IPanelMeta {
 
     const obj: IPanelMeta = plainToClass(IPanelMeta, meta);
+    if (obj) {
+      this.validateInternal(obj);
+    }
+    return obj;
+  }
+  getPackageMeta(meta: any): IPackageMeta {
+    const obj: IPackageMeta = plainToClass(IPackageMeta, meta);
     if (obj) {
       this.validateInternal(obj);
     }

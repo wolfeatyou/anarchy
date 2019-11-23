@@ -1,5 +1,4 @@
 import {Component, Input, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {PanelState} from '../../stores/panel.state';
 import {IAppControl} from '../../stores/IAppControl.interface';
 
 

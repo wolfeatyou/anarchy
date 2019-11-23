@@ -1,4 +1,4 @@
-import {TestBed, async, tick, fakeAsync} from '@angular/core/testing';
+import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {ApplicationState} from './stores/application.state';
 import {RouterModule, Routes} from '@angular/router';
@@ -7,7 +7,7 @@ import {PanelComponent} from './components/panel/panel.component';
 import {ListComponent} from './components/list/list.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {MobxAngularModule} from 'mobx-angular';
-import { APP_BASE_HREF } from '@angular/common';
+import {APP_BASE_HREF} from '@angular/common';
 
 const routes: Routes = [
   {

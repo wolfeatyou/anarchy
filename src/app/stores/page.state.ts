@@ -1,19 +1,50 @@
-import {observable, computed, action, autorun, toJS, runInAction, reaction} from 'mobx';
-import {Injectable} from '@angular/core';
+import {action, observable, reaction, runInAction} from 'mobx';
 import {DataSourceState} from './DataSourceState/datasource.state';
-import {IPanelMeta} from '../meta/PanelMeta';
-import {calculateSizes} from '@angular-devkit/build-angular/src/angular-cli-files/utilities/bundle-calculator';
-import {ILinkMeta} from '../meta/LinkMeta';
 import {PanelState} from './panel.state';
-import {ConditionState} from './condition.state';
-import {MetadataResolver} from './matadata.resolver';
-import {IPanelPartMeta} from '../meta/PartMeta';
-import {ApplicationState} from './application.state';
+import {IPageMeta} from '../meta/PageMeta';
 
 export class PageState {
+  @observable isCurrentPage: boolean;
+  @observable metadata: IPageMeta;
+  dataSources: [DataSourceState];
+  panels: [PanelState];
 
-  constructor(private  appState: ApplicationState) {
+  constructor(metadata: IPageMeta) {
+    // @ts-ignore
+    this.dataSources = [];
+    reaction(() => this.metadata, (meta) => {
+      if (meta) {
+        this.init();
+      }
+    }, {name: `page metadata changed`, fireImmediately: true});
+    runInAction(() => {
+      this.metadata = metadata;
+    });
 
+  }
+
+  init() {
+  }
+
+  @action
+  setAsCurrentPage(value: boolean) {
+    this.isCurrentPage = value;
+  }
+
+  public getDataSourceById(id: string): DataSourceState {
+    const ds = this.dataSources[id];
+    if (!ds) {
+      throw new Error('Cant find DataSource with code ' + id);
+    }
+    return ds;
+  }
+
+  public getPanelById(id: string): PanelState {
+    const p = this.panels[id];
+    if (!p) {
+      throw new Error('Cant find panel with code ' + id);
+    }
+    return p;
   }
 
 

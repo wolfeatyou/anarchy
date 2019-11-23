@@ -1,9 +1,5 @@
-import {Component, Inject, Injectable, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, ViewEncapsulation} from '@angular/core';
 import {ApplicationState} from './stores/application.state';
-import {PanelsVisiblityTestDataNew} from './stores/test/PanelsVisiblityTestNew.testdata';
-import {PanelState} from './stores/panel.state';
-import {NavigationEnd, NavigationError, NavigationStart, PRIMARY_OUTLET, Router, UrlSegmentGroup} from '@angular/router';
-import {RouteState} from './stores/route.state';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +22,6 @@ export class AppComponent {
   }
 
   get ActivePanel() {
-    return this.appState.activePanel;
+    return null;
   }
 }

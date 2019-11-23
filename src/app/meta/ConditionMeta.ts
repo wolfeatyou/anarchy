@@ -1,4 +1,4 @@
-import {IsDefined, IsString, Length} from 'class-validator';
+import {Length} from 'class-validator';
 
 export class IConditionMeta {
   @Length(1, 2000)

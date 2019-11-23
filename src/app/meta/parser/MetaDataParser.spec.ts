@@ -1,8 +1,8 @@
 import {MetaDataParser} from './MetaDataParser';
 import {IBarMeta} from '../BarMeta';
-import {IPartMeta} from '../PartMeta';
 import {IPlaceHolderMeta} from '../PlaceHolderMeta';
 import {ILayoutMeta} from '../LayoutMeta';
+import {AdministrationPackage} from '../samples/administration.package';
 
 
 describe('Metadata parser tests', () => {
@@ -81,6 +81,13 @@ describe('Metadata parser tests', () => {
     expect(panelMeta.parts[0] instanceof IBarMeta).toBeTruthy();
     expect(panelMeta.parts[1] instanceof IPlaceHolderMeta).toBeTruthy();
     expect(panelMeta.parts[2] instanceof ILayoutMeta).toBeTruthy();
+  });
+
+  it('check is officers and grants parsed', () => {
+    const parser = new MetaDataParser(false);
+    const packageMeta = parser.getPackageMeta(AdministrationPackage.package);
+    expect(parser.lastErrors).not.toBeNull();
+    expect(parser.lastErrors.length).toBe(0);
   });
 
 });

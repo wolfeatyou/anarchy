@@ -1,12 +1,7 @@
-import {observable, computed, action, autorun, toJS, runInAction, reaction} from 'mobx';
-import {Injectable} from '@angular/core';
-import {DataSourceState} from './DataSourceState/datasource.state';
-import {IPanelMeta} from '../meta/PanelMeta';
-import {calculateSizes} from '@angular-devkit/build-angular/src/angular-cli-files/utilities/bundle-calculator';
+import {computed, observable, reaction, runInAction} from 'mobx';
 import {ILinkMeta} from '../meta/LinkMeta';
 import {PanelState} from './panel.state';
 import {ConditionState} from './condition.state';
-import {MetadataResolver} from './matadata.resolver';
 
 export class LinkState {
   public code: string;
@@ -40,13 +35,8 @@ export class LinkState {
   }
 
   get LinkedPanel(): PanelState {
-    if (this.metadata.linkedPanelCode && this.linkedPanel == null) {
-      const panelMeta = this.panel.appState.metadataResolver.resolvePanel(this.metadata.linkedPanelPackageCode ?
-        this.metadata.linkedPanelPackageCode : this.panel.metadata.package, this.metadata.linkedPanelCode);
-
-      this.linkedPanel = new PanelState(panelMeta, this.panel, this.panel.appState);
-    }
-    return this.linkedPanel;
+    //todo: complete it
+    return null;
   }
 
   @computed get Visible() {
