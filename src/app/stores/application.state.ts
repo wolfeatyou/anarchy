@@ -5,6 +5,7 @@ import {DefaultUrlSerializer, PRIMARY_OUTLET} from '@angular/router';
 import {RouteState} from './route.state';
 import {PageState} from './page.state';
 import {PageResolver} from './page.resolver';
+import {AdministrationPackage} from "../meta/samples/administration.package";
 
 @Injectable()
 export class ApplicationState {
@@ -15,7 +16,7 @@ export class ApplicationState {
   constructor(@Inject(RouteState) private routeState: RouteState, metadataResolver: MetadataResolver = new MetadataResolver()) {
     this.metadataResolver = metadataResolver;
     this.pageResolver = new PageResolver(routeState, metadataResolver);
-
+    this.metadataResolver.addMetadataPackage('test', AdministrationPackage.package);
     reaction(() => this.routeState.url, (url: string) => {
       const tree = new DefaultUrlSerializer().parse(url);
       const primary = tree.root.children[PRIMARY_OUTLET];

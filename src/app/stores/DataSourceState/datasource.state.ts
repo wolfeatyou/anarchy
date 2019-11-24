@@ -36,8 +36,8 @@ export class DataSourceState {
       if (visibility) {
         this.status = DataSourceStatus.MustRefresh;
         const notReloadedDs = this.relations.find((r: DataSourceRelation) => {
-          const ds = pageState.getDataSourceById(r.dataSourceId);
-          return ds.status === DataSourceStatus.MustRefresh;
+          //const ds = pageState.getDataSourceById(r.dataSourceId);
+         // return ds.status === DataSourceStatus.MustRefresh;
         });
         if (notReloadedDs == null) {
           await this.reload();
@@ -65,10 +65,10 @@ export class DataSourceState {
   reloadAsync() {
     var relStr = '';
     this.relations.forEach((current: DataSourceRelation) => {
-      const dataItem = this.pageState.getDataSourceById(current.dataSourceId).selectedDataItem;
-      if (dataItem) {
-        relStr = relStr + dataItem.id;
-      }
+      //const dataItem = this.pageState.getDataSourceById(current.dataSourceId).selectedDataItem;
+     // if (dataItem) {
+      //  relStr = relStr + dataItem.id;
+   //   }
     });
     return new Promise((resolve) => {
       setTimeout(() => {

@@ -56,7 +56,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.app-layout div').textContent).toContain('app list officersDs');
+    expect(compiled.querySelector('.app-layout div').textContent).toContain('application is loading');
 
   }));
 });

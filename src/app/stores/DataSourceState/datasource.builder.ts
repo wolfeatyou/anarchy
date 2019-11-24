@@ -39,7 +39,7 @@ export class DataSourceBuilder {
                                         pageState: PageState, callback: RelatedDataSourceReactionCallbackType,
                                         relationDesc: string = '') {
     relations.forEach((r: DataSourceRelation) => {
-      const ds = pageState.getDataSourceById(r.dataSourceId);
+      const ds = null// pageState.getDataSourceById(r.dataSourceId);
       r.selectedItemReaction = reaction(
         () => ds.selectedDataItem,
         async (selectedItem) => {

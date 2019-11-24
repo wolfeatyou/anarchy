@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {IAppControl} from '../../stores/IAppControl.interface';
+
 
 
 @Component({
@@ -11,21 +11,20 @@ export class DynamicComponent implements OnInit {
 
   @ViewChild('template', null) template;
 
-  _state: IAppControl;
 
   @Input()
-  set state(state: IAppControl) {
-    this._state = state;
+  set state(state: any) {
+    //this._state = state;
   }
 
   constructor(
-    private viewContainerRef: ViewContainerRef
+    /*private viewContainerRef: ViewContainerRef*/
   ) { }
 
   ngOnInit() {
     if(this.template) {
    //   console.log(11111111111)
-      this.viewContainerRef.createEmbeddedView(this.template);
+      //this.viewContainerRef.createEmbeddedView(this.template);
     }
   }
 

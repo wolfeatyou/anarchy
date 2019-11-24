@@ -31,14 +31,14 @@ export class ConditionState {
       r.dataItemProperties.forEach((p: string) => {
 
         const placeholder = '{' + r.dataSourceId + '.' + p + '}';
-        const dataSource = this.panel.appState.getDataSourceById(r.dataSourceId);
+        /*const dataSource = this.panel.appState.getDataSourceById(r.dataSourceId);
         let value = null;
         if (dataSource.selectedDataItem) {
           value = dataSource.selectedDataItem[p];
         }
         const re = new RegExp(`${placeholder}`, 'gi');
         script = script.replace(re, value);
-
+*/
       });
     });
     const f = new Function('return ' + script);
@@ -69,10 +69,10 @@ export class ConditionState {
           relations[dataSourceId].dataItemProperties.push(propertyCode);
         }
         const relsArray: DataSourceRelation[] = Object.values(relations);
-        DataSourceBuilder.initRelatedDataSourceReactions(relsArray, this.panel.appState, async () => {
+       /* DataSourceBuilder.initRelatedDataSourceReactions(relsArray, this.panel.appState, async () => {
           await this.calculateValue();
         }, `(condition ${this.code})`);
-        this.setRelations(relsArray);
+        this.setRelations(relsArray);*/
       } catch (e) {
         throw new Error('cant parse condition placeholder (expecting format {aaa.bbb} ): ' + this.metadata.if);
       }

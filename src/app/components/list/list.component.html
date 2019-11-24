@@ -1,5 +1,5 @@
 app list {{dataSource?.code}}
-sel di: {{dataSource.selectedDataItem.id}}
+sel di: {{dataSource?.selectedDataItem.id}}
 <div *mobxAutorun>
   <div *ngFor="let item of getItems()" (click)="selectRow(item)"
        [ngStyle]="dataSource?.selectedDataItem?.id == item.id? {'background-color':'blue'}:{}">

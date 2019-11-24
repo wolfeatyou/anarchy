@@ -20,6 +20,9 @@ describe('OfficerGrants page tests', () => {
     expect(application.currentPage.metadata.code).toBe('administration');
     expect(application.currentPage.parts.length).toBe(2);
     expect(application.currentPage.parts[0] instanceof BarState).toBeTruthy();
+
+    const bar = application.currentPage.parts[0] as BarState;
+    expect(bar.items.length).toBe(2);
   });
 
 

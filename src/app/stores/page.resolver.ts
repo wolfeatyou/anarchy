@@ -28,7 +28,7 @@ export class PageResolver {
       throw new Error('Page code not found in url');
     }
     const pageMeta = this.metadataResolver.resolvePage(packageCode, pageCode);
-    const page = new PageState(pageMeta);
+    const page = new PageState(pageMeta, null);
     this.pagesUrlMap[url] = page;
     return page;
   }
