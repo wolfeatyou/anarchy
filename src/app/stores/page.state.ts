@@ -2,16 +2,21 @@ import {action, observable, reaction, runInAction} from 'mobx';
 import {DataSourceState} from './DataSourceState/datasource.state';
 import {PanelState} from './panel.state';
 import {IPageMeta} from '../meta/PageMeta';
+import {PartState} from './part.state';
+import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
+import {IHierarchyPart} from './hierarchyPart.interface';
+import {PartResolver} from './part.resolver';
 
-export class PageState {
+export class PageState implements IHierarchyPart {
   @observable isCurrentPage: boolean;
   @observable metadata: IPageMeta;
-  dataSources: [DataSourceState];
-  panels: [PanelState];
+  dataSources: DataSourceState[];
+  panels: PanelState[];
+  parts: PartState[];
 
   constructor(metadata: IPageMeta) {
-    // @ts-ignore
     this.dataSources = [];
+    this.parts = [];
     reaction(() => this.metadata, (meta) => {
       if (meta) {
         this.init();
@@ -24,6 +29,9 @@ export class PageState {
   }
 
   init() {
+    this.metadata.parts.forEach((partMeta: IPanelPartMeta) => {
+       this.parts.push(new PartResolver().resolve(partMeta, this));
+    });
   }
 
   @action
@@ -45,6 +53,10 @@ export class PageState {
       throw new Error('Cant find panel with code ' + id);
     }
     return p;
+  }
+
+  Visible(): boolean {
+    return this.isCurrentPage;
   }
 
 

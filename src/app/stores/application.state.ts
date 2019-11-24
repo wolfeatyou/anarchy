@@ -1,7 +1,7 @@
 import {action, reaction} from 'mobx';
 import {Inject, Injectable} from '@angular/core';
 import {MetadataResolver} from './matadata.resolver';
-import {PRIMARY_OUTLET} from '@angular/router';
+import {DefaultUrlSerializer, PRIMARY_OUTLET} from '@angular/router';
 import {RouteState} from './route.state';
 import {PageState} from './page.state';
 import {PageResolver} from './page.resolver';
@@ -17,7 +17,7 @@ export class ApplicationState {
     this.pageResolver = new PageResolver(routeState, metadataResolver);
 
     reaction(() => this.routeState.url, (url: string) => {
-      const tree = this.routeState.router.parseUrl(url);
+      const tree = new DefaultUrlSerializer().parse(url);
       const primary = tree.root.children[PRIMARY_OUTLET];
       if (primary) {
         this.setCurrentPage(this.pageResolver.getPageByUrl(url));

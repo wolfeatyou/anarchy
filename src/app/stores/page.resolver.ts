@@ -1,4 +1,4 @@
-import {PRIMARY_OUTLET} from '@angular/router';
+import {DefaultUrlSerializer, PRIMARY_OUTLET} from '@angular/router';
 import {PageState} from './page.state';
 import {RouteState} from './route.state';
 import {MetadataResolver} from './matadata.resolver';
@@ -16,7 +16,7 @@ export class PageResolver {
     if (this.pagesUrlMap[url]) {
       return this.pagesUrlMap[url];
     }
-    const tree = this.router.router.parseUrl(url);
+    const tree = new DefaultUrlSerializer().parse(url);
     const primary = tree.root.children[PRIMARY_OUTLET];
     let packageCode: string;
     let pageCode: string;
