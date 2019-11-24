@@ -3,8 +3,9 @@ import {DataSourceState} from './DataSourceState/datasource.state';
 import {IPanelMeta} from '../meta/PanelMeta';
 import {ConditionState} from './condition.state';
 import {PageState} from './page.state';
+import {IHierarchyPart} from './hierarchyPart.interface';
 
-export class PanelState {
+export class PanelState implements IHierarchyPart {
   @observable title: string;
   @observable metadata: IPanelMeta;
   dataSources: DataSourceState[];
@@ -25,12 +26,15 @@ export class PanelState {
     });
   }
 
-  @computed get Visible() {
-    /*todo: use parent elements to determine visibility*/
+  @computed get Visible(): boolean {
     return this.pageState.isCurrentPage;
   }
 
   init() {
+  }
+
+  GetConditions() {
+    return this.conditions;
   }
 }
 

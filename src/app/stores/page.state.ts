@@ -17,20 +17,22 @@ export class PageState implements IHierarchyPart {
   constructor(metadata: IPageMeta) {
     this.dataSources = [];
     this.parts = [];
+
     reaction(() => this.metadata, (meta) => {
       if (meta) {
         this.init();
       }
-    }, {name: `page metadata changed`, fireImmediately: true});
+    }, {name: `page metadata changed`, fireImmediately: false});
     runInAction(() => {
       this.metadata = metadata;
     });
+    this.init();
 
   }
 
   init() {
     this.metadata.parts.forEach((partMeta: IPanelPartMeta) => {
-       this.parts.push(new PartResolver().resolve(partMeta, this));
+      this.parts.push(new PartResolver().resolve(partMeta, this));
     });
   }
 
@@ -55,8 +57,12 @@ export class PageState implements IHierarchyPart {
     return p;
   }
 
-  Visible(): boolean {
+  get Visible(): boolean {
     return this.isCurrentPage;
+  }
+
+  GetConditions() {
+    return [];
   }
 
 

@@ -2,27 +2,22 @@ import {computed, observable, reaction, runInAction} from 'mobx';
 import {ILinkMeta} from '../meta/LinkMeta';
 import {PanelState} from './panel.state';
 import {ConditionState} from './condition.state';
+import {IHierarchyPart} from './hierarchyPart.interface';
+import {PartState} from './part.state';
+import {IPartMeta} from '../meta/PartMeta';
 
-export class LinkState {
+export class LinkState extends PartState {
   public code: string;
   @observable public title: string;
-  @observable public metadata: ILinkMeta;
-  private panel: PanelState;
-  private linkedPanel: PanelState;
   @observable private visibleCondition: ConditionState;
 
-  constructor(metadata: ILinkMeta, panel: PanelState) {
-    this.code = metadata.code;
-    reaction(() => this.metadata, (meta) => {
-      if (meta) {
-        this.init();
-      }
-    }, {name: 'link metadata changed', fireImmediately: true});
+  constructor(metadata: IPartMeta, parent: IHierarchyPart) {
+    super(metadata, parent);
+
+    this.code = this.metadata.code;
     runInAction(() => {
-      this.panel = panel;
-      this.metadata = metadata;
       if (this.metadata.visibleCondition) {
-        this.visibleCondition = this.panel.conditions.find((c: ConditionState) => c.code === this.metadata.visibleCondition);
+        this.visibleCondition = this.parent.GetConditions().find((c: ConditionState) => c.code === this.metadata.visibleCondition);
         if (!this.visibleCondition) {
           throw Error('Condition not found ' + this.metadata.visibleCondition);
         }
@@ -30,9 +25,10 @@ export class LinkState {
     });
   }
 
-  init() {
-    console.log('link meta changed:' + this.metadata ? this.metadata : 'null');
+  get metadata(): ILinkMeta {
+    return this.meta as ILinkMeta;
   }
+
 
   get LinkedPanel(): PanelState {
     //todo: complete it

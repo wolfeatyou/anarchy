@@ -1,3 +1,4 @@
 export interface IHierarchyPart {
-  Visible(): boolean;
+  Visible: boolean;
+  GetConditions();
 }

@@ -33,12 +33,12 @@ export class AdministrationPackage {
             items: [
               {
                 type: 'link',
-                panel: 'admin:officerGroups',
+                panel: 'officerGroups',
                 target: 'content'
               },
               {
                 type: 'link',
-                panel: 'admin:roles',
+                panel: 'roles',
                 target: 'content'
               },
             ]
