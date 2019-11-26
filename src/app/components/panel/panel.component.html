@@ -1,6 +1,6 @@
-<div class="panel">
-panel diplayed
-</div>
+<ng-container >
+  <app-dynamic *ngFor="let partState of this.state.parts" [state]="partState" ></app-dynamic>
+</ng-container>
 
 
 

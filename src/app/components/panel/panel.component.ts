@@ -7,16 +7,17 @@ import {PanelState} from '../../stores/panel.state';
   styleUrls: ['./panel.component.less']
 })
 export class PanelComponent implements OnInit {
-
-  // tslint:disable-next-line:variable-name
-  private _panelState: PanelState;
-
+  private panelState: PanelState;
   constructor() {
   }
 
   @Input()
-  set panelState(panel: PanelState) {
-    this._panelState = panel;
+  set state(panel: PanelState) {
+    this.panelState = panel;
+  }
+
+  get state() {
+    return this.panelState;
   }
 
 

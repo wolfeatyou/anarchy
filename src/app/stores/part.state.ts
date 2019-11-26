@@ -4,14 +4,18 @@ import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
 import {IHierarchyPart} from './hierarchyPart.interface';
 
 export class PartState {
-  meta: IPartMeta;
+  internalmeta: IPartMeta;
   parent: IHierarchyPart;
 
   constructor(metadata: IPartMeta, parent: IHierarchyPart) {
     runInAction(() => {
-      this.meta = metadata;
+      this.internalmeta = metadata;
       this.parent = parent;
     });
+  }
+
+  getPartType(){
+    return this.internalmeta.type;
   }
 }
 

@@ -45,7 +45,6 @@ export class ConditionState {
     this.value = f();
     console.log(`action: Calculate condition ${this.code} for panel ${this.panel.metadata.code}: ` + script + ', value: ' + this.value);
   }
-
   @action
   setRelations(relations: DataSourceRelation[]) {
     this.relations = relations;

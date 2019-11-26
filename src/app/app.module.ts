@@ -11,6 +11,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {RouteState} from './stores/route.state';
 import {DynamicComponent} from './components/dynamic/dynamic.component';
 import {MetadataResolver} from './stores/matadata.resolver';
+import { BarComponent } from './components/bar/bar.component';
+import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 const routes: Routes = [
   {
@@ -24,7 +27,10 @@ const routes: Routes = [
     AppComponent,
     PanelComponent,
     ListComponent,
-    DynamicComponent
+    DynamicComponent,
+    BarComponent,
+    PlaceholderComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

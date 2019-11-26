@@ -4,7 +4,7 @@ import {IPanelMeta} from '../meta/PanelMeta';
 import {ConditionState} from './condition.state';
 import {IHierarchyPart} from './hierarchyPart.interface';
 import {PartState} from './part.state';
-import {IPanelPartMeta} from '../meta/PartMeta';
+import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
 import {PartResolver} from './part.resolver';
 
 
@@ -36,7 +36,7 @@ export class PanelState extends PartState implements IHierarchyPart {
   }
 
   get metadata(): IPanelMeta {
-    return this.meta as IPanelMeta;
+    return this.internalmeta as IPanelMeta;
   }
 }
 

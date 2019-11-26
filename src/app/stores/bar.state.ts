@@ -23,7 +23,7 @@ export class BarState extends PartState implements IHierarchyPart {
   }
 
   get metadata(): IBarMeta {
-    return this.meta as IBarMeta;
+    return this.internalmeta as IBarMeta;
   }
   @computed get Visible(): boolean {
     return this.parent.Visible;

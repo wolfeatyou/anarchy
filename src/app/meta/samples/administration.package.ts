@@ -11,14 +11,14 @@ export class AdministrationPackage {
               {
                 type: 'link',
                 target: 'page',
-                page: 'admin:administration',
-                panel: 'admin:officerGroups',
+                page: 'administration',
+                panel: 'officerGroups',
               },
               {
                 type: 'link',
                 target: 'page',
                 page: 'default',
-                panel: 'admin:globalParams',
+                panel: 'globalParams',
               }
             ]
           }
@@ -45,7 +45,8 @@ export class AdministrationPackage {
           },
           {
             code: 'content',
-            type: 'placeholder'
+            type: 'placeholder',
+            panel: 'officerGroups'
           }
         ]
       }
@@ -58,17 +59,19 @@ export class AdministrationPackage {
           {
             type: 'layout',
             layout: 'master details details',
+            placeholders: [
+              {
+                code: 'master',
+                type: 'placeholder',
+                panel: 'officerGroupsList'
+              },
+              {
+                code: 'details',
+                type: 'placeholder',
+                panel: 'officerGroupDetails'
+              }
+            ]
           },
-          {
-            code: 'master',
-            type: 'placeholder',
-            panel: 'admin:officerGroupsList'
-          },
-          {
-            code: 'details',
-            type: 'placeholder',
-            panel: 'admin:officerGroupDetails'
-          }
         ]
       },
       {

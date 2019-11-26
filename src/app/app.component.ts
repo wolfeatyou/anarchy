@@ -22,6 +22,6 @@ export class AppComponent {
   }
 
   get ActivePanel() {
-    return null;
+    return this.appState.currentPage;
   }
 }

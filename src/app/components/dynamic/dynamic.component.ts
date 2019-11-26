@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-
+import {PartState} from '../../stores/part.state';
 
 
 @Component({
@@ -9,22 +9,27 @@ import {Component, Input, OnInit, ViewChild, ViewContainerRef} from '@angular/co
 })
 export class DynamicComponent implements OnInit {
 
+  partState: PartState;
   @ViewChild('template', null) template;
 
 
   @Input()
-  set state(state: any) {
-    //this._state = state;
+  set state(state: PartState) {
+    this.partState = state;
+  }
+
+  get state() {
+    return this.partState;
   }
 
   constructor(
-    /*private viewContainerRef: ViewContainerRef*/
-  ) { }
+    private viewContainerRef: ViewContainerRef
+  ) {
+  }
 
   ngOnInit() {
-    if(this.template) {
-   //   console.log(11111111111)
-      //this.viewContainerRef.createEmbeddedView(this.template);
+    if (this.template) {
+      this.viewContainerRef.createEmbeddedView(this.template);
     }
   }
 

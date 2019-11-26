@@ -26,7 +26,7 @@ export class LinkState extends PartState {
   }
 
   get metadata(): ILinkMeta {
-    return this.meta as ILinkMeta;
+    return this.internalmeta as ILinkMeta;
   }
 
 

@@ -1,5 +1,7 @@
 import {MetaDataParser} from '../meta/parser/MetaDataParser';
 import {IPackageMeta} from '../meta/PackageMeta';
+import {IPanelPartMeta} from '../meta/PartMeta';
+import {IPanelMeta} from '../meta/PanelMeta';
 
 
 export class MetadataResolver {
@@ -10,9 +12,9 @@ export class MetadataResolver {
     this.packages = {};
   }
 
-  resolvePanel(packageCode: string, panelCode: string) {
+  resolvePanel(packageCode: string, panelCode: string): IPanelMeta {
     const pacMeta = this.getPackage(packageCode);
-    const panelMeta = pacMeta.panels[panelCode];
+    const panelMeta = pacMeta.panels.find(p => p.code === panelCode);
     if (!panelMeta) {
       throw new Error(`Panel with code ${panelCode} not found`);
     }

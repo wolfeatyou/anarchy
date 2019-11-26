@@ -1,0 +1,5 @@
+<ng-container>
+  <div class="layout"  [ngStyle]="currentStyles">
+    <app-placeholder *ngFor="let placeholder of this.state.placeholders" [state]="placeholder" [ngStyle]="getPlaceholderStyle(placeholder)"   ></app-placeholder>
+  </div>
+</ng-container>
