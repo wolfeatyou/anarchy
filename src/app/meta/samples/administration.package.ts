@@ -121,7 +121,8 @@ export class AdministrationPackage {
           },
           {
             code: 'tabs',
-            type: 'placeholder'
+            type: 'placeholder',
+            panel: 'officers'
           }
         ]
 
@@ -145,6 +146,15 @@ export class AdministrationPackage {
       {
         code: 'officers',
         type: 'panel',
+        parts: [
+          {
+            type: 'toolbar',
+            items: []
+          },
+          {
+            type: 'list'
+          }
+        ],
         dataSources:
           [
             {

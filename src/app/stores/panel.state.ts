@@ -26,9 +26,11 @@ export class PanelState extends PartState implements IHierarchyPart {
   }
 
   init() {
-    this.metadata.parts.forEach((partMeta: IPanelPartMeta) => {
-      this.parts.push(new PartResolver().resolve(partMeta, this));
-    });
+    if(this.metadata.parts) {
+      this.metadata.parts.forEach((partMeta: IPanelPartMeta) => {
+        this.parts.push(new PartResolver().resolve(partMeta, this));
+      });
+    }
   }
 
   GetConditions() {
