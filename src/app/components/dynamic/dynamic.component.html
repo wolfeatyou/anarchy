@@ -5,7 +5,7 @@
    <app-bar *ngIf="this.state.getPartType()=='toolbar'" [state]="state" ></app-bar>
    <app-bar *ngIf="this.state.getPartType()=='header'" [state]="state" ></app-bar>
    <app-panel *ngIf="this.state.getPartType()=='panel'" [state]="state" ></app-panel>
-   <app-list *ngIf="this.state.getPartType()=='list'"  ></app-list>
+   <app-list *ngIf="this.state.getPartType()=='list'"  [state]="state" ></app-list>
 </ng-template>
 
 

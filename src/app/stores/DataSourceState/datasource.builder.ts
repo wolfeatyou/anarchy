@@ -1,6 +1,10 @@
-import {DataSourceOperationTypeEnum} from '../../meta/OperationMeta';
+import {DataSourceOperationTypeEnum, IOperationMeta} from '../../meta/OperationMeta';
 import {reaction} from 'mobx';
 import {PageState} from '../page.state';
+import {IHierarchyPart} from '../hierarchyPart.interface';
+import {DataSourceState} from './datasource.state';
+import {PanelState} from '../panel.state';
+import {IOperationParameterMeta} from "../../meta/OperationParameterMeta";
 
 export class DataSourceBuilder {
 
@@ -18,28 +22,28 @@ export class DataSourceBuilder {
     if (operations.length > 1) {
       throw new Error('Read operation must be only one for DataSource ' + metadata.code);
     }
-    const readOperation = operations[0];
+    const readOperation = operations[0] as IOperationMeta;
 
     if (readOperation.parameters == null) {
       return result;
     }
     const m: any = {};
-    readOperation.parameters.forEach((p: any) => {
-      if (p.source && p.source.dataSourceId) {
-        if (m[p.source.dataSourceId] == null) {
-          m[p.source.dataSourceId] = new DataSourceRelation(p.source.dataSourceId, []);
+    readOperation.parameters.forEach((p: IOperationParameterMeta) => {
+      if (p.dataSourceCode) {
+        if (m[p.dataSourceCode] == null) {
+          m[p.dataSourceCode] = new DataSourceRelation(p.dataSourceCode, []);
         }
-        m[p.source.dataSourceId].dataItemProperties.push(p.source.dataItemProperty);
+        m[p.dataSourceCode].dataItemProperties.push(p.dataItemProperty);
       }
     });
     return Object.values(m) as DataSourceRelation[];
   }
 
   static initRelatedDataSourceReactions(relations: DataSourceRelation[],
-                                        pageState: PageState, callback: RelatedDataSourceReactionCallbackType,
+                                        panel: PanelState, callback: RelatedDataSourceReactionCallbackType,
                                         relationDesc: string = '') {
     relations.forEach((r: DataSourceRelation) => {
-      const ds = null// pageState.getDataSourceById(r.dataSourceId);
+      const ds: DataSourceState = panel.getDataSourceById(r.dataSourceId);
       r.selectedItemReaction = reaction(
         () => ds.selectedDataItem,
         async (selectedItem) => {

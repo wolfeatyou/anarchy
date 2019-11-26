@@ -16,17 +16,17 @@ export class DataSourceState extends PartState {
   @observable status: DataSourceStatus;
   relations: DataSourceRelation[];
 
-  constructor(metadata: IDataSourceMeta, private parent: IHierarchyPart) {
+  constructor(metadata: IDataSourceMeta, private panel: PanelState) {
+    super(metadata, panel);
     runInAction(() => {
       this.code = metadata.code;
-      this.pageState.dataSources[metadata.code] = this;
       this.reloadCounter = 0;
       console.log(`ds '${metadata.code}' set metadata`);
       this.metadata = metadata;
       this.status = DataSourceStatus.MustRefresh;
       this.data = [];
       const relations = DataSourceBuilder.getRelatedDataSources(metadata);
-      DataSourceBuilder.initRelatedDataSourceReactions(relations, pageState, async () => {
+      DataSourceBuilder.initRelatedDataSourceReactions(relations, panel, async () => {
         await this.reload();
       }, `(dataSource ${this.code})`);
       console.log(`ds '${metadata.code}' set relations`);
@@ -38,8 +38,8 @@ export class DataSourceState extends PartState {
       if (visibility) {
         this.status = DataSourceStatus.MustRefresh;
         const notReloadedDs = this.relations.find((r: DataSourceRelation) => {
-          //const ds = pageState.getDataSourceById(r.dataSourceId);
-         // return ds.status === DataSourceStatus.MustRefresh;
+          const ds = panel.getDataSourceById(r.dataSourceId);
+          return ds.status === DataSourceStatus.MustRefresh;
         });
         if (notReloadedDs == null) {
           await this.reload();
@@ -65,12 +65,12 @@ export class DataSourceState extends PartState {
 
   @action
   reloadAsync() {
-    var relStr = '';
+    let relStr = '';
     this.relations.forEach((current: DataSourceRelation) => {
-      //const dataItem = this.pageState.getDataSourceById(current.dataSourceId).selectedDataItem;
-     // if (dataItem) {
-      //  relStr = relStr + dataItem.id;
-   //   }
+      const dataItem = this.panel.getDataSourceById(current.dataSourceId).selectedDataItem;
+      if (dataItem) {
+        relStr = relStr + dataItem.id;
+      }
     });
     return new Promise((resolve) => {
       setTimeout(() => {

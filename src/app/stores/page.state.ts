@@ -1,4 +1,4 @@
-import {action, observable, reaction, runInAction} from 'mobx';
+import {action, computed, observable, reaction, runInAction} from 'mobx';
 import {PanelState} from './panel.state';
 import {IPageMeta} from '../meta/PageMeta';
 import {IHierarchyPart} from './hierarchyPart.interface';
@@ -14,16 +14,22 @@ export class PageState extends PanelState implements IHierarchyPart {
 
   @action
   setAsCurrentPage(value: boolean) {
+
     this.isCurrentPage = value;
   }
 
-  get Visible(): boolean {
+
+  @computed get Visible(): boolean {
+    if (this.parent) {
+      return this.parent.Visible;
+    }
     return this.isCurrentPage;
   }
 
-   GetConditions() {
+  GetConditions() {
     return [];
   }
+
 }
 
 

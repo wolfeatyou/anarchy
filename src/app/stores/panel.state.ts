@@ -6,6 +6,7 @@ import {IHierarchyPart} from './hierarchyPart.interface';
 import {PartState} from './part.state';
 import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
 import {PartResolver} from './part.resolver';
+import {IDataSourceMeta} from '../meta/DataSourceMeta';
 
 
 export class PanelState extends PartState implements IHierarchyPart {
@@ -26,11 +27,17 @@ export class PanelState extends PartState implements IHierarchyPart {
   }
 
   init() {
+    if (this.metadata.dataSources) {
+      this.metadata.dataSources.forEach((dsMeta: IDataSourceMeta) => {
+        this.dataSources.push(new DataSourceState(dsMeta, this));
+      });
+    }
     if (this.metadata.parts) {
       this.metadata.parts.forEach((partMeta: IPanelPartMeta) => {
         this.parts.push(new PartResolver().resolve(partMeta, this));
       });
     }
+
   }
 
   GetConditions() {
@@ -38,13 +45,23 @@ export class PanelState extends PartState implements IHierarchyPart {
   }
 
   GetDataSources() {
-    const allDataSources = this.parent.GetDataSources();
-    allDataSources.addRange(this.dataSources);
-    return allDataSources;
+    let allDataSources: DataSourceState[] = [];
+    if (this.parent) {
+      allDataSources = this.parent.GetDataSources();
+    }
+    return allDataSources.concat(this.dataSources);
   }
 
   get metadata(): IPanelMeta {
     return this.internalmeta as IPanelMeta;
+  }
+
+  getDataSourceById(id: string): DataSourceState {
+    const ds = this.GetDataSources().find((d: DataSourceState) => d.code === id);
+    if (!ds) {
+      throw new Error('Datasource not found ' + id);
+    }
+    return ds;
   }
 }
 

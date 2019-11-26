@@ -5,6 +5,7 @@ import {when} from 'mobx';
 import {TestUtils} from '../../utils/TestUtils';
 import {BarState} from '../bar.state';
 import {PartState} from '../part.state';
+import {PlaceholderState} from "../placeholder.state";
 
 describe('OfficerGrants page tests', () => {
   beforeEach(() => {
@@ -23,6 +24,8 @@ describe('OfficerGrants page tests', () => {
 
     const bar = application.currentPage.parts[0] as BarState;
     expect(bar.items.length).toBe(2);
+    const pl1 = application.currentPage.parts[1] as PlaceholderState;
+    const v = pl1.panel.Visible;
   });
 
 

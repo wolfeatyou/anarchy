@@ -55,6 +55,18 @@ export class AdministrationPackage {
       {
         code: 'officerGroups',
         type: 'panel',
+        dataSources:
+          [
+            {
+              code: 'officerGroupsDs',
+              operations: [
+                {
+                  code: 'readOfficerGroups',
+                  type: 'read'
+                }
+              ]
+            }
+          ],
         parts: [
           {
             type: 'layout',
@@ -77,24 +89,13 @@ export class AdministrationPackage {
       {
         code: 'officerGroupsList',
         type: 'panel',
-        dataSources:
-          [
-            {
-              code: 'officerGroupsDs',
-              operations: [
-                {
-                  code: 'readOfficerGroups',
-                  type: 'read'
-                }
-              ]
-            }
-          ],
         parts: [
           {
             type: 'toolbar'
           },
           {
-            type: 'list'
+            type: 'list',
+            dataSourceCode: 'officerGroupsDs'
           }
         ]
       },
@@ -152,7 +153,8 @@ export class AdministrationPackage {
             items: []
           },
           {
-            type: 'list'
+            type: 'list',
+            dataSourceCode: 'officersDs'
           }
         ],
         dataSources:
@@ -162,7 +164,12 @@ export class AdministrationPackage {
               operations: [
                 {
                   code: 'readOfficers',
-                  type: 'read'
+                  type: 'read',
+                  parameters: [{
+                    code: 'parentId',
+                    dataSourceCode: 'officerGroupsDs',
+                    dataItemProperty: 'id'
+                  }]
                 }
               ]
             }

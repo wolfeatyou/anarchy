@@ -22,9 +22,12 @@ export class LayoutComponent implements OnInit {
     return this.partState;
   }
 
-  currentStyles = {
-    'grid-template-areas': 'master details'
-  };
+  getCurrentStyle() {
+    return {
+      'grid-template-areas': this.state.metadata.template
+    };
+  }
+
 
   ngOnInit() {
   }

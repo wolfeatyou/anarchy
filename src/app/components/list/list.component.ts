@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DataSourceState} from '../../stores/DataSourceState/datasource.state';
+import {PartState} from "../../stores/part.state";
+import {ListState} from "../../stores/list.state";
 
 @Component({
   selector: 'app-list',
@@ -7,7 +9,7 @@ import {DataSourceState} from '../../stores/DataSourceState/datasource.state';
   styleUrls: ['./list.component.less']
 })
 export class ListComponent implements OnInit {
-  dataSource: DataSourceState;
+  listState: ListState;
   JSON: any;
 
   constructor() {
@@ -15,19 +17,19 @@ export class ListComponent implements OnInit {
   }
 
   @Input()
-  set dataSourceState(dataSource: DataSourceState) {
-    this.dataSource = dataSource;
+  set state(panel: ListState) {
+    this.listState = panel;
   }
 
-  getItems() {
-    return this.dataSource ? this.dataSource.data : null;
+  get state(): ListState {
+    return this.listState;
   }
 
-  selectRow(item: any) {
-    this.dataSource.setSelectedItem(item);
-  }
 
   ngOnInit() {
   }
 
+  selectRow(item: any) {
+    this.state.dataSource.setSelectedItem(item);
+  }
 }

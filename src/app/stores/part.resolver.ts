@@ -9,6 +9,9 @@ import {PlaceholderState} from './placeholder.state';
 import {IPlaceHolderMeta} from '../meta/PlaceHolderMeta';
 import {ILayoutMeta} from '../meta/LayoutMeta';
 import {LayoutState} from './layout.state';
+import {IListMeta} from "../meta/ListMeta";
+import {ListState} from "./list.state";
+import {PanelState} from "./panel.state";
 
 export class PartResolver {
 
@@ -18,7 +21,7 @@ export class PartResolver {
       case 'link' : return new LinkState(partMeta as ILinkMeta, parent);
       case 'placeholder' : return new PlaceholderState(partMeta as IPlaceHolderMeta, parent);
       case 'layout' : return new LayoutState(partMeta as ILayoutMeta, parent);
-
+      case 'list' : return new ListState(partMeta as IListMeta, parent as PanelState);
       default : return new PartState(partMeta, parent);
     }
   }
