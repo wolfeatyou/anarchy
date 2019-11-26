@@ -32,4 +32,7 @@ export class BarState extends PartState implements IHierarchyPart {
   GetConditions() {
     return this.parent.GetConditions();
   }
+  GetDataSources() {
+    return this.parent.GetDataSources();
+  }
 }

@@ -26,7 +26,7 @@ export class PanelState extends PartState implements IHierarchyPart {
   }
 
   init() {
-    if(this.metadata.parts) {
+    if (this.metadata.parts) {
       this.metadata.parts.forEach((partMeta: IPanelPartMeta) => {
         this.parts.push(new PartResolver().resolve(partMeta, this));
       });
@@ -35,6 +35,12 @@ export class PanelState extends PartState implements IHierarchyPart {
 
   GetConditions() {
     return this.conditions;
+  }
+
+  GetDataSources() {
+    const allDataSources = this.parent.GetDataSources();
+    allDataSources.addRange(this.dataSources);
+    return allDataSources;
   }
 
   get metadata(): IPanelMeta {

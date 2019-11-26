@@ -3,9 +3,11 @@ import {DataSourceBuilder, DataSourceRelation} from './datasource.builder';
 import {IDataSourceMeta} from '../../meta/DataSourceMeta';
 import {PanelState} from '../panel.state';
 import {PageState} from '../page.state';
+import {PartState} from '../part.state';
+import {IHierarchyPart} from '../hierarchyPart.interface';
 
 
-export class DataSourceState {
+export class DataSourceState extends PartState {
   public code: string;
   @observable reloadCounter: number;
   private metadata: IDataSourceMeta;
@@ -14,7 +16,7 @@ export class DataSourceState {
   @observable status: DataSourceStatus;
   relations: DataSourceRelation[];
 
-  constructor(metadata: IDataSourceMeta, private panel: PanelState, private pageState: PageState) {
+  constructor(metadata: IDataSourceMeta, private parent: IHierarchyPart) {
     runInAction(() => {
       this.code = metadata.code;
       this.pageState.dataSources[metadata.code] = this;
