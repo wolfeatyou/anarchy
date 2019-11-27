@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {PlaceholderState} from '../../stores/placeholder.state';
 import {LayoutState} from '../../stores/layout.state';
 
@@ -24,7 +24,7 @@ export class LayoutComponent implements OnInit {
 
   getCurrentStyle() {
     return {
-      'grid-template-areas': this.state.metadata.template
+      'grid-template-areas': this.state.metadata.layout
     };
   }
 

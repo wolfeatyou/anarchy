@@ -70,7 +70,7 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'layout',
-            layout: 'master details details',
+            layout: '\'master details\'',
             placeholders: [
               {
                 code: 'master',
