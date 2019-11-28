@@ -1,6 +1,6 @@
 app list {{state.dataSource}}
-sel: {{state.dataSource?.selectedDataItem?.id}}
-<div >
+refresh count: {{state.dataSource?.reloadCounter}}
+<div class="list-container">
   <div *ngFor="let item of state.dataSource?.data" (click)="selectRow(item)"
        [ngStyle]="state.dataSource?.selectedDataItem?.id == item.id? {'background-color':'blue'}:{}">
     item: {{JSON.stringify(item)}}

@@ -49,6 +49,32 @@ export class AdministrationPackage {
             panel: 'officerGroups'
           }
         ]
+      },
+      {
+        code: 'simple',
+        type: 'page',
+        dataSources:
+          [
+            {
+              code: 'simpleDs',
+              operations: [
+                {
+                  code: 'simpleDs',
+                  type: 'read'
+                }
+              ]
+            }
+          ],
+        parts: [
+          {
+            type: 'bar',
+            items: [ ]
+          },
+          {
+            type: 'list',
+            dataSourceCode: 'simpleDs'
+          }
+        ]
       }
     ],
     panels: [
