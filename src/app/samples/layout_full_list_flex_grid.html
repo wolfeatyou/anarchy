@@ -46,6 +46,7 @@
     }
 
     .content {
+      overflow: auto;
       min-width: 200px;
       border: 1px solid red;
       flex: 1;
@@ -60,7 +61,7 @@
       grid-template-columns: 1fr 1fr 1fr;
 
       grid-template-areas: "tab1 tab2 tab2"
-                           "tab1 tab3 tab3"
+      "tab1 tab3 tab3"
     }
 
 
@@ -148,7 +149,7 @@
 <div class="tab">
   <div class="header">header</div>
   <div class="toolbar">toolbar</div>
-  <div class="content  scroll22">
+  <div class="content scroll2">
     <div class="tab">
       <div class="content panels">
         <div class="tab t1">
@@ -210,59 +211,59 @@
   </div>
 
   <script type="text/javascript" charset="utf-8">
-    // specify the columns
-    var columnDefs = [
-      {headerName: "Make", field: "make"},
-      {headerName: "Model", field: "model"},
-      {headerName: "Price", field: "price"}
-    ];
+      // specify the columns
+      var columnDefs = [
+          {headerName: "Make", field: "make"},
+          {headerName: "Model", field: "model"},
+          {headerName: "Price", field: "price"}
+      ];
 
-    // specify the data
-    var rowData = [
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000},
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000},
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000},
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000},
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000},
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000},
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000},
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000},
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000}
+      // specify the data
+      var rowData = [
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000},
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000},
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000},
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000},
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000},
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000},
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000},
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000},
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000}
 
 
-    ];
+      ];
 
-    // let the grid know which columns and what data to use
-    var gridOptions = {
-      columnDefs: columnDefs,
-      rowData: rowData,
-      paginationAutoPageSize: true,
-      pagination: true,
-    };
+      // let the grid know which columns and what data to use
+      var gridOptions = {
+          columnDefs: columnDefs,
+          rowData: rowData,
+          paginationAutoPageSize: true,
+          pagination: true,
+      };
 
-    // lookup the container we want the Grid to use
-    var eGridDiv = document.querySelector('#myGrid');
+      // lookup the container we want the Grid to use
+      var eGridDiv = document.querySelector('#myGrid');
 
-    // create the grid passing in the div to use together with the columns & data we want to use
-    new agGrid.Grid(eGridDiv, gridOptions);
+      // create the grid passing in the div to use together with the columns & data we want to use
+      new agGrid.Grid(eGridDiv, gridOptions);
 
   </script>
 

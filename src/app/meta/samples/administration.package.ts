@@ -104,6 +104,11 @@ export class AdministrationPackage {
                 code: 'master',
                 type: 'placeholder',
                 panel: 'roles'
+              },
+              {
+                code: 'details',
+                type: 'placeholder',
+                panel: 'roles'
               }]
           }
         ]
