@@ -75,6 +75,38 @@ export class AdministrationPackage {
             dataSourceCode: 'simpleDs'
           }
         ]
+      },
+      {
+        code: 'simple_layout',
+        type: 'page',
+        dataSources:
+          [
+            {
+              code: 'simpleDs',
+              operations: [
+                {
+                  code: 'simpleDs',
+                  type: 'read'
+                }
+              ]
+            }
+          ],
+        parts: [
+          {
+            type: 'bar',
+            items: [ ]
+          },
+          {
+            type: 'layout',
+            layout: '\'master details\'',
+            placeholders: [
+              {
+                code: 'master',
+                type: 'placeholder',
+                panel: 'roles'
+              }]
+          }
+        ]
       }
     ],
     panels: [
@@ -168,7 +200,17 @@ export class AdministrationPackage {
                 }
               ]
             }
-          ]
+          ],
+        parts: [
+          {
+            type: 'toolbar',
+            items: []
+          },
+          {
+            type: 'list',
+            dataSourceCode: 'rolesDs'
+          }
+        ]
       },
       {
         code: 'officers',
