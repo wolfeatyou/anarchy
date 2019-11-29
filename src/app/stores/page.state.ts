@@ -3,13 +3,16 @@ import {PanelState} from './panel.state';
 import {IPageMeta} from '../meta/PageMeta';
 import {IHierarchyPart} from './hierarchyPart.interface';
 import {IPanelMeta} from '../meta/PanelMeta';
+import {ApplicationState} from './application.state';
 
 export class PageState extends PanelState implements IHierarchyPart {
+
+  applicationState: ApplicationState;
   @observable isCurrentPage: boolean;
 
-  constructor(metadata: IPageMeta, parent: IHierarchyPart) {
-    super(metadata, parent);
-
+  constructor(metadata: IPageMeta, applicationState: ApplicationState) {
+    super(metadata, null);
+    this.applicationState = applicationState;
   }
 
   @action
@@ -29,6 +32,11 @@ export class PageState extends PanelState implements IHierarchyPart {
   GetConditions() {
     return [];
   }
+
+  GetPage(): PageState {
+    return this;
+  }
+
 
 }
 

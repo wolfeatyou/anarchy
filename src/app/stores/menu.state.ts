@@ -50,4 +50,8 @@ export class MenuState extends PartState implements IHierarchyPart {
   GetDataSources() {
     return this.parent.GetDataSources();
   }
+
+  GetPage(): PageState {
+    return this.parent.GetPage();
+  }
 }

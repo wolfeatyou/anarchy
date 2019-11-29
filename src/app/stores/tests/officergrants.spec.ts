@@ -5,7 +5,7 @@ import {when} from 'mobx';
 import {TestUtils} from '../../utils/TestUtils';
 import {BarState} from '../bar.state';
 import {PartState} from '../part.state';
-import {PlaceholderState} from "../placeholder.state";
+import {PlaceholderState} from '../placeholder.state';
 
 describe('OfficerGrants page tests', () => {
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe('OfficerGrants page tests', () => {
 
 
   it('Check page loaded', async () => {
-    const application = new ApplicationState(new RouteState(null));
+    const application = new ApplicationState(new RouteState(null, null));
     application.metadataResolver.addMetadataPackage('test', AdministrationPackage.package);
     application.navigate('/test/administration');
     await TestUtils.waitForCondition(() => application.currentPage != null);

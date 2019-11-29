@@ -8,6 +8,7 @@ import {ILinkMeta} from '../meta/LinkMeta';
 import {IPlaceHolderMeta} from '../meta/PlaceHolderMeta';
 import {PanelState} from './panel.state';
 import {PanelResolver} from './panel.resolver';
+import {PageState} from './page.state';
 
 export class PlaceholderState extends PartState implements IHierarchyPart {
 
@@ -39,5 +40,9 @@ export class PlaceholderState extends PartState implements IHierarchyPart {
 
   GetDataSources() {
     return this.parent.GetDataSources();
+  }
+
+  GetPage(): PageState {
+    return this.parent.GetPage();
   }
 }

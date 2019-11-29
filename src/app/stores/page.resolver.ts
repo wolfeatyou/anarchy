@@ -2,6 +2,7 @@ import {DefaultUrlSerializer, PRIMARY_OUTLET} from '@angular/router';
 import {PageState} from './page.state';
 import {RouteState} from './route.state';
 import {MetadataResolver} from './matadata.resolver';
+import {ApplicationState} from './application.state';
 
 
 export class PageResolver {
@@ -12,7 +13,7 @@ export class PageResolver {
 
   }
 
-  getPageByUrl(url: string): PageState {
+  getPageByUrl(url: string, appState: ApplicationState): PageState {
     if (this.pagesUrlMap[url]) {
       return this.pagesUrlMap[url];
     }
@@ -28,7 +29,7 @@ export class PageResolver {
       throw new Error('Page code not found in url');
     }
     const pageMeta = this.metadataResolver.resolvePage(packageCode, pageCode);
-    const page = new PageState(pageMeta, null);
+    const page = new PageState(pageMeta, appState);
     this.pagesUrlMap[url] = page;
     return page;
   }

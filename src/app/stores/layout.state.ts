@@ -9,6 +9,7 @@ import {ILayoutMeta} from '../meta/LayoutMeta';
 import {PlaceholderState} from './placeholder.state';
 import {InPlaceFileWriter} from '@angular/compiler-cli/ngcc/src/writing/in_place_file_writer';
 import {IPlaceHolderMeta} from '../meta/PlaceHolderMeta';
+import {PageState} from './page.state';
 
 export class LayoutState extends PartState implements IHierarchyPart {
 
@@ -40,5 +41,9 @@ export class LayoutState extends PartState implements IHierarchyPart {
   }
   GetDataSources() {
     return this.parent.GetDataSources();
+  }
+
+  GetPage(): PageState {
+    return this.parent.GetPage();
   }
 }

@@ -23,7 +23,7 @@ export class ApplicationState {
       const tree = new DefaultUrlSerializer().parse(url);
       const primary = tree.root.children[PRIMARY_OUTLET];
       if (primary) {
-        this.setCurrentPage(this.pageResolver.getPageByUrl(url));
+        this.setCurrentPage(this.pageResolver.getPageByUrl(url, this));
       } else {
         this.routeState.navigate('/test/simple_layout');
         //this.routeState.navigate('/test/administration');

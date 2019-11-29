@@ -16,6 +16,7 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
 import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { LinkComponent } from './components/link/link.component';
+import {Location} from '@angular/common';
 
 const routes: Routes = [
   {
@@ -44,7 +45,7 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [ApplicationState, RouterModule, RouteState, MetadataResolver],
+  providers: [ApplicationState, RouterModule, RouteState, MetadataResolver, Location],
   bootstrap: [AppComponent]
 })
 

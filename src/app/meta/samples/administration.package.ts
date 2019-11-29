@@ -16,15 +16,13 @@ export class AdministrationPackage {
                 title: 'Administration',
                 type: 'link',
                 target: 'page',
-                page: 'administration',
-                panel: 'officerGroups',
+                page: 'administration'
               },
               {
                 title: 'Global parameters',
                 type: 'link',
                 target: 'page',
-                page: 'default',
-                panel: 'globalParams',
+                page: 'default'
               }
             ]
           }

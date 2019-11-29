@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {MenuState} from '../../stores/menu.state';
 import {LinkState} from '../../stores/link.state';
+import {RouteState} from '../../stores/route.state';
 
 @Component({
   selector: 'app-link',
@@ -21,6 +22,14 @@ export class LinkComponent implements OnInit {
 
   get state(): LinkState {
     return this.linkState;
+  }
+
+  onClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const page = this.state.parent.GetPage();
+    page.applicationState.navigate(this.state.url);
+
   }
 
 

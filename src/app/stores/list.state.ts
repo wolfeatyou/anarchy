@@ -9,6 +9,7 @@ import {IListMeta} from "../meta/ListMeta";
 import {DataSourceState} from "./DataSourceState/datasource.state";
 import {IPanelMeta} from "../meta/PanelMeta";
 import {PanelState} from "./panel.state";
+import {PageState} from './page.state';
 
 export class ListState extends PartState implements IHierarchyPart {
 
@@ -40,5 +41,9 @@ export class ListState extends PartState implements IHierarchyPart {
 
   GetDataSources() {
     return this.parent.GetDataSources();
+  }
+
+  GetPage(): PageState {
+    return this.parent.GetPage();
   }
 }

@@ -5,6 +5,7 @@ import {computed} from 'mobx';
 import {PartResolver} from './part.resolver';
 import {IBarMeta} from '../meta/BarMeta';
 import {ILinkMeta} from '../meta/LinkMeta';
+import {PageState} from './page.state';
 
 export class BarState extends PartState implements IHierarchyPart {
   items: PartState[];
@@ -38,5 +39,9 @@ export class BarState extends PartState implements IHierarchyPart {
 
   GetDataSources() {
     return this.parent.GetDataSources();
+  }
+
+  GetPage(): PageState {
+    return this.parent.GetPage();
   }
 }

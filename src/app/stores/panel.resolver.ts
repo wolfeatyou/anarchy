@@ -17,7 +17,7 @@ export class PanelResolver {
   getPanel(code: string, parent: IHierarchyPart) {
     //todo: resolve package code
     const meta = ApplicationState.Current.metadataResolver.resolvePanel('test', code);
-    return new PageState(meta, parent);
+    return new PanelState(meta, parent);
   }
 
 }
