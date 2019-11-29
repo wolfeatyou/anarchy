@@ -7,6 +7,7 @@ import {IBarMeta} from './BarMeta';
 import {IPlaceHolderMeta} from './PlaceHolderMeta';
 import {ILayoutMeta} from './LayoutMeta';
 import {IListMeta} from "./ListMeta";
+import {IMenuMeta} from './MenuMeta';
 
 export class IPanelMeta extends IPanelPartMeta {
   @Length(1, 500)
@@ -25,6 +26,7 @@ export class IPanelMeta extends IPanelPartMeta {
         {value: IBarMeta, name: 'menu'},
         {value: ILayoutMeta, name: 'layout'},
         {value: IListMeta, name: 'list'},
+        {value: IMenuMeta, name: 'menu'},
         {value: IPlaceHolderMeta, name: 'placeholder'}
       ]
     },

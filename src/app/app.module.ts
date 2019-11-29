@@ -14,6 +14,8 @@ import {MetadataResolver} from './stores/matadata.resolver';
 import { BarComponent } from './components/bar/bar.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { LinkComponent } from './components/link/link.component';
 
 const routes: Routes = [
   {
@@ -30,7 +32,9 @@ const routes: Routes = [
     DynamicComponent,
     BarComponent,
     PlaceholderComponent,
-    LayoutComponent
+    LayoutComponent,
+    MenuComponent,
+    LinkComponent
   ],
   imports: [
     BrowserModule,

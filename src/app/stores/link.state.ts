@@ -8,7 +8,6 @@ import {IPartMeta} from '../meta/PartMeta';
 
 export class LinkState extends PartState {
   public code: string;
-  @observable public title: string;
   @observable private visibleCondition: ConditionState;
 
   constructor(metadata: IPartMeta, parent: IHierarchyPart) {
@@ -23,6 +22,16 @@ export class LinkState extends PartState {
         }
       }
     });
+  }
+
+  @computed
+  get title(): string {
+    return this.metadata.title;
+  }
+
+  @computed
+  get url(): string {
+    return '/test/' + this.metadata.page + '/' + this.metadata.panel;
   }
 
   get metadata(): ILinkMeta {

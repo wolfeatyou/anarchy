@@ -12,17 +12,22 @@ import {LayoutState} from './layout.state';
 import {IListMeta} from "../meta/ListMeta";
 import {ListState} from "./list.state";
 import {PanelState} from "./panel.state";
+import {MenuState} from './menu.state';
+import {IMenuMeta} from '../meta/MenuMeta';
 
 export class PartResolver {
 
   resolve(partMeta: IPartMeta, parent: IHierarchyPart){
     switch (partMeta.type) {
+      case 'header' :
+      case 'toolbar' :
       case 'bar' : return new BarState(partMeta as IBarMeta, parent);
       case 'link' : return new LinkState(partMeta as ILinkMeta, parent);
       case 'placeholder' : return new PlaceholderState(partMeta as IPlaceHolderMeta, parent);
       case 'layout' : return new LayoutState(partMeta as ILayoutMeta, parent);
       case 'list' : return new ListState(partMeta as IListMeta, parent as PanelState);
-      default : return new PartState(partMeta, parent);
+      case 'menu' : return new MenuState(partMeta as IMenuMeta, parent as PanelState);
+      default : throw Error('Part type not found:' + partMeta.type);
     }
   }
 }

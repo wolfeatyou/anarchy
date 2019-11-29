@@ -4,7 +4,7 @@ import {IHierarchyPart} from './hierarchyPart.interface';
 import {computed} from 'mobx';
 import {PartResolver} from './part.resolver';
 import {IBarMeta} from '../meta/BarMeta';
-import {ILinkMeta} from "../meta/LinkMeta";
+import {ILinkMeta} from '../meta/LinkMeta';
 
 export class BarState extends PartState implements IHierarchyPart {
   items: PartState[];
@@ -17,14 +17,17 @@ export class BarState extends PartState implements IHierarchyPart {
 
   init() {
     this.items = [];
-    this.metadata.items.forEach((partMeta: IPanelPartMeta) => {
-      this.items.push(new PartResolver().resolve(partMeta, this));
-    });
+    if(this.metadata.items) {
+      this.metadata.items.forEach((partMeta: IPanelPartMeta) => {
+        this.items.push(new PartResolver().resolve(partMeta, this));
+      });
+    }
   }
 
   get metadata(): IBarMeta {
     return this.internalmeta as IBarMeta;
   }
+
   @computed get Visible(): boolean {
     return this.parent.Visible;
   }
@@ -32,6 +35,7 @@ export class BarState extends PartState implements IHierarchyPart {
   GetConditions() {
     return this.parent.GetConditions();
   }
+
   GetDataSources() {
     return this.parent.GetDataSources();
   }

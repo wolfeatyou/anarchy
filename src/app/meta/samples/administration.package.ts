@@ -6,15 +6,21 @@ export class AdministrationPackage {
         type: 'page',
         parts: [
           {
+            type: 'bar',
+            items: []
+          },
+          {
             type: 'menu',
             items: [
               {
+                title: 'Administration',
                 type: 'link',
                 target: 'page',
                 page: 'administration',
                 panel: 'officerGroups',
               },
               {
+                title: 'Global parameters',
                 type: 'link',
                 target: 'page',
                 page: 'default',
@@ -68,7 +74,7 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'bar',
-            items: [ ]
+            items: []
           },
           {
             type: 'list',
@@ -94,7 +100,7 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'bar',
-            items: [ ]
+            items: []
           },
           {
             type: 'layout',
