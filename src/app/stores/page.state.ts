@@ -16,6 +16,13 @@ export class PageState extends PanelState implements IHierarchyPart {
     this.applicationState = applicationState;
     //this.placeHolders = {};
   }
+  @action
+  init(){
+
+  }
+  @action initPage(){
+    super.init();
+  }
 
   @action
   setAsCurrentPage(value: boolean) {

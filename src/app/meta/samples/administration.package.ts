@@ -52,7 +52,8 @@ export class AdministrationPackage {
           {
             code: 'content',
             type: 'placeholder',
-            panel: 'officerGroups'
+            panel: 'officerGroups',
+            applyToUrl: true
           }
         ]
       },
@@ -194,7 +195,8 @@ export class AdministrationPackage {
           {
             code: 'tabs',
             type: 'placeholder',
-            panel: 'officers'
+            panel: 'officers',
+            applyToUrl: true
           }
         ]
 

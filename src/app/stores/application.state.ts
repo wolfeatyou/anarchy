@@ -14,7 +14,7 @@ export class ApplicationState {
   public pageResolver: PageResolver;
   private static currentAppState: ApplicationState;
 
-  constructor(@Inject(RouteState) private routeState: RouteState, metadataResolver: MetadataResolver = new MetadataResolver()) {
+  constructor(@Inject(RouteState) public routeState: RouteState, metadataResolver: MetadataResolver = new MetadataResolver()) {
     ApplicationState.currentAppState = this;
     this.metadataResolver = metadataResolver;
     this.pageResolver = new PageResolver(routeState, metadataResolver);

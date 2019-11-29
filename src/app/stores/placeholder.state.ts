@@ -38,11 +38,17 @@ export class PlaceholderState extends PartState implements IHierarchyPart {
   @action
   setPanelCode(code: string) {
     this.panelCode = code;
+    const page = this.GetPage();
+    const hierarchyIndex = this.getPlaceHolderHierarchyIndex();
+    if (hierarchyIndex > 0) {
+      page.applicationState.routeState.segmentUrlChanged(hierarchyIndex+1, this.panelCode);
+    }
     if (code) {
       this.panel = new PanelResolver().getPanel(code, this);
     } else {
       this.panel = null;
     }
+
   }
 
   get id(): string {
@@ -51,6 +57,25 @@ export class PlaceholderState extends PartState implements IHierarchyPart {
 
   get metadata(): IPlaceHolderMeta {
     return this.internalmeta as IPlaceHolderMeta;
+  }
+
+  getPlaceHolderHierarchyIndex(): number {
+
+    let index = 0;
+    let current = this as PartState;
+    if (!this.metadata.applyToUrl) {
+      return 0;
+    }
+    while (current.parent !== null) {
+      if (current.getPartType() === 'placeholder') {
+        const placeHolderState = current as PlaceholderState;
+        if (placeHolderState.metadata.applyToUrl) {
+          index++;
+        }
+      }
+      current = current.parent;
+    }
+    return index;
   }
 
   @computed get Visible(): boolean {
