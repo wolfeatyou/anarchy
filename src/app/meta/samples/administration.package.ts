@@ -36,11 +36,13 @@ export class AdministrationPackage {
             type: 'bar',
             items: [
               {
+                title: 'Officer groups',
                 type: 'link',
                 panel: 'officerGroups',
                 target: 'content'
               },
               {
+                title: 'Roles',
                 type: 'link',
                 panel: 'roles',
                 target: 'content'
@@ -174,12 +176,14 @@ export class AdministrationPackage {
             type: 'toolbar',
             items: [
               {
+                title: 'Officers',
                 code: 'officersTab',
                 type: 'link',
                 panel: 'officers',
                 target: 'tabs'
               },
               {
+                title: 'Roles',
                 code: 'rolesTab',
                 type: 'link',
                 panel: 'roles',

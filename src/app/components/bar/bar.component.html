@@ -1,3 +1,3 @@
 <div class="bar">
-  <div class="content">bar</div>
-</div>
+    <app-link *ngFor="let item of state.items" [state]="item" class="bar-item"></app-link>
+ </div>

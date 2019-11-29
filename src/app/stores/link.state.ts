@@ -26,23 +26,18 @@ export class LinkState extends PartState {
 
   @computed
   get title(): string {
-    return this.metadata.title;
+    return this.metadata.title ? this.metadata.title : this.metadata.panel;
   }
 
   @computed
   get url(): string {
-    return '/test/' + this.metadata.page + '/' + this.metadata.panel;
+    return '/test/' + this.metadata.page;
   }
 
   get metadata(): ILinkMeta {
     return this.internalmeta as ILinkMeta;
   }
 
-
-  get LinkedPanel(): PanelState {
-    //todo: complete it
-    return null;
-  }
 
   @computed get Visible() {
     if (this.metadata.hidden === true) {

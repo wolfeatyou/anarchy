@@ -8,11 +8,13 @@ import {ApplicationState} from './application.state';
 export class PageState extends PanelState implements IHierarchyPart {
 
   applicationState: ApplicationState;
+  placeHolders: any;
   @observable isCurrentPage: boolean;
 
   constructor(metadata: IPageMeta, applicationState: ApplicationState) {
     super(metadata, null);
     this.applicationState = applicationState;
+    //this.placeHolders = {};
   }
 
   @action
