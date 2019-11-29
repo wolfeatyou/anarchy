@@ -41,7 +41,7 @@ export class PlaceholderState extends PartState implements IHierarchyPart {
     const page = this.GetPage();
     const hierarchyIndex = this.getPlaceHolderHierarchyIndex();
     if (hierarchyIndex > 0) {
-      page.applicationState.routeState.segmentUrlChanged(hierarchyIndex+1, this.panelCode);
+      page.applicationState.routeState.segmentUrlChanged(hierarchyIndex + 1, this.panelCode);
     }
     if (code) {
       this.panel = new PanelResolver().getPanel(code, this);
@@ -73,7 +73,7 @@ export class PlaceholderState extends PartState implements IHierarchyPart {
           index++;
         }
       }
-      current = current.parent;
+      current = current.parent as PartState;
     }
     return index;
   }

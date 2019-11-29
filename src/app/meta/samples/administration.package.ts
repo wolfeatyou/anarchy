@@ -19,6 +19,18 @@ export class AdministrationPackage {
                 page: 'administration'
               },
               {
+                title: 'Simple',
+                type: 'link',
+                target: 'page',
+                page: 'simple'
+              },
+              {
+                title: 'Simple layout',
+                type: 'link',
+                target: 'page',
+                page: 'simple_layout'
+              },
+              {
                 title: 'Global parameters',
                 type: 'link',
                 target: 'page',
