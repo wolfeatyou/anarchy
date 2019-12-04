@@ -26,7 +26,6 @@ export class ApplicationState {
         this.setCurrentPage(this.pageResolver.getPageByUrl(url, this));
       } else {
         this.routeState.navigate('/test/menu');
-        //this.routeState.navigate('/test/administration');
       }
     });
   }

@@ -30,7 +30,7 @@ export class PartState implements IHierarchyPart {
   }
 
   GetPage(): PageState {
-    return undefined;
+    return this.parent.GetPage();
   }
 }
 

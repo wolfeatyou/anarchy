@@ -55,7 +55,13 @@ export class DataSourceState extends PartState {
 
   @action
   setSelectedIndex(index: number) {
-    this.selectedDataItem = this.data[index];
+    if (index >= 0 && this.data && this.data.length > 0) {
+      this.selectedDataItem = this.data[index];
+      const page = this.GetPage();
+      page.applicationState.routeState.queryUrlChanged(this.code, this.selectedDataItem.id);
+    } else {
+      this.selectedDataItem = null;
+    }
   }
 
   @action
@@ -84,6 +90,26 @@ export class DataSourceState extends PartState {
 
   }
 
+  @action
+  setCurrentSelection(items) {
+    let selectedItem = null;
+    if (items.length > 0) {
+      const page = this.GetPage();
+      const currentValue = page.applicationState.routeState.getQueryDataSourceValue(this.code);
+      if (currentValue) {
+        selectedItem = items.find((item: any) => {
+          // tslint:disable-next-line:triple-equals
+          return item.id == currentValue;
+        });
+      }
+      if (!selectedItem) {
+        selectedItem = items[0];
+      }
+    }
+    this.setSelectedItem(selectedItem);
+  }
+
+
   @action.bound
   async reload() {
     runInAction(() => {
@@ -94,7 +120,7 @@ export class DataSourceState extends PartState {
       const d = await this.reloadAsync();
       runInAction(() => {
         this.data = d as any[];
-        this.selectedDataItem = d[0];
+        this.setCurrentSelection(this.data);
         this.reloadCounter++;
         this.status = DataSourceStatus.Loaded;
         console.log('action async: data reloaded for ' + this.code + ', count:' + this.reloadCounter);

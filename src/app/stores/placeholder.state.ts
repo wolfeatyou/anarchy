@@ -10,6 +10,7 @@ import {PanelState} from './panel.state';
 import {PanelResolver} from './panel.resolver';
 import {PageState} from './page.state';
 import {run} from 'tslint/lib/runner';
+import {DataSourceState} from './DataSourceState/datasource.state';
 
 export class PlaceholderState extends PartState implements IHierarchyPart {
 
@@ -28,11 +29,31 @@ export class PlaceholderState extends PartState implements IHierarchyPart {
   }
 
 
+  getDefaultPanelCode() {
+    const hierarchyIndex = this.getPlaceHolderHierarchyIndex();
+    if (hierarchyIndex > 0) {
+      const page = this.GetPage();
+      const path = page.applicationState.routeState.getSegmentUrl(hierarchyIndex + 1);
+      if (path) {
+        return path;
+      }
+
+    }
+    if (this.metadata.panel) {
+      return this.metadata.panel;
+    }
+  }
+
   @action
   init() {
-    if (this.metadata.panel) {
-      this.setPanelCode(this.metadata.panel);
+    const defaultPanelCode = this.getDefaultPanelCode();
+    if (defaultPanelCode) {
+      this.setPanelCode(defaultPanelCode);
     }
+  }
+
+  getDataSourceCodes() {
+    return this.GetDataSources().map((ds: DataSourceState) => ds.code);
   }
 
   @action
@@ -41,7 +62,7 @@ export class PlaceholderState extends PartState implements IHierarchyPart {
     const page = this.GetPage();
     const hierarchyIndex = this.getPlaceHolderHierarchyIndex();
     if (hierarchyIndex > 0) {
-      page.applicationState.routeState.segmentUrlChanged(hierarchyIndex + 1, this.panelCode);
+      page.applicationState.routeState.segmentUrlChanged(hierarchyIndex + 1, this.panelCode, this.getDataSourceCodes());
     }
     if (code) {
       this.panel = new PanelResolver().getPanel(code, this);
