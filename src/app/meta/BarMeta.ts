@@ -15,7 +15,7 @@ export class IBarMeta extends IPanelPartMeta {
       property: 'type',
       subTypes: [
         {value: ILinkMeta, name: 'link'},
-        {value: ITextMeta, name: 'text'}
+        {value: ITextMeta, name: 'label'}
       ]
     },
     keepDiscriminatorProperty: true,

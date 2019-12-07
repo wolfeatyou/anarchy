@@ -176,8 +176,9 @@ export class AdministrationPackage {
             type: 'toolbar',
             items: [
               {
-                type: 'text',
-                role: 'header'
+                type: 'label',
+                role: 'header',
+                text: 'Officers groups'
               }
             ]
           },
@@ -237,7 +238,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'toolbar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Roles'
+              }
+            ]
           },
           {
             type: 'list',
@@ -251,7 +258,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'toolbar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Officers'
+              }
+            ]
           },
           {
             type: 'list',

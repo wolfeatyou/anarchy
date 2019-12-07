@@ -27,7 +27,7 @@ export class PartResolver {
       case 'layout' : return new LayoutState(partMeta as ILayoutMeta, parent);
       case 'list' : return new ListState(partMeta as IListMeta, parent as PanelState);
       case 'menu' : return new MenuState(partMeta as IMenuMeta, parent as PanelState);
-      case 'text' : return new PartState(partMeta as IMenuMeta, parent);
+      case 'label' : return new PartState(partMeta as IMenuMeta, parent);
       default : throw Error('Part type not found:' + partMeta.type);
     }
   }
