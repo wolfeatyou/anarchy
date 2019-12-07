@@ -17,6 +17,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { LinkComponent } from './components/link/link.component';
 import {Location} from '@angular/common';
+import { LabelComponent } from './components/label/label.component';
 
 const routes: Routes = [
   {
@@ -35,7 +36,8 @@ const routes: Routes = [
     PlaceholderComponent,
     LayoutComponent,
     MenuComponent,
-    LinkComponent
+    LinkComponent,
+    LabelComponent
   ],
   imports: [
     BrowserModule,

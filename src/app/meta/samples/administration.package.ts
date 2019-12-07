@@ -173,7 +173,13 @@ export class AdministrationPackage {
         type: 'panel',
         parts: [
           {
-            type: 'toolbar'
+            type: 'toolbar',
+            items: [
+              {
+                type: 'text',
+                role: 'header'
+              }
+            ]
           },
           {
             type: 'list',

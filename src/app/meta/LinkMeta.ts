@@ -35,6 +35,3 @@ export class ILinkMeta extends IPartMeta {
   visibleCondition: string;
 }
 
-export class ITabMeta extends ILinkMeta {
-
-}
