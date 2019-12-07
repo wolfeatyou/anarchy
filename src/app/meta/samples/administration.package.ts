@@ -7,7 +7,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'bar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Main menu page'
+              }
+            ]
           },
           {
             type: 'menu',
@@ -48,6 +54,11 @@ export class AdministrationPackage {
             type: 'bar',
             items: [
               {
+                type: 'label',
+                role: 'header',
+                text: 'Administration page'
+              },
+              {
                 title: 'Officer groups',
                 type: 'link',
                 panel: 'officerGroups',
@@ -87,7 +98,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'bar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Simple page'
+              }
+            ]
           },
           {
             type: 'list',
@@ -113,7 +130,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'bar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Layout sample page'
+              }
+            ]
           },
           {
             type: 'layout',
