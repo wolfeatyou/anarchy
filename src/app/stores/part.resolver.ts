@@ -14,6 +14,8 @@ import {ListState} from "./list.state";
 import {PanelState} from "./panel.state";
 import {MenuState} from './menu.state';
 import {IMenuMeta} from '../meta/MenuMeta';
+import {LabelState} from "./label.state";
+import {ILabelMeta} from "../meta/LabelMeta";
 
 export class PartResolver {
 
@@ -27,7 +29,7 @@ export class PartResolver {
       case 'layout' : return new LayoutState(partMeta as ILayoutMeta, parent);
       case 'list' : return new ListState(partMeta as IListMeta, parent as PanelState);
       case 'menu' : return new MenuState(partMeta as IMenuMeta, parent as PanelState);
-      case 'label' : return new PartState(partMeta as IMenuMeta, parent);
+      case 'label' : return new LabelState(partMeta as ILabelMeta, parent);
       default : throw Error('Part type not found:' + partMeta.type);
     }
   }

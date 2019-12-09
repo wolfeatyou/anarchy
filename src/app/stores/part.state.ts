@@ -32,6 +32,10 @@ export class PartState implements IHierarchyPart {
   GetPage(): PageState {
     return this.parent.GetPage();
   }
+
+  GetPanel(): PanelState {
+    return this.parent.GetPanel();
+  }
 }
 
 

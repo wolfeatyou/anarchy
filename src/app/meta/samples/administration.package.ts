@@ -285,7 +285,7 @@ export class AdministrationPackage {
               {
                 type: 'label',
                 role: 'header',
-                text: '{groupTitle} - Officers',
+                text: '${parameters.groupTitle} - Officers',
                 parameters: [{
                   code: 'groupTitle',
                   dataSourceCode: 'officerGroupsDs',
