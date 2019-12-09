@@ -1,7 +1,7 @@
 import {IsBoolean, IsOptional, IsString} from 'class-validator';
 import {IPartMeta} from './PartMeta';
 
-export class ITextMeta extends IPartMeta {
+export class ILabelMeta extends IPartMeta {
 
   @IsOptional()
   @IsString()

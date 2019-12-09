@@ -2,7 +2,7 @@ import {IsArray, IsOptional, IsString, ValidateNested} from 'class-validator';
 import {ILinkMeta} from './LinkMeta';
 import {Type} from 'class-transformer';
 import {IPanelPartMeta, IPartMeta} from './PartMeta';
-import {ITextMeta} from "./TextMeta";
+import {ILabelMeta} from "./TextMeta";
 
 export class IBarMeta extends IPanelPartMeta {
   @IsOptional()
@@ -15,7 +15,7 @@ export class IBarMeta extends IPanelPartMeta {
       property: 'type',
       subTypes: [
         {value: ILinkMeta, name: 'link'},
-        {value: ITextMeta, name: 'label'}
+        {value: ILabelMeta, name: 'label'}
       ]
     },
     keepDiscriminatorProperty: true,

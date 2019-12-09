@@ -17,8 +17,8 @@ export class LinkComponent implements OnInit {
   }
 
   @Input()
-  set state(menu: LinkState) {
-    this.linkState = menu;
+  set state(state: LinkState) {
+    this.linkState = state;
   }
 
   get state(): LinkState {

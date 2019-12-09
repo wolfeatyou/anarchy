@@ -1,5 +1,7 @@
 import {IsBoolean, IsOptional, IsString} from 'class-validator';
 import {IPartMeta} from './PartMeta';
+import {ILabelMeta} from './TextMeta';
+import {Type} from 'class-transformer';
 
 export class ILinkMeta extends IPartMeta {
   @IsOptional()
