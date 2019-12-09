@@ -2,7 +2,7 @@ import {IsArray, IsOptional, IsString, ValidateNested} from 'class-validator';
 import {ILinkMeta} from './LinkMeta';
 import {Type} from 'class-transformer';
 import {IPanelPartMeta, IPartMeta} from './PartMeta';
-import {ILabelMeta} from "./TextMeta";
+import {ILabelMeta} from './LabelMeta';
 
 export class IBarMeta extends IPanelPartMeta {
   @IsOptional()

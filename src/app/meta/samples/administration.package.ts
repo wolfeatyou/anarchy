@@ -69,7 +69,7 @@ export class AdministrationPackage {
                 type: 'link',
                 panel: 'roles',
                 target: 'content'
-              },
+              }
             ]
           },
           {
@@ -285,7 +285,12 @@ export class AdministrationPackage {
               {
                 type: 'label',
                 role: 'header',
-                text: 'Officers'
+                text: '{groupTitle} - Officers',
+                parameters: [{
+                  code: 'groupTitle',
+                  dataSourceCode: 'officerGroupsDs',
+                  dataItemProperty: 'title'
+                }]
               }
             ]
           },
