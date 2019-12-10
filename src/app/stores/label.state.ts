@@ -10,6 +10,7 @@ import {DataSourceBuilder, DataSourceRelation} from './DataSourceState/datasourc
 import {IDataSourceMeta} from "../meta/DataSourceMeta";
 import {DataSourceState} from "./DataSourceState/datasource.state";
 import {IOperationParameterMeta} from "../meta/OperationParameterMeta";
+import format from 'string-template';
 
 
 export class LabelState extends PartState {
@@ -27,7 +28,9 @@ export class LabelState extends PartState {
         this.calculateParameters();
       });
       this.relations = relations;
+      this.calculateParameters();
     }
+
   }
 
   @action
@@ -50,7 +53,8 @@ export class LabelState extends PartState {
     if (this.parameters) {
       const parameters = this.parameters;
       //todo: use proper library
-      const ttt = eval('`' + this.metadata.text + '`');
+      const ttt = format(this.metadata.text, parameters);
+    //  const ttt = eval('`' + this.metadata.text + '`');
       return ttt;
     }
     return this.metadata.text;
