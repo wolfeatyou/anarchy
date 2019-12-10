@@ -219,6 +219,16 @@ export class AdministrationPackage {
             type: 'toolbar',
             items: [
               {
+                type: 'label',
+                role: 'header',
+                text: '{groupTitle}',
+                parameters: [{
+                  code: 'groupTitle',
+                  dataSourceCode: 'officerGroupsDs',
+                  dataItemProperty: 'title'
+                }]
+              },
+              {
                 title: 'Officers',
                 code: 'officersTab',
                 type: 'link',
@@ -285,12 +295,7 @@ export class AdministrationPackage {
               {
                 type: 'label',
                 role: 'header',
-                text: '{groupTitle} - Officers',
-                parameters: [{
-                  code: 'groupTitle',
-                  dataSourceCode: 'officerGroupsDs',
-                  dataItemProperty: 'title'
-                }]
+                text: 'Officers'
               }
             ]
           },
