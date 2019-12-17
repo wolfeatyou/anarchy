@@ -1,6 +1,7 @@
 import {IsBoolean, IsOptional, IsString} from 'class-validator';
 import {IPartMeta} from './PartMeta';
 
+
 export class ILinkMeta extends IPartMeta {
   @IsOptional()
   @IsString()
@@ -35,6 +36,3 @@ export class ILinkMeta extends IPartMeta {
   visibleCondition: string;
 }
 
-export class ITabMeta extends ILinkMeta {
-
-}

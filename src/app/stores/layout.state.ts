@@ -10,6 +10,7 @@ import {PlaceholderState} from './placeholder.state';
 import {InPlaceFileWriter} from '@angular/compiler-cli/ngcc/src/writing/in_place_file_writer';
 import {IPlaceHolderMeta} from '../meta/PlaceHolderMeta';
 import {PageState} from './page.state';
+import {PanelState} from "./panel.state";
 
 export class LayoutState extends PartState{
 
@@ -45,5 +46,9 @@ export class LayoutState extends PartState{
 
   GetPage(): PageState {
     return this.parent.GetPage();
+  }
+
+  GetPanel(): PanelState {
+    return this.parent.GetPanel();
   }
 }

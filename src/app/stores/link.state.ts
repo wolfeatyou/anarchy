@@ -8,15 +8,23 @@ import {IPartMeta} from '../meta/PartMeta';
 import {PlaceholderState} from './placeholder.state';
 import {PageState} from './page.state';
 import {DataSourceState} from './DataSourceState/datasource.state';
+import {ILabelMeta} from '../meta/LabelMeta';
+import {LabelState} from './label.state';
 
 export class LinkState extends PartState {
   public code: string;
+  public label: LabelState;
   @observable private visibleCondition: ConditionState;
 
   constructor(metadata: IPartMeta, parent: IHierarchyPart) {
     super(metadata, parent);
-
     this.code = this.metadata.code;
+    if(!this.label) {
+      const label = new ILabelMeta();
+      label.text = this.metadata.title ? this.metadata.title : this.metadata.panel;
+      this.label = new LabelState(label, this);
+    }
+
     runInAction(() => {
       if (this.metadata.visibleCondition) {
         this.visibleCondition = this.parent.GetConditions().find((c: ConditionState) => c.code === this.metadata.visibleCondition);
@@ -29,7 +37,7 @@ export class LinkState extends PartState {
 
   @computed
   get title(): string {
-    return this.metadata.title ? this.metadata.title : this.metadata.panel;
+    return this.label.text;
   }
 
   @computed

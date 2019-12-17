@@ -7,7 +7,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'bar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Main menu page'
+              }
+            ]
           },
           {
             type: 'menu',
@@ -48,6 +54,11 @@ export class AdministrationPackage {
             type: 'bar',
             items: [
               {
+                type: 'label',
+                role: 'header',
+                text: 'Administration page'
+              },
+              {
                 title: 'Officer groups',
                 type: 'link',
                 panel: 'officerGroups',
@@ -58,7 +69,7 @@ export class AdministrationPackage {
                 type: 'link',
                 panel: 'roles',
                 target: 'content'
-              },
+              }
             ]
           },
           {
@@ -87,7 +98,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'bar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Simple page'
+              }
+            ]
           },
           {
             type: 'list',
@@ -113,7 +130,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'bar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Layout sample page'
+              }
+            ]
           },
           {
             type: 'layout',
@@ -173,7 +196,14 @@ export class AdministrationPackage {
         type: 'panel',
         parts: [
           {
-            type: 'toolbar'
+            type: 'toolbar',
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Officers groups'
+              }
+            ]
           },
           {
             type: 'list',
@@ -231,7 +261,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'toolbar',
-            items: []
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Roles'
+              }
+            ]
           },
           {
             type: 'list',
@@ -246,6 +282,16 @@ export class AdministrationPackage {
           {
             type: 'toolbar',
             items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: '{groupTitle} - Officers',
+                parameters: [{
+                  code: 'groupTitle',
+                  dataSourceCode: 'officerGroupsDs',
+                  dataItemProperty: 'title'
+                }]
+              },
               {
                 title: 'external',
                 type: 'link',

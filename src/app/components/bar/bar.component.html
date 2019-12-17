@@ -1,3 +1,5 @@
 <div class="bar">
-    <app-link *ngFor="let item of state.items" [state]="item" class="bar-item"></app-link>
+   <app-dynamic *ngFor="let item of state.items" [state]="item" class="bar-item">
+   </app-dynamic>
+    <!--app-link *ngFor="let item of state.items" [state]="item" class="bar-item"></app-link-->
  </div>

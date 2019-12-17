@@ -10,4 +10,6 @@ export interface IHierarchyPart {
   GetDataSources(): DataSourceState[];
 
   GetPage(): PageState;
+
+  GetPanel(): PanelState;
 }

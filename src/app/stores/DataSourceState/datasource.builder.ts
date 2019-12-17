@@ -5,10 +5,24 @@ import {IHierarchyPart} from '../hierarchyPart.interface';
 import {DataSourceState} from './datasource.state';
 import {PanelState} from '../panel.state';
 import {IOperationParameterMeta} from "../../meta/OperationParameterMeta";
+import {IDataSourceMeta} from "../../meta/DataSourceMeta";
 
 export class DataSourceBuilder {
 
-  static getRelatedDataSources(metadata: any): DataSourceRelation[] {
+  static getRelatedDataSourcesForLabel(parameterMeta: IOperationParameterMeta[]): DataSourceRelation[] {
+    const m: any = {};
+    parameterMeta.forEach((p: IOperationParameterMeta) => {
+      if (p.dataSourceCode) {
+        if (m[p.dataSourceCode] == null) {
+          m[p.dataSourceCode] = new DataSourceRelation(p.dataSourceCode, []);
+        }
+        m[p.dataSourceCode].dataItemProperties.push(p.dataItemProperty);
+      }
+    });
+    return Object.values(m) as DataSourceRelation[];
+  }
+
+  static getRelatedDataSources(metadata: IDataSourceMeta): DataSourceRelation[] {
     const result = [];
     if (metadata.operations == null) {
       return result;
