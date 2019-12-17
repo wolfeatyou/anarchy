@@ -60,7 +60,9 @@ export class PanelState extends PartState {
   GetDataSources() {
     let allDataSources: DataSourceState[] = [];
     if (this.parent) {
-      allDataSources = this.parent.GetDataSources();
+      allDataSources = this.parent.GetDataSources().filter((globalDs: DataSourceState) => {
+        return this.dataSources.find((localDs: DataSourceState) => localDs.code === globalDs.code) == null;
+      });
     }
     return allDataSources.concat(this.dataSources);
   }
