@@ -3,6 +3,7 @@ import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
 import {IHierarchyPart} from './hierarchyPart.interface';
 import {DataSourceState} from './DataSourceState/datasource.state';
 import {PageState} from './page.state';
+import {PanelState} from "./panel.state";
 
 export class PartState implements IHierarchyPart {
   internalmeta: IPartMeta;
