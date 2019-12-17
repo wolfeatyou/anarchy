@@ -1,17 +1,12 @@
 import {PartState} from './part.state';
 import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
-import {IHierarchyPart} from './hierarchyPart.interface';
 import {computed, observable} from 'mobx';
-import {PartResolver} from './part.resolver';
-import {IBarMeta} from '../meta/BarMeta';
-import {ILinkMeta} from "../meta/LinkMeta";
-import {IListMeta} from "../meta/ListMeta";
-import {DataSourceState} from "./DataSourceState/datasource.state";
-import {IPanelMeta} from "../meta/PanelMeta";
-import {PanelState} from "./panel.state";
+import {IListMeta} from '../meta/ListMeta';
+import {DataSourceState} from './DataSourceState/datasource.state';
+import {PanelState} from './panel.state';
 import {PageState} from './page.state';
 
-export class ListState extends PartState implements IHierarchyPart {
+export class ListState extends PartState {
 
   @observable dataSource: DataSourceState;
 

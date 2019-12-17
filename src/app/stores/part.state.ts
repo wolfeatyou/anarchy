@@ -1,9 +1,8 @@
 import {reaction, runInAction} from 'mobx';
-import {PanelState} from './panel.state';
 import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
 import {IHierarchyPart} from './hierarchyPart.interface';
-import {DataSourceState} from "./DataSourceState/datasource.state";
-import {PageState} from "./page.state";
+import {DataSourceState} from './DataSourceState/datasource.state';
+import {PageState} from './page.state';
 
 export class PartState implements IHierarchyPart {
   internalmeta: IPartMeta;
@@ -23,9 +22,16 @@ export class PartState implements IHierarchyPart {
 
 
   GetConditions() {
+    if (this.parent) {
+      return this.parent.GetConditions();
+    }
+    return [];
   }
 
   GetDataSources(): DataSourceState[] {
+    if (this.parent) {
+      return this.parent.GetDataSources();
+    }
     return [];
   }
 

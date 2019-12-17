@@ -11,7 +11,7 @@ import {InPlaceFileWriter} from '@angular/compiler-cli/ngcc/src/writing/in_place
 import {IPlaceHolderMeta} from '../meta/PlaceHolderMeta';
 import {PageState} from './page.state';
 
-export class LayoutState extends PartState implements IHierarchyPart {
+export class LayoutState extends PartState{
 
   constructor(metadata: ILayoutMeta, parent: IHierarchyPart) {
     super(metadata, parent);

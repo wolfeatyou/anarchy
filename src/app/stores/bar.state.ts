@@ -7,7 +7,7 @@ import {IBarMeta} from '../meta/BarMeta';
 import {ILinkMeta} from '../meta/LinkMeta';
 import {PageState} from './page.state';
 
-export class BarState extends PartState implements IHierarchyPart {
+export class BarState extends PartState{
   items: PartState[];
 
   constructor(metadata: IPartMeta, parent: IHierarchyPart) {

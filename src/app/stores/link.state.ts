@@ -5,6 +5,9 @@ import {ConditionState} from './condition.state';
 import {IHierarchyPart} from './hierarchyPart.interface';
 import {PartState} from './part.state';
 import {IPartMeta} from '../meta/PartMeta';
+import {PlaceholderState} from './placeholder.state';
+import {PageState} from './page.state';
+import {DataSourceState} from './DataSourceState/datasource.state';
 
 export class LinkState extends PartState {
   public code: string;
@@ -31,7 +34,52 @@ export class LinkState extends PartState {
 
   @computed
   get url(): string {
-    return '/test/' + this.metadata.page;
+    let url = '';
+    if (this.metadata.page) {
+      url = this.metadata.page;
+      if (this.metadata.panel) {
+        url = url + '/' + this.metadata.panel;
+      }
+    } else {
+      url = this.baseUrl + this.metadata.panel;
+    }
+    const query = this.baseQuery;
+    if (query) {
+      url = url + '?' + query;
+    }
+    return '/test/' + url;
+  }
+
+  get baseQuery(): string {
+    let query = '';
+    this.GetDataSources().forEach((d: DataSourceState) => {
+      if (d.selectedDataItem) {
+        if (query) {
+          query = '&' + query;
+        }
+        query = d.code + '=' + d.selectedDataItem.id;
+      }
+    });
+    return query;
+  }
+
+  get baseUrl(): string {
+    let url = '';
+    let current = this as PartState;
+    while (current !== null) {
+      if (current.getPartType() === 'placeholder') {
+        const placeHolderState = current as PlaceholderState;
+        if (placeHolderState.metadata.applyToUrl) {
+          url = placeHolderState.panelCode + '/' + url;
+        }
+      }
+      if (current.getPartType() === 'page') {
+        const pageState = current as PageState;
+        url = pageState.metadata.code + '/' + url;
+      }
+      current = current.parent as PartState;
+    }
+    return url;
   }
 
   get metadata(): ILinkMeta {
