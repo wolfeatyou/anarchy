@@ -5,7 +5,7 @@ import {IHierarchyPart} from './hierarchyPart.interface';
 import {IPanelMeta} from '../meta/PanelMeta';
 import {ApplicationState} from './application.state';
 
-export class PageState extends PanelState implements IHierarchyPart {
+export class PageState extends PanelState {
 
   applicationState: ApplicationState;
   placeHolders: any;

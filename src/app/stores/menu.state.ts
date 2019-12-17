@@ -11,9 +11,9 @@ import {IPanelMeta} from '../meta/PanelMeta';
 import {PanelState} from './panel.state';
 import {IMenuMeta} from '../meta/MenuMeta';
 import {LinkState} from './link.state';
-import {PageState} from "./page.state";
+import {PageState} from './page.state';
 
-export class MenuState extends PartState implements IHierarchyPart {
+export class MenuState extends PartState {
 
   @observable dataSource: DataSourceState;
   items: LinkState[];

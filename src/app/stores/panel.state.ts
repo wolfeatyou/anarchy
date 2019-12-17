@@ -10,7 +10,7 @@ import {IDataSourceMeta} from '../meta/DataSourceMeta';
 import {PageState} from './page.state';
 
 
-export class PanelState extends PartState implements IHierarchyPart {
+export class PanelState extends PartState{
   @observable title: string;
   dataSources: DataSourceState[];
   conditions: ConditionState[];

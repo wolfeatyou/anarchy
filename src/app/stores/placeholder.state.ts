@@ -12,7 +12,7 @@ import {PageState} from './page.state';
 import {run} from 'tslint/lib/runner';
 import {DataSourceState} from './DataSourceState/datasource.state';
 
-export class PlaceholderState extends PartState implements IHierarchyPart {
+export class PlaceholderState extends PartState{
 
   @observable panelCode: string;
 

@@ -295,7 +295,17 @@ export class AdministrationPackage {
               {
                 type: 'label',
                 role: 'header',
-                text: 'Officers'
+                text: '{groupTitle} - Officers',
+                parameters: [{
+                  code: 'groupTitle',
+                  dataSourceCode: 'officerGroupsDs',
+                  dataItemProperty: 'title'
+                }]
+              },
+              {
+                title: 'external',
+                type: 'link',
+                page: 'simple'
               }
             ]
           },

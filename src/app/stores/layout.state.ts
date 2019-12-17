@@ -12,7 +12,7 @@ import {IPlaceHolderMeta} from '../meta/PlaceHolderMeta';
 import {PageState} from './page.state';
 import {PanelState} from "./panel.state";
 
-export class LayoutState extends PartState implements IHierarchyPart {
+export class LayoutState extends PartState{
 
   constructor(metadata: ILayoutMeta, parent: IHierarchyPart) {
     super(metadata, parent);
