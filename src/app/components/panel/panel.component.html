@@ -1,5 +1,9 @@
 <ng-container >
   <app-dynamic *ngFor="let partState of this.state.parts" [state]="partState" ></app-dynamic>
+  <div class="modal-bg" *ngIf="state.modalPanel!=null" ></div>
+  <div class="modal-content" *ngIf="state.modalPanel!=null" (click)=" $event.stopPropagation(); state.closeModalPanel();">
+    <app-panel class="modal-panel"  [state]="state.modalPanel" (click)="$event.stopPropagation()"></app-panel>
+  </div>
 </ng-container>
 
 

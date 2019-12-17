@@ -1,4 +1,4 @@
-import {computed, observable, reaction, runInAction} from 'mobx';
+import {action, computed, observable, reaction, runInAction} from 'mobx';
 import {DataSourceState} from './DataSourceState/datasource.state';
 import {IPanelMeta} from '../meta/PanelMeta';
 import {ConditionState} from './condition.state';
@@ -10,11 +10,12 @@ import {IDataSourceMeta} from '../meta/DataSourceMeta';
 import {PageState} from './page.state';
 
 
-export class PanelState extends PartState{
+export class PanelState extends PartState {
   @observable title: string;
   dataSources: DataSourceState[];
   conditions: ConditionState[];
   parts: PartState[];
+  @observable modalPanel: PanelState;
 
   constructor(metadata: IPanelMeta, parent: IHierarchyPart) {
     super(metadata, parent);
@@ -22,6 +23,17 @@ export class PanelState extends PartState{
     this.parts = [];
     this.init();
   }
+
+  @action
+  setModalPanel(panel: PanelState) {
+    this.modalPanel = panel;
+  }
+
+  @action
+  closeModalPanel() {
+    this.modalPanel = null;
+  }
+
 
   @computed get Visible(): boolean {
     return this.parent.Visible;
@@ -68,6 +80,7 @@ export class PanelState extends PartState{
   GetPage(): PageState {
     return this.parent.GetPage();
   }
+
 }
 
 

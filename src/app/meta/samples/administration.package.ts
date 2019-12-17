@@ -231,7 +231,14 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'toolbar',
-            items: []
+            items: [
+              {
+                title: 'modal',
+                type: 'link',
+                panel: 'roles',
+                target: 'modal'
+              }
+            ]
           },
           {
             type: 'list',
@@ -250,6 +257,12 @@ export class AdministrationPackage {
                 title: 'external',
                 type: 'link',
                 page: 'simple'
+              },
+              {
+                title: 'modal',
+                type: 'link',
+                panel: 'roles',
+                target: 'modal'
               }
             ]
           },
