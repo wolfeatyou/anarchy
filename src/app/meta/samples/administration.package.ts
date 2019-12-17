@@ -245,7 +245,13 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'toolbar',
-            items: []
+            items: [
+              {
+                title: 'external',
+                type: 'link',
+                page: 'simple'
+              }
+            ]
           },
           {
             type: 'list',
