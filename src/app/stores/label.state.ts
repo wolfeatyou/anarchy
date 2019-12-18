@@ -7,9 +7,9 @@ import {PartState} from './part.state';
 import {IPartMeta} from '../meta/PartMeta';
 import {ILabelMeta} from '../meta/LabelMeta';
 import {DataSourceBuilder, DataSourceRelation} from './DataSourceState/datasource.builder';
-import {IDataSourceMeta} from "../meta/DataSourceMeta";
-import {DataSourceState} from "./DataSourceState/datasource.state";
-import {IOperationParameterMeta} from "../meta/OperationParameterMeta";
+import {IDataSourceMeta} from '../meta/DataSourceMeta';
+import {DataSourceState} from './DataSourceState/datasource.state';
+import {IOperationParameterMeta} from '../meta/OperationParameterMeta';
 import format from 'string-template';
 
 
@@ -37,11 +37,21 @@ export class LabelState extends PartState {
   calculateParameters() {
     this.parameters = {};
     this.metadata.parameters.forEach((p: IOperationParameterMeta) => {
-      const ds = this.parent.GetPanel().getDataSourceById(p.dataSourceCode);
-      if (ds.selectedDataItem) {
-        this.parameters[p.code] = ds.selectedDataItem[p.dataItemProperty];
-      } else {
-        this.parameters[p.code] = '';
+      if (p.expression) {
+        if(p.expression.indexOf('return') === -1){
+          p.expression = 'return ' + p.expression;
+        }
+        const f = new Function('api', p.expression);
+        const result = f(this);
+        this.parameters[p.code] = result;
+      }
+      if (p.dataSourceCode) {
+        const ds = this.parent.GetPanel().getDataSourceById(p.dataSourceCode);
+        if (ds.selectedDataItem) {
+          this.parameters[p.code] = ds.selectedDataItem[p.dataItemProperty];
+        } else {
+          this.parameters[p.code] = '';
+        }
       }
     });
   }
@@ -54,7 +64,7 @@ export class LabelState extends PartState {
       const parameters = this.parameters;
       //todo: use proper library
       const ttt = format(this.metadata.text, parameters);
-    //  const ttt = eval('`' + this.metadata.text + '`');
+      //  const ttt = eval('`' + this.metadata.text + '`');
       return ttt;
     }
     return this.metadata.text;
@@ -62,6 +72,10 @@ export class LabelState extends PartState {
 
   get metadata(): ILabelMeta {
     return this.internalmeta as ILabelMeta;
+  }
+
+  GetPage(){
+    return this.parent.GetPage();
   }
 
 }

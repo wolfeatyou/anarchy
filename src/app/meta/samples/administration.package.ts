@@ -56,7 +56,11 @@ export class AdministrationPackage {
               {
                 type: 'label',
                 role: 'header',
-                text: 'Modal page'
+                text: 'Modal page ({url})',
+                parameters: [{
+                  code: 'url',
+                  expression: 'api.GetPage().route.url'
+                }]
               }
             ]
           },
@@ -64,7 +68,22 @@ export class AdministrationPackage {
             code: 'content',
             type: 'placeholder',
             applyToUrl: true
-          }
+          },
+          {
+            type: 'bar',
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'OK'
+              },
+              {
+                type: 'label',
+                role: 'header',
+                text: 'CANCEL'
+              }
+            ]
+          },
         ]
       },
       {
