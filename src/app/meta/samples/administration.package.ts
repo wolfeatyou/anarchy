@@ -47,6 +47,27 @@ export class AdministrationPackage {
         ]
       },
       {
+        code: 'modal',
+        type: 'page',
+        parts: [
+          {
+            type: 'bar',
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Modal page'
+              }
+            ]
+          },
+          {
+            code: 'content',
+            type: 'placeholder',
+            applyToUrl: true
+          }
+        ]
+      },
+      {
         code: 'administration',
         type: 'page',
         parts: [

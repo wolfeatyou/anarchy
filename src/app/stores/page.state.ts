@@ -20,10 +20,11 @@ export class PageState extends PanelState {
   }
 
   @action
-  init(){
+  init() {
 
   }
-  @action initPage(){
+
+  @action initPage() {
     super.init();
   }
 

@@ -11,6 +11,7 @@ import {DataSourceState} from './DataSourceState/datasource.state';
 import {ILabelMeta} from '../meta/LabelMeta';
 import {LabelState} from './label.state';
 import {PanelResolver} from './panel.resolver';
+import {PageResolver} from './page.resolver';
 
 export class LinkState extends PartState {
   public code: string;
@@ -19,6 +20,9 @@ export class LinkState extends PartState {
 
   constructor(metadata: IPartMeta, parent: IHierarchyPart) {
     super(metadata, parent);
+    if (this.metadata.target === 'modal' && this.metadata.page == null) {
+      this.metadata.page = 'modal';
+    }
     this.code = this.metadata.code;
     if (!this.label) {
       const label = new ILabelMeta();
@@ -108,21 +112,23 @@ export class LinkState extends PartState {
 
   @action
   click() {
+    if (this.metadata.target === 'modal') {
+      const page = this.parent.GetPage();
+      const modal = page.applicationState.pageResolver.getPageByUrl(this.url, page.applicationState);
+      modal.parent = page;
+      page.setModalPanel(modal);
+      return;
+    }
     if (this.metadata.page) {
       const page = this.parent.GetPage();
       page.applicationState.navigate(this.url);
     } else {
       if (this.metadata.target) {
-        if (this.metadata.target === 'modal') {
-          const page = this.parent.GetPanel();
-          page.setModalPanel(new PanelResolver().getPanel(this.metadata.panel, page));
-        } else {
-          let ph = this.parent.GetPage().placeHolders[this.metadata.target] as PlaceholderState;
-          if (ph == null) {
-            throw new Error('Placeholder not found:' + this.metadata.target);
-          }
-          ph.setPanelCode(this.metadata.panel);
+        let ph = this.parent.GetPage().placeHolders[this.metadata.target] as PlaceholderState;
+        if (ph == null) {
+          throw new Error('Placeholder not found:' + this.metadata.target);
         }
+        ph.setPanelCode(this.metadata.panel);
       }
     }
   }
