@@ -1,6 +1,6 @@
 import {PartState} from './part.state';
 import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
-import {computed, observable} from 'mobx';
+import {action, computed, observable} from 'mobx';
 import {IListMeta} from '../meta/ListMeta';
 import {DataSourceState} from './DataSourceState/datasource.state';
 import {PanelState} from './panel.state';
@@ -16,6 +16,7 @@ export class ListState extends PartState {
   }
 
 
+  @action
   init() {
     if (this.metadata.dataSourceCode) {
       this.dataSource = this.panel.getDataSourceById(this.metadata.dataSourceCode);

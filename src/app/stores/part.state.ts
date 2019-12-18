@@ -3,7 +3,7 @@ import {IPanelPartMeta, IPartMeta} from '../meta/PartMeta';
 import {IHierarchyPart} from './hierarchyPart.interface';
 import {DataSourceState} from './DataSourceState/datasource.state';
 import {PageState} from './page.state';
-import {PanelState} from "./panel.state";
+import {PanelState} from './panel.state';
 
 export class PartState implements IHierarchyPart {
   internalmeta: IPartMeta;
@@ -41,7 +41,14 @@ export class PartState implements IHierarchyPart {
   }
 
   GetPanel(): PanelState {
-    return this.parent.GetPanel();
+    let obj: PartState = this;
+    while (obj != null) {
+      if (obj.getPartType() === 'panel') {
+        break;
+      }
+      obj = obj.parent as PartState;
+    }
+    return obj as PanelState;
   }
 }
 

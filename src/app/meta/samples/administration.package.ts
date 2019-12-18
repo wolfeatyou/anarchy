@@ -276,6 +276,12 @@ export class AdministrationPackage {
                 type: 'label',
                 role: 'header',
                 text: 'Roles'
+              },
+              {
+                title: 'modal',
+                type: 'link',
+                panel: 'roles',
+                target: 'modal'
               }
             ]
           },
@@ -306,6 +312,12 @@ export class AdministrationPackage {
                 title: 'external',
                 type: 'link',
                 page: 'simple'
+              },
+              {
+                title: 'modal',
+                type: 'link',
+                panel: 'roles',
+                target: 'modal'
               }
             ]
           },
