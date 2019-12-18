@@ -29,25 +29,7 @@ export class LinkComponent implements OnInit {
   onClick(event) {
     event.preventDefault();
     event.stopPropagation();
-    if (this.state.metadata.page) {
-      const page = this.state.parent.GetPage();
-      page.applicationState.navigate(this.state.url);
-    } else {
-      if (this.state.metadata.target) {
-        if (this.state.metadata.target === 'modal') {
-          const page = this.state.parent.GetPanel();
-          page.setModalPanel(new PanelResolver().getPanel(this.state.metadata.panel, page));
-        }
-        else {
-          let ph = this.state.parent.GetPage().placeHolders[this.state.metadata.target] as PlaceholderState;
-          if (ph == null) {
-            throw new Error('Placeholder not found:' + this.state.metadata.target);
-          }
-          ph.setPanelCode(this.state.metadata.panel);
-        }
-      }
-    }
-
+    this.state.click();
   }
 
 

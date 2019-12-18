@@ -14,8 +14,8 @@ export class PageState extends PanelState {
   constructor(metadata: IPageMeta, applicationState: ApplicationState) {
     super(metadata, null);
     this.applicationState = applicationState;
-    //this.placeHolders = {};
   }
+
   @action
   init(){
 

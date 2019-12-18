@@ -15,8 +15,8 @@ import {DataSourceState} from './DataSourceState/datasource.state';
 export class PlaceholderState extends PartState{
 
   @observable panelCode: string;
-
   panel: PanelState;
+
 
   constructor(metadata: IPlaceHolderMeta, parent: IHierarchyPart) {
     super(metadata, parent);

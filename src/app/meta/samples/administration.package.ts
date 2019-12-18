@@ -301,12 +301,7 @@ export class AdministrationPackage {
               {
                 type: 'label',
                 role: 'header',
-                text: '{groupTitle} - Officers',
-                parameters: [{
-                  code: 'groupTitle',
-                  dataSourceCode: 'officerGroupsDs',
-                  dataItemProperty: 'title'
-                }]
+                text: 'Officers'
               },
               {
                 title: 'external',

@@ -1,4 +1,4 @@
-import {computed, observable, reaction, runInAction} from 'mobx';
+import {action, computed, observable, reaction, runInAction} from 'mobx';
 import {ILinkMeta} from '../meta/LinkMeta';
 import {PanelState} from './panel.state';
 import {ConditionState} from './condition.state';
@@ -10,6 +10,7 @@ import {PageState} from './page.state';
 import {DataSourceState} from './DataSourceState/datasource.state';
 import {ILabelMeta} from '../meta/LabelMeta';
 import {LabelState} from './label.state';
+import {PanelResolver} from './panel.resolver';
 
 export class LinkState extends PartState {
   public code: string;
@@ -19,7 +20,7 @@ export class LinkState extends PartState {
   constructor(metadata: IPartMeta, parent: IHierarchyPart) {
     super(metadata, parent);
     this.code = this.metadata.code;
-    if(!this.label) {
+    if (!this.label) {
       const label = new ILabelMeta();
       label.text = this.metadata.title ? this.metadata.title : this.metadata.panel;
       this.label = new LabelState(label, this);
@@ -103,6 +104,27 @@ export class LinkState extends PartState {
       return this.visibleCondition.Value;
     }
     return true;
+  }
+
+  @action
+  click() {
+    if (this.metadata.page) {
+      const page = this.parent.GetPage();
+      page.applicationState.navigate(this.url);
+    } else {
+      if (this.metadata.target) {
+        if (this.metadata.target === 'modal') {
+          const page = this.parent.GetPanel();
+          page.setModalPanel(new PanelResolver().getPanel(this.metadata.panel, page));
+        } else {
+          let ph = this.parent.GetPage().placeHolders[this.metadata.target] as PlaceholderState;
+          if (ph == null) {
+            throw new Error('Placeholder not found:' + this.metadata.target);
+          }
+          ph.setPanelCode(this.metadata.panel);
+        }
+      }
+    }
   }
 
 }
