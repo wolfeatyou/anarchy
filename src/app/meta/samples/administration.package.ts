@@ -353,6 +353,50 @@ export class AdministrationPackage {
                 type: 'link',
                 panel: 'roles',
                 target: 'modal'
+              },
+              {
+                title: 'simple action',
+                type: 'link',
+                /*flow1: [
+                  {
+                    type: 'confirmation',
+                    text: 'Are you sure?',
+                    dataSourceCode: 'officersDs',
+                    operation: 'update',
+                  }
+                ],
+                flow: [
+                  {
+                    code: 'confirm',
+                    type: 'confirmation',
+                    label: {
+                      text: 'Are you sure?'
+                    },
+                    success: 'run'
+                  },
+                  {
+                    code: 'run',
+                    type: 'run-operation',
+                    dataSourceCode: 'officersDs',
+                    operation: 'update',
+                    success: {
+                      code: 'result',
+                      type: 'message',
+                      enabled: 'operation.retMsg == true',
+                      label: {
+                        text: 'Operation completed: {operation.retMsg}'
+                      }
+                    },
+                    failed: {
+                      code: 'error',
+                      type: 'message',
+                      enabled: 'operation.retCode != 0',
+                      label: {
+                        text: 'Operation failed: {retMsg}'
+                      }
+                    }
+                  }
+                ]*/
               }
             ]
           },
