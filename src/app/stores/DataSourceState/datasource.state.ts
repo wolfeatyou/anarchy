@@ -60,7 +60,7 @@ export class DataSourceState extends PartState {
     if (index >= 0 && this.data && this.data.length > 0) {
       this.selectedDataItem = this.data[index];
       const page = this.GetPage();
-      page.applicationState.routeState.queryUrlChanged(this.code, this.selectedDataItem.id);
+      page.route.queryUrlChanged(this.code, this.selectedDataItem.id);
     } else {
       this.selectedDataItem = null;
     }
@@ -97,7 +97,7 @@ export class DataSourceState extends PartState {
     let selectedItem = null;
     if (items.length > 0) {
       const page = this.GetPage();
-      const currentValue = page.applicationState.routeState.getQueryDataSourceValue(this.code);
+      const currentValue = page.route.getQueryDataSourceValue(this.code);
       if (currentValue) {
         selectedItem = items.find((item: any) => {
           // tslint:disable-next-line:triple-equals

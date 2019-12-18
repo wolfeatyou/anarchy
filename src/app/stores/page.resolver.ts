@@ -31,9 +31,14 @@ export class PageResolver {
     const pageMeta = this.metadataResolver.resolvePage(packageCode, pageCode);
     const page = new PageState(pageMeta, appState);
     this.pagesUrlMap[url] = page;
+    page.route.url = url;
     page.initPage();
     return page;
   }
+
+  /*getPageByCodes(){
+
+  }*/
 }
 
 

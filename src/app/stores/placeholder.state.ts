@@ -33,7 +33,7 @@ export class PlaceholderState extends PartState{
     const hierarchyIndex = this.getPlaceHolderHierarchyIndex();
     if (hierarchyIndex > 0) {
       const page = this.GetPage();
-      const path = page.applicationState.routeState.getSegmentUrl(hierarchyIndex + 1);
+      const path = page.route.getSegmentUrl(hierarchyIndex + 1);
       if (path) {
         return path;
       }
@@ -62,7 +62,7 @@ export class PlaceholderState extends PartState{
     const page = this.GetPage();
     const hierarchyIndex = this.getPlaceHolderHierarchyIndex();
     if (hierarchyIndex > 0) {
-      page.applicationState.routeState.segmentUrlChanged(hierarchyIndex + 1, this.panelCode, this.getDataSourceCodes());
+      page.route.segmentUrlChanged(hierarchyIndex + 1, this.panelCode, this.getDataSourceCodes());
     }
     if (code) {
       this.panel = new PanelResolver().getPanel(code, this);

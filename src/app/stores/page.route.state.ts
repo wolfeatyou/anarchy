@@ -1,35 +1,21 @@
-import {action, observable, runInAction} from 'mobx';
 import {Inject, Injectable} from '@angular/core';
+import {action, observable} from 'mobx';
+import {PageState} from './page.state';
+import {DefaultUrlSerializer, PRIMARY_OUTLET, UrlSegment, UrlTree} from '@angular/router';
 import {Location} from '@angular/common';
-import {convertToParamMap, DefaultUrlSerializer, NavigationStart, PRIMARY_OUTLET, Router, UrlSegment, UrlTree} from '@angular/router';
-
 
 @Injectable()
-export class RouteState {
+export class PageRouteState {
   @observable url: string;
+  @observable initialUrl: string;
+  page: PageState;
 
-  constructor(@Inject(Router) public router: Router, @Inject(Location) public location: Location) {
-    if (router) {
-      this.router.events.subscribe((event: any) => {
-        if (event instanceof NavigationStart) {
-          setTimeout(() => {
-            runInAction(() => {
-              this.url = event.url;
-            });
-          });
-
-        }
-      });
-    }
+  constructor(page: PageState, @Inject(Location) public location: Location) {
+    this.page = page;
   }
 
-  @action
-  navigate(url: string) {
-    this.router.navigateByUrl(url);
-  }
-
-  /*getSegmentUrl(index: number): string {
-    const tree = new DefaultUrlSerializer().parse(this.location.path());
+  getSegmentUrl(index: number): string {
+    const tree = new DefaultUrlSerializer().parse(this.url);
     const primary = tree.root.children[PRIMARY_OUTLET];
     if (primary.segments.length > index) {
       return primary.segments[index].path;
@@ -55,7 +41,6 @@ export class RouteState {
 
   @action
   segmentUrlChanged(index: number, code: string, dataSourceCodes: string[]) {
-    //const tree = new DefaultUrlSerializer().parse(this.location.path());
     const tree = new DefaultUrlSerializer().parse(this.url);
     const primary = tree.root.children[PRIMARY_OUTLET];
     if (primary.segments.length - 1 < index) {
@@ -71,14 +56,12 @@ export class RouteState {
       }
     }
 
-    const newUrl = new DefaultUrlSerializer().serialize(tree);
-    this.url = newUrl;
-    this.location.replaceState(newUrl);
+    this.url = new DefaultUrlSerializer().serialize(tree);
+    this.setBrowserLocation();
   }
 
   @action
   queryUrlChanged(dataSourceCode: string, value: string) {
-    //const tree = new DefaultUrlSerializer().parse(this.location.path());
     const tree = new DefaultUrlSerializer().parse(this.url);
     tree.queryParams[dataSourceCode] = value;
     const dataSourceCodes: string[] = [];
@@ -90,15 +73,20 @@ export class RouteState {
       }
     }
     this.removeUnusedDataSources(dataSourceCodes, tree);
-    const newUrl = new DefaultUrlSerializer().serialize(tree);
-    this.url = newUrl;
-    this.location.replaceState(newUrl);
+    this.url = new DefaultUrlSerializer().serialize(tree);
+    this.setBrowserLocation();
   }
 
   getQueryDataSourceValue(dataSourceCode: string) {
-    const tree = new DefaultUrlSerializer().parse(this.location.path());
+    const tree = new DefaultUrlSerializer().parse(this.url);
     return tree.queryParams[dataSourceCode];
-  }*/
+  }
+
+  setBrowserLocation(){
+    if(this.page.isCurrentPage) {
+      this.location.replaceState(this.url);
+    }
+  }
 
 
 }
