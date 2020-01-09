@@ -25,6 +25,12 @@ export class AdministrationPackage {
                 page: 'administration'
               },
               {
+                title: 'Designer',
+                type: 'link',
+                target: 'page',
+                page: 'designer'
+              },
+              {
                 title: 'Simple',
                 type: 'link',
                 target: 'page',
@@ -45,6 +51,41 @@ export class AdministrationPackage {
             ]
           }
         ]
+      },
+      {
+        code: 'designer',
+        type: 'page',
+        parts: [
+          {
+            type: 'bar',
+            items: [
+              {
+                type: 'label',
+                role: 'header',
+                text: 'Admin page toolbar'
+              }
+            ]
+          },
+          {
+            type: 'layout',
+            layout: '\'master details details details details details properties\'',
+            placeholders: [
+              {
+                code: 'master',
+                type: 'placeholder',
+                panel: 'menu'
+              },
+              {
+                code: 'details',
+                type: 'placeholder',
+                panel: 'administration'
+              },
+              {
+                code: 'properties',
+                type: 'placeholder',
+                panel: 'menu'
+              }]
+          }]
       },
       {
         code: 'modal',
@@ -215,7 +256,7 @@ export class AdministrationPackage {
         parts: [
           {
             type: 'layout',
-            layout: '\'master details\'',
+            layout: '\'master details',
             placeholders: [
               {
                 code: 'master',
@@ -261,7 +302,7 @@ export class AdministrationPackage {
               {
                 type: 'label',
                 role: 'header',
-                text: '{groupTitle}',
+                text: 'lalalal: {groupTitle}',
                 parameters: [{
                   code: 'groupTitle',
                   dataSourceCode: 'officerGroupsDs',

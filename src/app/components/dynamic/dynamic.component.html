@@ -5,6 +5,7 @@
    <app-bar *ngIf="this.state.getPartType()=='toolbar'" [state]="state" ></app-bar>
    <app-bar *ngIf="this.state.getPartType()=='header'" [state]="state" ></app-bar>
    <app-panel *ngIf="this.state.getPartType()=='panel'" [state]="state"  ></app-panel>
+   <app-panel *ngIf="this.state.getPartType()=='page'" [state]="state"  ></app-panel>
    <app-list *ngIf="this.state.getPartType()=='list'"  [state]="state" ></app-list>
    <app-menu *ngIf="this.state.getPartType()=='menu'"  [state]="state" ></app-menu>
    <app-link *ngIf="this.state.getPartType()=='link'"  [state]="state" ></app-link>

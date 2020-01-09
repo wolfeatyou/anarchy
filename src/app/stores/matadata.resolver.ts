@@ -14,7 +14,10 @@ export class MetadataResolver {
 
   resolvePanel(packageCode: string, panelCode: string): IPanelMeta {
     const pacMeta = this.getPackage(packageCode);
-    const panelMeta = pacMeta.panels.find(p => p.code === panelCode);
+    let panelMeta = pacMeta.panels.find(p => p.code === panelCode);
+    if (!panelMeta) {
+      panelMeta = pacMeta.pages.find(p => p.code === panelCode);
+    }
     if (!panelMeta) {
       throw new Error(`Panel with code ${panelCode} not found`);
     }
