@@ -13,4 +13,7 @@ export class IPlaceHolderMeta extends IPanelPartMeta {
   @IsOptional()
   @IsBoolean()
   applyToUrl: boolean;
+
+  @IsOptional()
+  boxDecorations: any;
 }

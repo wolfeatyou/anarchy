@@ -1,1 +1,2 @@
-<div>{{labelState.text}}</div>
+<input *ngIf="state.hackIsInput()" type="input" style="width: 100%"/>
+<div *ngIf="!state.hackIsInput()" style="width:100%" > {{labelState.text}}</div>

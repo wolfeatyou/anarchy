@@ -1,4 +1,4 @@
-import {IPanelPartMeta} from './PartMeta';
+import {IPanelPartMeta, IPartMeta} from './PartMeta';
 import {IsArray, IsOptional, IsString, ValidateNested} from 'class-validator';
 import {Type} from 'class-transformer';
 import {IConditionMeta} from './ConditionMeta';
@@ -14,4 +14,7 @@ export class ILayoutMeta extends IPanelPartMeta {
   @ValidateNested()
   @IsOptional()
   placeholders: IPlaceHolderMeta[];
+
+  @IsOptional()
+  items: IPartMeta[];
 }

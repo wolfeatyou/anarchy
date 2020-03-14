@@ -45,6 +45,7 @@ export class LinkState extends PartState {
     return this.label.text;
   }
 
+
   @computed
   get url(): string {
     let url = '';
@@ -60,7 +61,7 @@ export class LinkState extends PartState {
     if (query) {
       url = url + '?' + query;
     }
-    return '/test/' + url;
+    return '/fleets/' + url;
   }
 
   get baseQuery(): string {
@@ -131,6 +132,15 @@ export class LinkState extends PartState {
         ph.setPanelCode(this.metadata.panel);
       }
     }
+  }
+
+  getStyles() {
+    if (this.metadata.align === 'right') {
+      return {
+        'margin-left': 'auto'
+      };
+    }
+    return {};
   }
 
 }

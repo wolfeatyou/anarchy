@@ -16,6 +16,9 @@ import {MenuState} from './menu.state';
 import {IMenuMeta} from '../meta/MenuMeta';
 import {LabelState} from "./label.state";
 import {ILabelMeta} from "../meta/LabelMeta";
+import {IPanelMeta} from '../meta/PanelMeta';
+import {CustomState} from './custom.state';
+import {ICustomMeta} from '../meta/CustomMeta';
 
 export class PartResolver {
 
@@ -24,7 +27,9 @@ export class PartResolver {
       case 'header' :
       case 'toolbar' :
       case 'bar' : return new BarState(partMeta as IBarMeta, parent);
+      case 'panel' : return new PanelState(partMeta as IPanelMeta, parent);
       case 'link' : return new LinkState(partMeta as ILinkMeta, parent);
+      case 'custom' : return new CustomState(partMeta as ICustomMeta, parent);
       case 'placeholder' : return new PlaceholderState(partMeta as IPlaceHolderMeta, parent);
       case 'layout' : return new LayoutState(partMeta as ILayoutMeta, parent);
       case 'list' : return new ListState(partMeta as IListMeta, parent as PanelState);

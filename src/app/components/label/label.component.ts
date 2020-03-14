@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BarState} from "../../stores/bar.state";
-import {PartState} from "../../stores/part.state";
-import {LabelState} from "../../stores/label.state";
+import {BarState} from '../../stores/bar.state';
+import {PartState} from '../../stores/part.state';
+import {LabelState} from '../../stores/label.state';
 
 @Component({
   selector: 'app-label',
@@ -11,7 +11,9 @@ import {LabelState} from "../../stores/label.state";
 export class LabelComponent implements OnInit {
 
   private labelState: LabelState;
-  constructor() { }
+
+  constructor() {
+  }
 
   @Input()
   set state(label: LabelState) {
@@ -21,6 +23,7 @@ export class LabelComponent implements OnInit {
   get state() {
     return this.labelState;
   }
+
 
   ngOnInit() {
   }

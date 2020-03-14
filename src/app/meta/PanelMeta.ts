@@ -6,8 +6,11 @@ import {IPanelPartMeta} from './PartMeta';
 import {IBarMeta} from './BarMeta';
 import {IPlaceHolderMeta} from './PlaceHolderMeta';
 import {ILayoutMeta} from './LayoutMeta';
-import {IListMeta} from "./ListMeta";
+import {IListMeta} from './ListMeta';
 import {IMenuMeta} from './MenuMeta';
+import {ILabelMeta} from './LabelMeta';
+import {ILinkMeta} from './LinkMeta';
+import {ICustomMeta} from './CustomMeta';
 
 export class IPanelMeta extends IPanelPartMeta {
   @Length(1, 500)
@@ -21,7 +24,11 @@ export class IPanelMeta extends IPanelPartMeta {
       property: 'type',
       subTypes: [
         {value: IBarMeta, name: 'bar'},
+        {value: IPanelMeta, name: 'panel'},
         {value: IBarMeta, name: 'toolbar'},
+        {value: ILabelMeta, name: 'label'},
+        {value: ILinkMeta, name: 'link'},
+        {value: ICustomMeta, name: 'custom'},
         {value: IBarMeta, name: 'header'},
         {value: IBarMeta, name: 'menu'},
         {value: ILayoutMeta, name: 'layout'},
@@ -45,4 +52,7 @@ export class IPanelMeta extends IPanelPartMeta {
   @ValidateNested()
   @IsOptional()
   dataSources: IDataSourceMeta [];
+
+  @IsOptional()
+  boxDecorations: any;
 }

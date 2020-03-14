@@ -114,4 +114,23 @@ export class PlaceholderState extends PartState{
   GetPage(): PageState {
     return this.parent.GetPage();
   }
+
+  getStyles() {
+    var styles = {}
+    if(this.metadata.boxDecorations){
+      if(this.metadata.boxDecorations.align){
+        styles["align-items"] = this.metadata.boxDecorations.align;
+      }
+      if(this.metadata.boxDecorations.paddingTop){
+        styles["padding-top"] = this.metadata.boxDecorations.paddingTop;
+      }
+      if(this.metadata.boxDecorations.borderWidth){
+        styles["border-width"] = this.metadata.boxDecorations.borderWidth;
+      }
+      if(this.metadata.boxDecorations.borderWidth){
+        styles["min-width"] = this.metadata.boxDecorations.width;
+      }
+    }
+    return styles;
+  }
 }

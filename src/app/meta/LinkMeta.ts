@@ -1,8 +1,8 @@
 import {IsBoolean, IsOptional, IsString} from 'class-validator';
-import {IPartMeta} from './PartMeta';
+import {IPanelPartMeta, IPartMeta} from './PartMeta';
 
 
-export class ILinkMeta extends IPartMeta {
+export class ILinkMeta extends IPanelPartMeta {
   @IsOptional()
   @IsString()
   code: string;
@@ -34,5 +34,9 @@ export class ILinkMeta extends IPartMeta {
   @IsOptional()
   @IsString()
   visibleCondition: string;
+
+  @IsOptional()
+  @IsString()
+  align: string;
 }
 

@@ -11,6 +11,7 @@ import {InPlaceFileWriter} from '@angular/compiler-cli/ngcc/src/writing/in_place
 import {IPlaceHolderMeta} from '../meta/PlaceHolderMeta';
 import {PageState} from './page.state';
 import {PanelState} from "./panel.state";
+import {DataSourceState} from './DataSourceState/datasource.state';
 
 export class LayoutState extends PartState{
 
@@ -20,13 +21,22 @@ export class LayoutState extends PartState{
   }
 
   placeholders: PlaceholderState[];
+  items: PartState[];
 
 
   init() {
     this.placeholders = [];
-    this.metadata.placeholders.forEach(( p: IPlaceHolderMeta) => {
-      this.placeholders.push(new PlaceholderState(p, this));
-    });
+    if(this.metadata.placeholders) {
+      this.metadata.placeholders.forEach((p: IPlaceHolderMeta) => {
+        this.placeholders.push(new PlaceholderState(p, this));
+      });
+    }
+    this.items = [];
+    if(this.metadata.items) {
+      this.metadata.items.forEach((p: IPartMeta) => {
+        this.items.push(new PartResolver().resolve(p, this));
+      });
+    }
   }
 
   get metadata(): ILayoutMeta {
@@ -50,5 +60,13 @@ export class LayoutState extends PartState{
 
   GetPanel(): PanelState {
     return this.parent.GetPanel();
+  }
+
+  getDataSourceById(id: string): DataSourceState {
+    const ds = this.GetDataSources().find((d: DataSourceState) => d.code === id);
+    if (!ds) {
+      throw new Error('Datasource not found ' + id);
+    }
+    return ds;
   }
 }

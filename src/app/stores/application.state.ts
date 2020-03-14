@@ -6,6 +6,7 @@ import {RouteState} from './route.state';
 import {PageState} from './page.state';
 import {PageResolver} from './page.resolver';
 import {AdministrationPackage} from '../meta/samples/administration.package';
+import {FleetsPackage} from '../meta/samples/fleets.package';
 
 @Injectable()
 export class ApplicationState {
@@ -19,13 +20,14 @@ export class ApplicationState {
     this.metadataResolver = metadataResolver;
     this.pageResolver = new PageResolver(routeState, metadataResolver);
     this.metadataResolver.addMetadataPackage('test', AdministrationPackage.package);
+    this.metadataResolver.addMetadataPackage('fleets', FleetsPackage.package);
     reaction(() => this.routeState.url, (url: string) => {
       const tree = new DefaultUrlSerializer().parse(url);
       const primary = tree.root.children[PRIMARY_OUTLET];
       if (primary) {
         this.setCurrentPage(this.pageResolver.getPageByUrl(url, this));
       } else {
-        this.routeState.navigate('/test/menu');
+        this.routeState.navigate('/fleets/fleets');
       }
     });
   }

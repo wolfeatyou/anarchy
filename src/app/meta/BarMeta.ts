@@ -3,6 +3,7 @@ import {ILinkMeta} from './LinkMeta';
 import {Type} from 'class-transformer';
 import {IPanelPartMeta, IPartMeta} from './PartMeta';
 import {ILabelMeta} from './LabelMeta';
+import {ICustomMeta} from './CustomMeta';
 
 export class IBarMeta extends IPanelPartMeta {
   @IsOptional()
@@ -15,7 +16,8 @@ export class IBarMeta extends IPanelPartMeta {
       property: 'type',
       subTypes: [
         {value: ILinkMeta, name: 'link'},
-        {value: ILabelMeta, name: 'label'}
+        {value: ILabelMeta, name: 'label'},
+        {value: ICustomMeta, name: 'custom'}
       ]
     },
     keepDiscriminatorProperty: true,
@@ -23,4 +25,13 @@ export class IBarMeta extends IPanelPartMeta {
   @ValidateNested()
   @IsOptional()
   items: IPartMeta[];
+
+  @IsOptional()
+  height: number;
+
+  @IsOptional()
+  role: string;
+
+  @IsOptional()
+  boxDecorations: any;
 }

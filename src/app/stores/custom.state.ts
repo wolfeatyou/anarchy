@@ -11,15 +11,16 @@ import {IDataSourceMeta} from '../meta/DataSourceMeta';
 import {DataSourceState} from './DataSourceState/datasource.state';
 import {IOperationParameterMeta} from '../meta/OperationParameterMeta';
 import format from 'string-template';
+import {ICustomMeta} from '../meta/CustomMeta';
 
 
-export class LabelState extends PartState {
+export class CustomState extends PartState {
 
   relations: DataSourceRelation[];
   @observable
   parameters: any;
 
-  constructor(metadata: ILabelMeta, parent: IHierarchyPart) {
+  constructor(metadata: ICustomMeta, parent: IHierarchyPart) {
     super(metadata, parent);
 
     if (metadata.parameters) {
@@ -70,60 +71,28 @@ export class LabelState extends PartState {
     return this.metadata.text;
   }
 
-  get metadata(): ILabelMeta {
-    return this.internalmeta as ILabelMeta;
+  get metadata(): ICustomMeta {
+    return this.internalmeta as ICustomMeta;
   }
 
   GetPage() {
     return this.parent.GetPage();
   }
-
-  @computed
-  get align(): string {
-    return this.metadata.align;
+  GetHeight(): number {
+    if (this.metadata.height) {
+      return this.metadata.height;
+    }
+    return 32;
   }
-
-  hackIsInput() {
-    return this.metadata.hack === 'input';
-  }
-
   getStyles() {
+    var styles = {
+      'height': this.GetHeight() + 'px'
+    };
 
-    if (this.metadata.align === 'right') {
-      return {
-        'margin-left': 'auto'
-      };
-    }
-    if (this.metadata.role === 'group') {
-      return {
-        'font-weight': 'bold'
-      };
-    }
-    if (this.metadata.role === 'main-text') {
-      return {
-        'color': '#3a9bff',
-        'font-size':'20px,',
-        'letter-spacing': '1.5px'
-      };
-    }
-    if (this.metadata.role === 'title') {
-      return {
-        'font-size': '13px',
-        'color': 'gray'
-      };
-    }
-
-    if (this.metadata.role === 'value') {
-      return {
-        'width': '100%',
-        'border-bottom': '1px solid gray',
-        'text-align': 'right'
-      };
-    }
-
-
-    return {};
+    return styles;
   }
+
+
 
 }
 

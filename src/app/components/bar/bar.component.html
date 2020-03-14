@@ -1,4 +1,4 @@
-<div class="bar">
+<div class="bar" [ngStyle]="state.getStyles()" >
    <app-dynamic *ngFor="let item of state.items" [state]="item" class="bar-item">
    </app-dynamic>
     <!--app-link *ngFor="let item of state.items" [state]="item" class="bar-item"></app-link-->

@@ -10,6 +10,7 @@ import {ListComponent} from './components/list/list.component';
 import {RouterModule, Routes} from '@angular/router';
 import {RouteState} from './stores/route.state';
 import {DynamicComponent} from './components/dynamic/dynamic.component';
+import {Dynamic2Component} from './components/dynamic2/dynamic2.component';
 import {MetadataResolver} from './stores/matadata.resolver';
 import { BarComponent } from './components/bar/bar.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
@@ -18,6 +19,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { LinkComponent } from './components/link/link.component';
 import {Location} from '@angular/common';
 import { LabelComponent } from './components/label/label.component';
+import { CustomComponent } from './custom/custom.component';
+import { DetailsBarComponent } from './details-bar/details-bar.component';
 
 const routes: Routes = [
   {
@@ -32,12 +35,15 @@ const routes: Routes = [
     PanelComponent,
     ListComponent,
     DynamicComponent,
+    Dynamic2Component,
     BarComponent,
     PlaceholderComponent,
     LayoutComponent,
     MenuComponent,
     LinkComponent,
-    LabelComponent
+    LabelComponent,
+    CustomComponent,
+    DetailsBarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,14 @@
-<ng-template #template>
-   <app-placeholder *ngIf="this.state.getPartType()=='placeholder'" [state]="state"  ></app-placeholder>
+   <app-placeholder *ngIf="this.state.getPartType()=='placeholder'" [state]="state" ></app-placeholder>
    <app-layout *ngIf="this.state.getPartType()=='layout'" [state]="state" ></app-layout>
-   <app-bar *ngIf="this.state.getPartType()=='bar'" [state]="state" [ngStyle]="state.getStyles()"  ></app-bar>
+   <app-bar *ngIf="this.state.getPartType()=='bar'" [state]="state" ></app-bar>
    <app-bar *ngIf="this.state.getPartType()=='toolbar'" [state]="state" ></app-bar>
    <app-bar *ngIf="this.state.getPartType()=='header'" [state]="state" ></app-bar>
-   <app-panel *ngIf="this.state.getPartType()=='panel'" [state]="state"  [ngStyle]="state.getStyles()" ></app-panel>
-   <app-panel *ngIf="this.state.getPartType()=='page'" [state]="state"  [ngStyle]="state.getStyles()" ></app-panel>
+   <app-panel *ngIf="this.state.getPartType()=='panel'" [state]="state"  ></app-panel>
+   <app-panel *ngIf="this.state.getPartType()=='page'" [state]="state"  ></app-panel>
    <app-list *ngIf="this.state.getPartType()=='list'"  [state]="state" ></app-list>
    <app-menu *ngIf="this.state.getPartType()=='menu'"  [state]="state" ></app-menu>
    <app-link *ngIf="this.state.getPartType()=='link'"  [state]="state" [ngStyle]="state.getStyles()"></app-link>
    <app-label *ngIf="this.state.getPartType()=='label'"  [state]="state"  [ngStyle]="state.getStyles()"></app-label>
-   <app-custom *ngIf="this.state.getPartType()=='custom'"  [state]="state"  ></app-custom>
-
-</ng-template>
 
 
 

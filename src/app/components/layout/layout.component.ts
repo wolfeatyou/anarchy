@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {PlaceholderState} from '../../stores/placeholder.state';
 import {LayoutState} from '../../stores/layout.state';
+import {PartState} from '../../stores/part.state';
 
 @Component({
   selector: 'app-layout',
@@ -32,7 +33,7 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
   }
 
-  getPlaceholderStyle(placeholder: PlaceholderState) {
-    return {'grid-area': placeholder.metadata.code};
+  getStyle(item: PartState) {
+    return {'grid-area': item.internalmeta.code};
   }
 }

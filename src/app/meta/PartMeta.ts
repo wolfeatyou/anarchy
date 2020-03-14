@@ -5,9 +5,15 @@ export abstract class IPartMeta {
   @Length(1, 500)
   type: string;
 
+  @IsOptional()
+  @IsString()
+  code: string;
+
 }
 export abstract class IPanelPartMeta extends IPartMeta {
   @IsOptional()
   @IsString()
   layout: string;
+
+
 }

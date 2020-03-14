@@ -1,6 +1,8 @@
 <ng-container>
 
   <div class="layout"  [ngStyle]="getCurrentStyle()" >
-    <app-placeholder *ngFor="let placeholder of this.state.placeholders" [state]="placeholder" [ngStyle]="getPlaceholderStyle(placeholder)"   ></app-placeholder>
+    <app-dynamic2 *ngFor="let item of this.state.items" [state]="item" [ngStyle]="getStyle(item)" >
+    </app-dynamic2>
+    <app-placeholder *ngFor="let placeholder of this.state.placeholders" [state]="placeholder" [ngStyle]="getStyle(placeholder)"   ></app-placeholder>
   </div>
 </ng-container>
